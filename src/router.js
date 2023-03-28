@@ -4,6 +4,8 @@ import { createWebHistory } from "vue-router";
 // import VueRouter from "vue-router";
 import LandingPage from "./views/LandingPage.vue";
 import prueba from "./views/prueba.vue"
+import prueba2 from "./views/Prueba2.vue"
+
 
 const routes = [
   {
@@ -15,6 +17,11 @@ const routes = [
     path: "/prueba",
     name: "Pruebita",
     component: prueba,
+  },
+  {
+    path: "/pruebacris",
+    name: "Pruebita2",
+    component: prueba2,
   },
 ];
 
