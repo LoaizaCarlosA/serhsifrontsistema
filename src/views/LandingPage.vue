@@ -85,8 +85,10 @@ body {
     color: Black;
     display: flex;
     justify-content: center;
-    padding-top: 100px;
+    padding-top: 70px;
     /* padding-bottom: 20px; */
+    font-weight: 700;
+    color: #ef7b14;
   }
   .contenedorInputUsuario {
     background: #ffffff 0% 0% no-repeat padding-box;
@@ -181,7 +183,7 @@ body {
     transition: all 0.2s;
   }
   .logo {
-    width: 70%;
+    width: 60%;
     height: auto;
     align-self: center;
   }

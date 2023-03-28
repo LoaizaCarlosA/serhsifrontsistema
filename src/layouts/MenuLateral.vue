@@ -1,0 +1,215 @@
+<template>
+  <div v-bind:class="'lateral-menu ' + (!collapsedMenu ? 'collapsed-menu ' : '')"></div>
+  <aside class="sidebar" :class="collapsedMenu ? 'active' : ''">
+    <div class="container-menu" :class="collapsedMenu ? 'active' : ''">
+      <div class="cerrarMenuMovil" @click="collapseMenu">X</div>
+      <div class="module-list">
+        <!-- <ItemListModulo v-if="verificarPermiso(PAGES.PUNTO_VENTA)" class="item-list-module" name="Punto venta" url="puntoventa" icon="ptoventasIcon.svg" /> -->
+        <!-- <ItemListModulo v-if="verificarPermiso(PAGES.CORTES)" class="item-list-module" name="Cortes" url="cortes" icon="cortesIcon.svg" /> -->
+        <!-- <ItemListModulo class="item-list-module" name="Dashboard" url="dashboard" icon="dashboardIcon.svg"/>
+        <ItemListModulo class="item-list-module" name="Citas" url="citas" icon="citasIcon.svg"/> -->
+        <!-- <ItemListModulo v-if="verificarPermiso(PAGES.PRECIOS)" class="item-list-module" name="Precios" url="precios" icon="preciosIcon.svg" /> -->
+        <!-- <ItemListModulo class="item-list-module" name="Egresos" url="egresos" icon="egresosIcon.svg"/>/
+        <ItemListModulo class="item-list-module" name="Compras" url="compras" icon="comprasIcon.svg"/> -->
+        <!-- <ItemListModulo v-if="verificarPermiso(PAGES.HISTORIAL)" class="item-list-module" name="Historial pacientes" url="historial" icon="historialpacIcon.svg" /> -->
+        <!-- <ItemListModulo class="item-list-module" name="Inventario" url="inventario" icon="inventarioIcon.svg"/> -->
+        <!-- <ItemListModulo v-if="verificarPermiso(PAGES.EMPLEADOS)" class="item-list-module" name="Empleados" url="empleados" icon="empleadosIcon.svg" /> -->
+        <!-- <ItemListModulo class="item-list-module" name="Usuarios" url="usuarios" icon="usuariosIcon.svg"/>
+        <ItemListModulo class="item-list-module" name="Proveedores" url="proveedores" icon="proveedoresIcon.svg"/> -->
+      </div>
+      <a class="cerrar-sesion" @click="cerrarSesion">
+        <!-- <img src="../assets/cerrarSesion.svg" alt="icon" /> -->
+        <div class="cerrar-txt" :class="!collapsedMenu ? 'off' : ''" v-if="collapsedMenu">Cerrar sesión</div>
+      </a>
+      <div class="collapse-menu-lateral" @click="collapseMenu">
+        <!-- <img class="chevron" src="../assets/chevron.svg" alt="icon" v-bind:style="{ transform: collapsedMenu ? 'rotate(0deg)' : 'rotate(180deg)' }" /> -->
+      </div>
+    </div>
+  </aside>
+</template>
+
+<script>
+// import ItemListModulo from '@components/MenuLateral/ItemListModulo.vue';
+// import { PAGES } from '@constants/routes';
+// import { mapState, mapActions } from 'pinia';
+// import { useUsuarioBahk } from '@store/user.js';
+// import { useMenuBahk } from '@store/menu.js';
+// import loginService from '@services/login.js';
+
+export default {
+  // name: 'MenuLateral',
+  // components: {
+  //   ItemListModulo,
+  // },
+  // data() {
+  //   return {
+  //     PAGES: PAGES,
+  //     cerrado: true,
+  //   };
+  // },
+  // computed: {
+  //   ...mapState(useUsuarioBahk, {
+  //     verificarPermiso: 'verificarPermiso',
+  //   }),
+  //   ...mapState(useMenuBahk, ['collapsedMenu']),
+  // },
+  // methods: {
+  //   collapseMenu() {
+  //     this.setCollapsedMenu(!this.collapsedMenu);
+  //   },
+  //   async cerrarSesion() {
+  //     loginService.logout();
+  //   },
+  //   ...mapActions(useMenuBahk, ['setCollapsedMenu']),
+  // },
+};
+</script>
+
+<style scoped>
+.sidebar {
+  position: fixed;
+  display: block;
+  top: 70px;
+  bottom: 0;
+  left: 0;
+  padding: 0;
+  z-index: 1050;
+  width: 74px;
+  transition: 0.3s all ease-in-out;
+}
+.sidebar.active {
+  width: 215px;
+}
+.item-list-module {
+  font-family: Roboto;
+}
+.module-list {
+  padding-top: 36px;
+}
+.container-menu {
+  position: initial;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #ffffff;
+  box-shadow: 0px 3px 6px #00000029;
+  -webkit-box-shadow: 0px 3px 6px #00000029;
+  -moz-box-shadow: 0px 3px 6px #00000029;
+  transition: 0.15s all ease-in-out;
+  width: 74px;
+  z-index: 10;
+  height: 100%;
+}
+.container-menu.active {
+  width: 215px;
+}
+.collapse-menu-lateral {
+  position: absolute;
+  top: 45px;
+  right: calc(-23px / 2);
+  padding: 8px 4px;
+  cursor: pointer;
+  z-index: 1;
+  border-radius: 100%;
+  background-color: black;
+  width: 23px;
+  height: 23px;
+  display: flex;
+  justify-content: center;
+  transition: 0.15s all ease-in-out;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.collapse-menu-lateral:hover {
+  transform: scale(1.1);
+}
+.cerrar-sesion {
+  display: flex;
+  padding: 15px 20px;
+  cursor: pointer;
+  transition: all 0.4s;
+}
+.cerrar-sesion:hover {
+  background-color: #f2f2f2;
+}
+.cerrar-sesion:active {
+  background-color: #d2d2d2;
+  transform: scale(0.9);
+  border-radius: 6px;
+}
+.cerrar-sesion img {
+  margin-right: 10px;
+  opacity: 0.2;
+}
+.cerrar-txt {
+  transition: all 0.4s;
+  font-size: 12px;
+  color: #616161;
+  font-family: Roboto;
+  display: flex;
+  align-items: center;
+  opacity: 1;
+  overflow: hidden;
+  width: max-content;
+  white-space: nowrap;
+}
+.cerrar-sesion:active .cerrar-txt {
+  color: #000;
+}
+.cerrar-txt.off {
+  opacity: 0;
+}
+.cerrarMenuMovil {
+  display: none;
+}
+.chevron {
+  transition: all 0.5s;
+}
+@media (max-width: 1279px) {
+  .container-menu {
+    position: absolute;
+  }
+}
+@media (max-width: 767px) {
+  .container-menu {
+    width: 0px;
+    overflow: hidden;
+    transition: width 0s;
+  }
+  .sidebar {
+    width: 0;
+  }
+  .container-menu {
+    height: 100vh;
+    top: -70px;
+  }
+  .container-menu.active {
+    width: 100vw;
+    transition: width 0.2s;
+  }
+  .cerrarMenuMovil {
+    display: flex;
+    position: absolute;
+    top: 10px;
+    font-family: Arial Rounded MT Bold;
+    right: 41px;
+    color: #939393;
+    cursor: pointer;
+    font-size: 17px;
+  }
+  .collapse-menu-lateral {
+    display: none;
+  }
+  .cerrar-sesion:active {
+    transform: scale(0.97);
+  }
+  .cerrar-sesion {
+    margin-bottom: 1rem;
+  }
+}
+</style>
