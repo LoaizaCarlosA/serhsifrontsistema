@@ -105,7 +105,7 @@
 </template>
 
 <script>
-import layoutPrincipal from "@/layouts/LayoutPrincipal.vue";
+import layoutPrincipal from "@/layouts/layoutPrincipal.vue";
 import ContainerWhite from '@/layouts/ContainerWhite.vue';
 
 export default {
