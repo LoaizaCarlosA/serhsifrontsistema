@@ -1,17 +1,19 @@
 <template>
   <header class="header">
     <section class="contenedorInformacion">
-      <!-- <img class="imagenLogo" src="@assets/logo-bahk.svg" alt="" /> -->
+      <img class="imagenLogo" src="../assets/img/LogotipoB.png" alt="" />
       <div class="infoContainer">
         <button class="burgerMenu mostrar-movil" @click="activarMenu">
           <!-- <img src="@assets/img/menu-movil.svg" alt="" /> -->
         </button>
         <div class="infoUsuario ocultar-movil">
-          <div class="nombreUsuario">{{ nombreUsuario }}</div>
-          <div class="locacionSistema">{{ descripcionRol }}</div>
+          <div class="nombreUsuario">Carlos Andrés Loaiza</div>
+          <div class="locacionSistema">Gerente</div>
+          <!-- <div class="nombreUsuario">{{ nombreUsuario }}</div>
+          <div class="locacionSistema">{{ descripcionRol }}</div> -->
         </div>
         <div class="contenedorIconoUsuario ocultar-movil">
-          <!-- <img class="imagenUsuario" src="@assets/img/icono-usuario.svg" alt="" /> -->
+          <img class="imagenUsuario" src="../assets/svg/icono-usuario.svg" alt="" />
         </div>
       </div>
     </section>

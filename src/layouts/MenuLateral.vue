@@ -4,32 +4,27 @@
     <div class="container-menu" :class="collapsedMenu ? 'active' : ''">
       <div class="cerrarMenuMovil" @click="collapseMenu">X</div>
       <div class="module-list">
-        <!-- <ItemListModulo v-if="verificarPermiso(PAGES.PUNTO_VENTA)" class="item-list-module" name="Punto venta" url="puntoventa" icon="ptoventasIcon.svg" /> -->
-        <!-- <ItemListModulo v-if="verificarPermiso(PAGES.CORTES)" class="item-list-module" name="Cortes" url="cortes" icon="cortesIcon.svg" /> -->
-        <!-- <ItemListModulo class="item-list-module" name="Dashboard" url="dashboard" icon="dashboardIcon.svg"/>
-        <ItemListModulo class="item-list-module" name="Citas" url="citas" icon="citasIcon.svg"/> -->
-        <!-- <ItemListModulo v-if="verificarPermiso(PAGES.PRECIOS)" class="item-list-module" name="Precios" url="precios" icon="preciosIcon.svg" /> -->
-        <!-- <ItemListModulo class="item-list-module" name="Egresos" url="egresos" icon="egresosIcon.svg"/>/
-        <ItemListModulo class="item-list-module" name="Compras" url="compras" icon="comprasIcon.svg"/> -->
-        <!-- <ItemListModulo v-if="verificarPermiso(PAGES.HISTORIAL)" class="item-list-module" name="Historial pacientes" url="historial" icon="historialpacIcon.svg" /> -->
-        <!-- <ItemListModulo class="item-list-module" name="Inventario" url="inventario" icon="inventarioIcon.svg"/> -->
-        <!-- <ItemListModulo v-if="verificarPermiso(PAGES.EMPLEADOS)" class="item-list-module" name="Empleados" url="empleados" icon="empleadosIcon.svg" /> -->
+        <div>Hola</div>
+        <div>Hola</div>
+        <div>Hola</div>
+        <div>Hola</div>
+        <!-- <router-link>Hola</router-link> -->
         <!-- <ItemListModulo class="item-list-module" name="Usuarios" url="usuarios" icon="usuariosIcon.svg"/>
         <ItemListModulo class="item-list-module" name="Proveedores" url="proveedores" icon="proveedoresIcon.svg"/> -->
       </div>
       <a class="cerrar-sesion" @click="cerrarSesion">
-        <!-- <img src="../assets/cerrarSesion.svg" alt="icon" /> -->
+        <img src="../assets/svg/cerrarSesion.svg" alt="icon" />
         <div class="cerrar-txt" :class="!collapsedMenu ? 'off' : ''" v-if="collapsedMenu">Cerrar sesión</div>
       </a>
       <div class="collapse-menu-lateral" @click="collapseMenu">
-        <!-- <img class="chevron" src="../assets/chevron.svg" alt="icon" v-bind:style="{ transform: collapsedMenu ? 'rotate(0deg)' : 'rotate(180deg)' }" /> -->
+        <img class="chevron" src="../assets/svg/chevron.svg" alt="icon" v-bind:style="{ transform: collapsedMenu ? 'rotate(0deg)' : 'rotate(180deg)' }" />
       </div>
     </div>
   </aside>
 </template>
 
 <script>
-// import ItemListModulo from '@components/MenuLateral/ItemListModulo.vue';
+// import ItemListModulo from '../components/MenuLateral/ItemListModulo.vue';
 // import { PAGES } from '@constants/routes';
 // import { mapState, mapActions } from 'pinia';
 // import { useUsuarioBahk } from '@store/user.js';
@@ -37,10 +32,10 @@
 // import loginService from '@services/login.js';
 
 export default {
-  // name: 'MenuLateral',
-  // components: {
-  //   ItemListModulo,
-  // },
+  name: 'MenuLateral',
+  components: {
+    // ItemListModulo,
+  },
   // data() {
   //   return {
   //     PAGES: PAGES,
@@ -53,15 +48,15 @@ export default {
   //   }),
   //   ...mapState(useMenuBahk, ['collapsedMenu']),
   // },
-  // methods: {
-  //   collapseMenu() {
-  //     this.setCollapsedMenu(!this.collapsedMenu);
-  //   },
-  //   async cerrarSesion() {
-  //     loginService.logout();
-  //   },
-  //   ...mapActions(useMenuBahk, ['setCollapsedMenu']),
-  // },
+  methods: {
+    // collapseMenu() {
+    //   this.setCollapsedMenu(!this.collapsedMenu);
+    // },
+    // async cerrarSesion() {
+    //   loginService.logout();
+    // },
+    // ...mapActions(useMenuBahk, ['setCollapsedMenu']),
+  },
 };
 </script>
 

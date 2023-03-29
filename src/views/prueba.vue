@@ -4,6 +4,7 @@
     <MenuLateral />
     <section class="page-container">
       <div class="module-container">
+        <!-- <Registro></Registro> -->
         <slot />
       </div>
     </section>
@@ -13,11 +14,13 @@
 <script>
 import Header from "../layouts/header.vue";
 import MenuLateral from '../layouts/MenuLateral.vue';
+// import Registro from "../views/Registro.vue"
 
 export default {
   components: {
     Header,
     MenuLateral,
+    // Registro,
   },
 };
 </script>
