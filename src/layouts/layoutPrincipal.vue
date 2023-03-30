@@ -12,7 +12,7 @@
 
 <script>
 import Header from "../layouts/header.vue";
-import MenuLateral from '../layouts/MenuLateral.vue';
+import MenuLateral from "../layouts/MenuLateral.vue";
 
 export default {
   components: {

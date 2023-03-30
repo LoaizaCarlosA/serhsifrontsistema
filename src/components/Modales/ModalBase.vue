@@ -16,7 +16,7 @@ export default {
   props: {
     tituloHeader: {
       type: String,
-      default: "Hola",
+      default: "",
     },
   },
   data() {
