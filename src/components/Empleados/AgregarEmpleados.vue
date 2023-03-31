@@ -58,7 +58,7 @@
         />
       </div>
       <section class="contenedorBotones">
-        <Button class="btn-regresar">Regresar</Button>
+        <Button class="btn-regresar" @click="cancelar">Regresar</Button>
         <Button class="btn-guardar" @click="mostrarAddService">Guardar</Button>
       </section>
     </section>
@@ -88,12 +88,16 @@ export default {
       showAddProducto: false,
     };
   },
+  emits: ["cancelar"],
   methods: {
     mostrarAddService() {
       this.showAddProducto = true;
     },
     ocultarAddProd() {
       this.showAddProducto = false;
+    },
+    cancelar() {
+      this.$emit("cancelar");
     },
   },
 };

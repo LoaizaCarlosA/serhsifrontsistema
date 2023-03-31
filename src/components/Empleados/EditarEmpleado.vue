@@ -58,7 +58,7 @@
         />
       </div>
       <section class="contenedorBotones">
-        <Button class="btn-regresar" @click="cerrarModal">Regresar</Button>
+        <Button class="btn-regresar" @click="cancelar">Regresar</Button>
         <Button class="btn-guardar" @click="mostrarAddService">Guardar</Button>
       </section>
     </section>

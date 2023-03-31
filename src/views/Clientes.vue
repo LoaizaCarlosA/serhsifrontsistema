@@ -10,7 +10,7 @@
             placeholder="Inserte nombre o ID"
           />
           <Button class="btn-buscar">Buscar</Button>
-          <Button class="btn-buscar">Agregar</Button>
+          <Button class="btn-buscar" @click="mostrarAddService" >Agregar</Button>
         </div>
       </section>
       <section>
@@ -39,7 +39,25 @@
 
               <td>
                 <div class="botonesTabla">
-                  <Button class="btn-editar" @click="abrirDetalles"
+                  <Button class="btn-editar" @click="mostrarEditar"
+                    >Editar</Button
+                  >
+                  <Button class="btn-eliminar">Eliminar</Button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>12345</td>
+
+              <td>Carlos Andrés Loaiza López</td>
+
+              <td>6672476316</td>
+
+              <td>carlos-andres-loaiza@hotmail.com</td>
+
+              <td>
+                <div class="botonesTabla">
+                  <Button class="btn-editar" @click="mostrarAddService" 
                     >Editar</Button
                   >
                   <Button class="btn-eliminar">Eliminar</Button>
@@ -58,26 +76,7 @@
               <td>
                 <div class="botonesTabla">
                   <Button class="btn-editar" @click="abrirDetalles"
-                    >Editar</Button
-                  >
-                  <Button class="btn-eliminar">Eliminar</Button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>12345</td>
-
-              <td>Carlos Andrés Loaiza López</td>
-
-              <td>6672476316</td>
-
-              <td>carlos-andres-loaiza@hotmail.com</td>
-
-              <td>
-                <div class="botonesTabla">
-                  <Button class="btn-editar" @click="abrirDetalles"
-                    >Editar</Button
-                  >
+                    >Editar</Button>
                   <Button class="btn-eliminar">Eliminar</Button>
                 </div>
               </td>
@@ -120,7 +119,16 @@
             </BodyTableCollapse>
         </TableCollapse> -->
       </section>
+      <Paginacion></Paginacion>
     </ContainerWhite>
+    <AgregarClientes
+    v-if="showAddProducto"
+    @cancelar="showAddProducto=false">
+    </AgregarClientes>
+    <EditarCliente
+      v-if="showAddEditar"
+      @cancelar="showAddEditar=false"
+    ></EditarCliente>
   </LayoutPrincipal>
 </template>
 
@@ -128,6 +136,9 @@
 import LayoutPrincipal from "@/layouts/LayoutPrincipal.vue";
 import ContainerWhite from "@/layouts/ContainerWhite.vue";
 import Button from "../components/Forms/Button.vue";
+import Paginacion from "../components/Forms/Paginacion.vue";
+import EditarCliente from "@/components/Clientes/EditarCliente.vue";
+import AgregarClientes from "@/components/Clientes/AgregarClientes.vue";
 // import TableCollapse from "../components/Tables/TableCollapse.vue";
 // import HeadTableCollapse from "../components/Tables/HeadTableCollapse.vue";
 
@@ -136,10 +147,33 @@ export default {
     LayoutPrincipal,
     ContainerWhite,
     Button,
+    Paginacion,
+    EditarCliente,
+    AgregarClientes,
     // TableCollapse,
     // HeadTableCollapse,
   },
   props: {},
+  data() {
+    return {
+      showAddEditar: false,
+      showAddProducto: false,
+    };
+  },
+  methods: {
+    mostrarEditar() {
+      this.showAddEditar = true;
+    },
+    ocultarEditar() {
+      this.showAddEditar = false;
+    },
+    mostrarAddService() {
+      this.showAddProducto = true;
+    },
+    ocultarAddProd() {
+      this.showAddProducto = false;
+    },
+  },
 };
 </script>
 
@@ -192,7 +226,7 @@ export default {
   border-radius: 10px;
   width: 100%;
   box-shadow: 0px 3px 6px #00000029;
-  margin-bottom: 40px;
+  /*margin-bottom: 40px;*/
 }
 .cabecera {
   background: black;

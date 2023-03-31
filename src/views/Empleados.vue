@@ -128,11 +128,11 @@
     </ContainerWhite>
     <AgregarEmpleados
       v-if="showAddProducto"
-      @cerrar="ocultarAddProd"
+      @cancelar="showAddProducto=false"
     ></AgregarEmpleados>
     <EditarEmpleado
       v-if="showAddEditar"
-      @cerrar="ocultarEditar"
+      @cancelar="showAddEditar=false"
     ></EditarEmpleado>
   </LayoutPrincipal>
 </template>
