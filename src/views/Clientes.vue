@@ -7,6 +7,7 @@
           <input
             class="inputBuscador"
             type="text"
+            v-model="searchText"
             placeholder="Inserte nombre o ID"
           />
           <Button class="btn-buscar">Buscar</Button>
@@ -28,59 +29,21 @@
               <td>Acciones</td>
             </tr>
 
-            <tr>
-              <td>12345</td>
+            <tbody>
+         <tr v-for="cliente in filteredList" :key="cliente.id">
 
-              <td>Carlos Andrés Loaiza López</td>
-
-              <td>6672476316</td>
-
-              <td>carlos-andres-loaiza@hotmail.com</td>
-
-              <td>
+          <td>{{ cliente.id }}</td>
+          <td>{{ nombreCompleto(cliente) }}</td>
+          <td>{{ cliente.telefono }}</td>
+          <td>{{ cliente.correo }}</td>
+          <td>
                 <div class="botonesTabla">
-                  <Button class="btn-editar" @click="mostrarEditar"
-                    >Editar</Button
-                  >
+                  <Button class="btn-editar" @click="mostrarEditar">Editar</Button>
                   <Button class="btn-eliminar">Eliminar</Button>
                 </div>
               </td>
-            </tr>
-            <tr>
-              <td>12345</td>
-
-              <td>Carlos Andrés Loaiza López</td>
-
-              <td>6672476316</td>
-
-              <td>carlos-andres-loaiza@hotmail.com</td>
-
-              <td>
-                <div class="botonesTabla">
-                  <Button class="btn-editar" @click="mostrarAddService" 
-                    >Editar</Button
-                  >
-                  <Button class="btn-eliminar">Eliminar</Button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>12345</td>
-
-              <td>Carlos Andrés Loaiza López</td>
-
-              <td>6672476316</td>
-
-              <td>carlos-andres-loaiza@hotmail.com</td>
-
-              <td>
-                <div class="botonesTabla">
-                  <Button class="btn-editar" @click="abrirDetalles"
-                    >Editar</Button>
-                  <Button class="btn-eliminar">Eliminar</Button>
-                </div>
-              </td>
-            </tr>
+          </tr>
+            </tbody>
           </table>
         </section>
         <!-- <TableCollapse>
@@ -158,8 +121,36 @@ export default {
     return {
       showAddEditar: false,
       showAddProducto: false,
+      clientes: [
+        { id: 1, nombre: 'Juan', apellido_paterno: 'Pérez', apellido_materno: 'González', telefono: '1234567890', correo: 'juan.perez@prueba.com' },
+        { id: 2, nombre: 'Ana', apellido_paterno: 'García', apellido_materno: 'Martínez', telefono: '2345678901', correo: 'ana.garcia@prueba.com' },
+        { id: 3, nombre: 'Carlos', apellido_paterno: 'López', apellido_materno: 'Sánchez', telefono: '3456789012', correo: 'carlos.lopez@prueba.com' },
+        // ...
+        
+      ],
+      searchText: '',
     };
   },
+  computed: {
+  filteredList() {
+    let list = this.clientes;
+    if (this.searchText !== '') {
+      list = list.filter(cliente => {
+        const searchValue = this.searchText.toLowerCase();
+        return cliente.nombre.toLowerCase().includes(searchValue)
+          || cliente.apellido_paterno.toLowerCase().includes(searchValue)
+          || cliente.apellido_materno.toLowerCase().includes(searchValue)
+          || cliente.id.toString().toLowerCase().includes(searchValue);
+      });
+    }
+    return list;
+  },
+  nombreCompleto() {
+    return (cliente) => {
+      return `${cliente.nombre} ${cliente.apellido_paterno} ${cliente.apellido_materno}`;
+    };
+  },
+},
   methods: {
     mostrarEditar() {
       this.showAddEditar = true;
