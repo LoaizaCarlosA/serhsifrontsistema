@@ -11,7 +11,7 @@
             placeholder="Inserte nombre o ID"
           />
           <Button class="btn-buscar">Buscar</Button>
-          <Button class="btn-buscar" @click="mostrarAddService" >Agregar</Button>
+          <Button class="btn-agregar" @click="mostrarAddService" >Agregar</Button>
         </div>
       </section>
       <section>
@@ -184,11 +184,11 @@ export default {
 .filtrosEmpleados {
   justify-content: space-between;
   display: flex;
-  padding: 20px;
+  padding:20px 20px 20px 50px;
   align-items: center;
 }
 .tituloModulo {
-  font-size: 22px;
+  font-size: 25px;
   color: #ef7b14;
 }
 

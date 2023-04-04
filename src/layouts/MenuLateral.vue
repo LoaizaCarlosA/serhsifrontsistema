@@ -4,10 +4,9 @@
     <div class="container-menu" :class="collapsedMenu ? 'active' : ''">
       <div class="cerrarMenuMovil" @click="collapseMenu">X</div>
       <div class="module-list">
-        <div>Hola</div>
-        <div>Hola</div>
-        <div>Hola</div>
-        <div>Hola</div>
+  <router-link to="/Cotizacion" class="menu-item" active-class="active">Cotización</router-link>
+  <router-link to="/Clientes" class="menu-item" active-class="active">Clientes</router-link>
+  <router-link to="/Empleados"  class="menu-item" active-class="active">Empleados</router-link>
         <!-- <router-link>Hola</router-link> -->
         <!-- <ItemListModulo class="item-list-module" name="Usuarios" url="usuarios" icon="usuariosIcon.svg"/>
         <ItemListModulo class="item-list-module" name="Proveedores" url="proveedores" icon="proveedoresIcon.svg"/> -->
@@ -49,6 +48,8 @@ export default {
   //   ...mapState(useMenuBahk, ['collapsedMenu']),
   // },
   methods: {
+
+    
     // collapseMenu() {
     //   this.setCollapsedMenu(!this.collapsedMenu);
     // },
@@ -79,7 +80,36 @@ export default {
   font-family: Roboto;
 }
 .module-list {
-  padding-top: 36px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 74px;
+    padding-top: 27px;
+    box-sizing: border-box;
+  }
+  
+  .menu-item {
+  padding: 11px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+  width: 78%;
+  text-decoration: none;
+  transition: all 0.4s;
+}
+
+.menu-item:hover {
+  background-color: #f2f2f2;
+ 
+  
+}
+
+.menu-item.active {
+  
+  background-color: #d2d2d2;
+  
+  
 }
 .container-menu {
   position: initial;
@@ -91,7 +121,7 @@ export default {
   -webkit-box-shadow: 0px 3px 6px #00000029;
   -moz-box-shadow: 0px 3px 6px #00000029;
   transition: 0.15s all ease-in-out;
-  width: 74px;
+  width: 75px;
   z-index: 10;
   height: 100%;
 }

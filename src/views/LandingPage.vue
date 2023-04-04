@@ -30,7 +30,7 @@
           <!-- <img class="candadoImg" src="@assets/img/candado-error.svg" alt="" /> -->
           <div class="copieError">{{ loginErrorMsg }}</div>
         </div>
-        <Button id="btnIngresar" class="user-select-none" @click="loginBtn"
+        <Button id="btnIngresar" class="user-select-none" @click="login"
           >Ingresar</Button
         >
       </section>
@@ -42,7 +42,13 @@
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    login() {
+      this.$router.push('/Cotizacion');
+    }
+  }
+};
 </script>
 
 <style scoped>
