@@ -54,6 +54,22 @@ export default {
   background: black 0% 0% no-repeat padding-box;
   color: white;
 }
+.btn-agregar {
+  background: white 0% 0% no-repeat padding-box;
+  border: 1px solid #ef7b14;
+  color: #ef7b14;
+  border-radius: 18px;
+  opacity: 1;
+  width: 100px;
+  height: 32px;
+  cursor: pointer;
+  box-shadow: 0px 3px 6px #00000029;
+  font-weight: 700;
+}
+.btn-agregar:hover {
+  background: #ef7b14 0% 0% no-repeat padding-box;
+  color: white;
+}
 .btn-buscar {
   background: white 0% 0% no-repeat padding-box;
   border: 1px solid black;
@@ -132,6 +148,22 @@ export default {
   font-weight: 700;
 }
 .btn-guardar:hover {
+  background: #237a1b 0% 0% no-repeat padding-box;
+  color: white;
+}
+.btn-guardar-cotizacion {
+  background: white 0% 0% no-repeat padding-box;
+  border: 1px solid #237a1b;
+  color: #237a1b;
+  border-radius: 18px;
+  opacity: 1;
+  width: 80px;
+  height: 28px;
+  cursor: pointer;
+  box-shadow: 0px 3px 6px #00000029;
+  font-weight: 700;
+}
+.btn-guardar-cotizacion:hover {
   background: #237a1b 0% 0% no-repeat padding-box;
   color: white;
 }

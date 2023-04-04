@@ -2,7 +2,7 @@
   <LayoutPrincipal>
     <ContainerWhite>
       <section class="filtrosEmpleados">
-        <div class="tituloModulo">Lista de empleados</div>
+        <div class="tituloModulo">Lista de cotizaciones</div>
         <div>
           <input
             class="inputBuscador"
@@ -19,123 +19,97 @@
         <section class="tablaPrincipal">
           <table class="default">
             <tr class="cabecera">
-              <td>No. ID</td>
+              <td>ID Cotización</td>
 
-              <td>Nombre</td>
+              <td>ID Cliente</td>
 
-              <td>Puesto</td>
+              <td>Cliente</td>
 
-              <td>Teléfono</td>
+              <td>Fecha de Cotización</td>
 
-              <td>Correo</td>
+              <td>Monto</td>
+
+              <td>Estatus</td>
 
               <td>Acciones</td>
             </tr>
 
             <tr>
+              <td>5456</td>
+
               <td>12345</td>
 
               <td>Carlos Andrés Loaiza López</td>
 
-              <td>Gerente</td>
+              <td>03/04/2023</td>
 
-              <td>6672476316</td>
+              <td>$0.00</td>
 
-              <td>carlos-andres-loaiza@hotmail.com</td>
+              <td>En espera</td>
 
               <td>
                 <div class="botonesTabla">
-                  <Button class="btn-editar" @click="mostrarEditar"
-                    >Editar</Button
-                  >
-                  <Button class="btn-eliminar">Eliminar</Button>
+                  <Button class="btn-editar" @click="mostrarEditar">Ver</Button>
+                  <Button class="btn-guardar-cotizacion">Descargar</Button>
+                  <!-- <Button class="btn-eliminar">Eliminar</Button> -->
                 </div>
               </td>
             </tr>
             <tr>
-              <td>12345</td>
+              <td>6154</td>
 
-              <td>Carlos Andrés Loaiza López</td>
+              <td>97854</td>
 
-              <td>Gerente</td>
+              <td>Ana Gabriel García Martínez</td>
 
-              <td>6672476316</td>
+              <td>03/04/2023</td>
 
-              <td>carlos-andres-loaiza@hotmail.com</td>
+              <td>$5,599.00</td>
+
+              <td>En proceso</td>
 
               <td>
                 <div class="botonesTabla">
-                  <Button class="btn-editar" @click="a">Editar</Button>
-                  <Button class="btn-eliminar">Eliminar</Button>
+                  <Button class="btn-editar" @click="mostrarEditar">Ver</Button>
+                  <Button class="btn-guardar-cotizacion">Descargar</Button>
+                  <!-- <Button class="btn-eliminar">Eliminar</Button> -->
                 </div>
               </td>
             </tr>
             <tr>
-              <td>12345</td>
+              <td>8456</td>
 
-              <td>Carlos Andrés Loaiza López</td>
+              <td>65482</td>
 
-              <td>Gerente</td>
+              <td>Javier López Hernández</td>
 
-              <td>6672476316</td>
+              <td>03/04/2023</td>
 
-              <td>carlos-andres-loaiza@hotmail.com</td>
+              <td>$9,548.00</td>
+
+              <td>Finalizada</td>
 
               <td>
                 <div class="botonesTabla">
-                  <Button class="btn-editar" @click="a">Editar</Button>
-                  <Button class="btn-eliminar">Eliminar</Button>
+                  <Button class="btn-editar" @click="mostrarEditar">Ver</Button>
+                  <Button class="btn-guardar-cotizacion">Descargar</Button>
+                  <!-- <Button class="btn-eliminar">Eliminar</Button> -->
                 </div>
               </td>
             </tr>
           </table>
         </section>
-        <!-- <TableCollapse>
-          <HeadTableCollapse
-            class="thead-sticky"
-            :titles="[
-              { nombre: 'Nombre' },
-              { nombre: 'Apellidos' },
-              { nombre: 'Puesto' },
-              { nombre: 'Fecha de alta' },
-              { nombre: 'Correo electrónico' },
-              { nombre: 'Teléfono' },
-              { nombre: '' },
-            ]"
-          >
-          </HeadTableCollapse>
-           <BodyTableCollapse v-show="!load">
-              <RowEmpleadosCollapse
-                v-for="(empleado, index) in listaEmpleados"
-                :key="empleado.id"
-                :empleado="empleado"
-                :flagPar="(index + 1) % 2 == 0"
-                :idActivo="idActivo"
-                :flagModalError="showModalError"
-                :puestoApi="puesto"
-                :sucursalApi="statusSucursal"
-                @editExito="mostrarExito"
-                @reactExito="mostrarExito"
-                @modalError="mostrarError"
-                @hayActivo="hayActivo"
-                @pinExito="getEmpleados"
-                @desactivarExito="getEmpleados"
-                @exitoReestablecer="mostrarExitoReestablecer"
-              >
-              </RowEmpleadosCollapse>
-            </BodyTableCollapse>
-        </TableCollapse> -->
       </section>
       <Paginacion></Paginacion>
     </ContainerWhite>
-    <AgregarEmpleados
+    <AgregarCotizacion
       v-if="showAddProducto"
       @cancelar="showAddProducto = false"
-    ></AgregarEmpleados>
-    <EditarEmpleado
+    ></AgregarCotizacion>
+    <VerCotizaciones
       v-if="showAddEditar"
       @cancelar="showAddEditar = false"
-    ></EditarEmpleado>
+    ></VerCotizaciones>
   </LayoutPrincipal>
 </template>
 
@@ -144,8 +118,10 @@ import LayoutPrincipal from "@/layouts/LayoutPrincipal.vue";
 import ContainerWhite from "@/layouts/ContainerWhite.vue";
 import Button from "../components/Forms/Button.vue";
 import Paginacion from "../components/Forms/Paginacion.vue";
-import EditarEmpleado from "@/components/Empleados/EditarEmpleado.vue";
-import AgregarEmpleados from "@/components/Empleados/AgregarEmpleados.vue";
+// import EditarEmpleado from "@/components/Empleados/EditarEmpleado.vue";
+// import AgregarEmpleados from "@/components/Empleados/AgregarEmpleados.vue";
+import VerCotizaciones from "@/components/Cotizaciones/VerCotizaciones.vue";
+import AgregarCotizacion from "@/components/Cotizaciones/AgregarCotizacion.vue";
 
 // import TableCollapse from "../components/Tables/TableCollapse.vue";
 // import HeadTableCollapse from "../components/Tables/HeadTableCollapse.vue";
@@ -156,8 +132,10 @@ export default {
     ContainerWhite,
     Button,
     Paginacion,
-    EditarEmpleado,
-    AgregarEmpleados,
+    // EditarEmpleado,
+    // AgregarEmpleados,
+    VerCotizaciones,
+    AgregarCotizacion,
 
     // TableCollapse,
     // HeadTableCollapse,

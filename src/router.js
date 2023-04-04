@@ -5,7 +5,8 @@ import { createWebHistory } from "vue-router";
 import LandingPage from "./views/LandingPage.vue";
 import Dashboard from "./views/DashBoard.vue";
 import Empleados from "./views/Empleados.vue";
-import Clientes from "./views/Clientes.vue"
+import Clientes from "./views/Clientes.vue";
+import Cotizacion from "./views/Cotizacion.vue"
 
 import prueba from "./views/prueba.vue";
 import prueba2 from "./views/Prueba2.vue";
@@ -30,6 +31,11 @@ const routes = [
     path: "/Clientes",
     name: "Clientes",
     component: Clientes,
+  },
+  {
+    path: "/Cotizacion",
+    name: "Cotizacion",
+    component: Cotizacion,
   },
 
 
