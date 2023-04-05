@@ -7,6 +7,7 @@ import Dashboard from "./views/DashBoard.vue";
 import Empleados from "./views/Empleados.vue";
 import Clientes from "./views/Clientes.vue";
 import Cotizacion from "./views/Cotizacion.vue"
+import Herramientas from "./views/Herramientas.vue"
 
 import prueba from "./views/prueba.vue";
 import prueba2 from "./views/Prueba2.vue";
@@ -37,6 +38,12 @@ const routes = [
     name: "Cotizacion",
     component: Cotizacion,
   },
+  {
+    path: "/Herramientas",
+    name: "Herramientas",
+    component: Herramientas,
+  },
+  
 
 
 
