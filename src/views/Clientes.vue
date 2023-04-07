@@ -10,7 +10,7 @@
             v-model="searchText"
             placeholder="Inserte nombre o ID"
           />
-          <Button class="btn-buscar">Buscar</Button>
+          
           <Button class="btn-agregar" @click="mostrarAddService" >Agregar</Button>
         </div>
       </section>
@@ -209,6 +209,7 @@ export default {
   justify-content: center;
   align-items: center;
   display: flex;
+  overflow-x:auto;
 }
 
 .default {
@@ -251,5 +252,140 @@ export default {
 
 .default td a:hover {
   text-decoration: underline;
+}
+
+@media screen and (max-width: 1024px) { /* adjust for tablets */
+  .default {
+    font-size: 14px; /* reduce font size for tablets */
+  }
+  
+  .default td, .default th {
+    padding: 6px; /* add padding to table cells for tablets */
+  }
+}
+@media screen and (max-width: 768px) { /* adjust for iPad mini in portrait orientation */
+  .default {
+    font-size: 12px; /* reduce font size for iPad mini */
+  }
+  
+  .default td, .default th {
+    padding: 4px; /* add smaller padding to table cells for iPad mini */
+  }
+  
+  .tituloModulo {
+    font-size: 16px; /* reduce font size for iPad mini */
+    transform: translateX(-20px);
+  }
+  
+  .inputBuscador {
+    font-size: 12px; /* reduce font size for iPad mini */
+    padding: 6px; /* add smaller padding to input for iPad mini */
+  }
+  
+  .btn-buscar, .btn-agregar {
+    font-size: 12px; /* reduce font size for iPad mini */
+    padding: 6px 12px; /* add smaller padding to buttons for iPad mini */
+  }
+}
+
+@media screen and (max-width: 1024px) and (orientation: landscape) { /* adjust for iPad mini in landscape orientation */
+  .default {
+    font-size: 12px; /* reduce font size for iPad mini */
+  }
+  
+  .default td, .default th {
+    padding: 4px; /* add smaller padding to table cells for iPad mini */
+  }
+  
+  .tituloModulo {
+    font-size: 16px; /* reduce font size for iPad mini */
+    
+  }
+  
+  .inputBuscador {
+    font-size: 12px; /* reduce font size for iPad mini */
+    padding: 6px; /* add smaller padding to input for iPad mini */
+  }
+  
+  .btn-buscar, .btn-agregar {
+    font-size: 12px; /* reduce font size for iPad mini */
+    padding: 6px 12px; /* add smaller padding to buttons for iPad mini */
+  }
+}
+
+@media screen and (max-width: 480px) { /* adjust for cellphones */
+  .default {
+    border-top: 1px solid #ccc;
+    font-size: 12px; /* reduce font size for cellphones */
+  }
+  
+  .cabecera {
+    display: none; /* hide table header for cellphones */
+  }
+  
+  .default td, .default th {
+    display: block; /* display table cells as blocks for cellphones */
+    text-align: center; /* center text within table cells for cellphones */
+    width: 95%; /* set table cell width to 100% for cellphones */
+  
+    padding: 6px; /* add padding to table cells for cellphones */
+  }
+  
+  
+  .default td::before {
+    content: attr(data-label); /* add data-label as pseudo-element before table cell content for cellphones */
+    display: block; /* display data-label as block element for cellphones */
+    font-weight: bold; /* add bold font weight to data-label for cellphones */
+    margin-bottom: 10px; /* add margin to data-label for cellphones */
+  }
+
+  
+}
+
+@media screen and (max-width: 1024px) { /* adjust for tablets */
+  .tituloModulo {
+    font-size: 20px; /* reduce font size for tablets */
+  }
+  
+  .inputBuscador {
+    font-size: 14px; /* reduce font size for tablets */
+    padding: 8px; /* add padding to input for tablets */
+  }
+  
+  .btn-buscar, .btn-agregar {
+    font-size: 14px; /* reduce font size for tablets */
+    padding: 8px 16px; /* add padding to buttons for tablets */
+  }
+}
+
+@media screen and (max-width: 480px) { /* adjust for cellphones */
+  .filtrosEmpleados {
+    flex-direction: column; /* cambiar el flex direction a column */
+    align-items: stretch; /* stretch items to full width for cellphones */
+   
+    
+  }
+  
+  .tituloModulo {
+    font-size: 18px; /* reducir font*/
+    margin-bottom: 10px; /**/
+    transform: translateX(-20px);
+  }
+  
+  .inputBuscador {
+    font-size: 12px; /* reducir font */
+    padding: 6px; 
+    margin-bottom: 10px; /*  */
+    transform: translateX(-20px);
+    width: 100%;
+  }
+  
+  .btn-agregar {
+    font-size: 12px; /* reduce font size para celulares */
+    padding: 6px 12px; /* agregar padding a boton  */
+       position: absolute;
+    top: 45px;
+    right: 40px;
+  }
 }
 </style>
