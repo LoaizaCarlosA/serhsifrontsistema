@@ -13,7 +13,9 @@
           <div class="locacionSistema">{{ descripcionRol }}</div> -->
         </div>
         <div class="contenedorIconoUsuario ocultar-movil">
+          <router-link to="/Perfil">
           <img class="imagenUsuario" src="../assets/svg/icono-usuario.svg" alt="" />
+        </router-link>
         </div>
       </div>
     </section>
@@ -26,6 +28,8 @@
 // import { useMenuBahk } from '@store/menu.js';
 
 export default {
+
+  
   // name: 'HeaderI',
   // computed: {
   //   ...mapState(useUsuarioBahk, {

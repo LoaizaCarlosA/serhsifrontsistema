@@ -4,10 +4,11 @@
     <div class="container-menu" :class="collapsedMenu ? 'active' : ''">
       <div class="cerrarMenuMovil" @click="collapseMenu">X</div>
       <div class="module-list">
+        <router-link to="/Dashboard" class="menu-item" active-class="active">Dashboard</router-link>      
   <router-link to="/Cotizacion" class="menu-item" active-class="active">Cotización</router-link>
   <router-link to="/Clientes" class="menu-item" active-class="active">Clientes</router-link>
   <router-link to="/Empleados"  class="menu-item" active-class="active">Empleados</router-link>
-  <router-link to="/Herramientas"  class="menu-item" active-class="active">Herramienta</router-link>
+  <router-link to="/Herramientas"  class="menu-item" active-class="active">Herramientas</router-link>
         <!-- <router-link>Hola</router-link> -->
         <!-- <ItemListModulo class="item-list-module" name="Usuarios" url="usuarios" icon="usuariosIcon.svg"/>
         <ItemListModulo class="item-list-module" name="Proveedores" url="proveedores" icon="proveedoresIcon.svg"/> -->
@@ -71,7 +72,7 @@ export default {
   left: 0;
   padding: 0;
   z-index: 1050;
-  width: 74px;
+  width: 90px;
   transition: 0.3s all ease-in-out;
 }
 .sidebar.active {
@@ -84,18 +85,19 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 74px;
+    width: 87px;
     padding-top: 27px;
     box-sizing: border-box;
   }
   
   .menu-item {
-  padding: 11px;
-  font-size: 12px;
+  padding: 14px;
+  padding-left:5px;
+  font-size: 13px;
   font-weight: bold;
   color: #333;
   cursor: pointer;
-  width: 78%;
+  width: 87%;
   text-decoration: none;
   transition: all 0.4s;
 }
@@ -122,7 +124,7 @@ export default {
   -webkit-box-shadow: 0px 3px 6px #00000029;
   -moz-box-shadow: 0px 3px 6px #00000029;
   transition: 0.15s all ease-in-out;
-  width: 75px;
+  width: 91px;
   z-index: 10;
   height: 100%;
 }
