@@ -7,6 +7,7 @@
           <input
             class="inputBuscador"
             type="text"
+            v-model="searchText"
             placeholder="Inserte nombre o ID"
           />
           <!-- <Button class="btn-buscar">Buscar</Button> -->
@@ -31,63 +32,22 @@
 
               <td>Acciones</td>
             </tr>
+            <tbody>
+         <tr v-for="empleado in filteredList" :key="empleado.id">
 
-            <tr>
-              <td>12345</td>
-
-              <td>Carlos Andrés Loaiza López</td>
-
-              <td>Gerente</td>
-
-              <td>6672476316</td>
-
-              <td>carlos-andres-loaiza@hotmail.com</td>
-
-              <td>
+          <td>{{ empleado.id }}</td>
+          <td>{{ nombreCompleto(empleado) }}</td>
+          <td>{{ empleado.puesto }}</td>
+          <td>{{ empleado.telefono }}</td>
+          <td>{{ empleado.correo }}</td>
+          <td>
                 <div class="botonesTabla">
-                  <Button class="btn-editar" @click="mostrarEditar"
-                    >Editar</Button
-                  >
+                  <Button class="btn-editar" @click="mostrarEditar">Editar</Button>
                   <Button class="btn-eliminar">Eliminar</Button>
                 </div>
               </td>
-            </tr>
-            <tr>
-              <td>12345</td>
-
-              <td>Carlos Andrés Loaiza López</td>
-
-              <td>Gerente</td>
-
-              <td>6672476316</td>
-
-              <td>carlos-andres-loaiza@hotmail.com</td>
-
-              <td>
-                <div class="botonesTabla">
-                  <Button class="btn-editar" @click="a">Editar</Button>
-                  <Button class="btn-eliminar">Eliminar</Button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>12345</td>
-
-              <td>Carlos Andrés Loaiza López</td>
-
-              <td>Gerente</td>
-
-              <td>6672476316</td>
-
-              <td>carlos-andres-loaiza@hotmail.com</td>
-
-              <td>
-                <div class="botonesTabla">
-                  <Button class="btn-editar" @click="a">Editar</Button>
-                  <Button class="btn-eliminar">Eliminar</Button>
-                </div>
-              </td>
-            </tr>
+          </tr>
+            </tbody>
           </table>
         </section>
         <!-- <TableCollapse>
@@ -168,8 +128,36 @@ export default {
     return {
       showAddEditar: false,
       showAddProducto: false,
+      empleados: [
+        { id: 1, nombre: 'Juan', apellido_paterno: 'Pérez', apellido_materno: 'González',puesto:'Auxiliar de tienda', telefono: '1234567890', correo: 'juan.perez@prueba.com' },
+        { id: 2, nombre: 'Carlos', apellido_paterno: 'Loaiza', apellido_materno: 'Lopez',puesto:'Reparador', telefono: '1234567123', correo: 'Carlos.loiza@prueba.com' },
+        { id: 3, nombre: 'Martin', apellido_paterno: 'Jimenez', apellido_materno: 'Rosas',puesto:'Reparador', telefono: '1234567123', correo: 'Martin.jimenez@prueba.com' },
+        // ...
+        
+      ],
+      searchText: '',
     };
   },
+  computed: {
+  filteredList() {
+    let list = this.empleados;
+    if (this.searchText !== '') {
+      list = list.filter(empleado => {
+        const searchValue = this.searchText.toLowerCase();
+        return empleado.nombre.toLowerCase().includes(searchValue)
+          || empleado.apellido_paterno.toLowerCase().includes(searchValue)
+          || empleado.apellido_materno.toLowerCase().includes(searchValue)
+          || empleado.id.toString().toLowerCase().includes(searchValue);
+      });
+    }
+    return list;
+  },
+  nombreCompleto() {
+    return (empleado) => {
+      return `${empleado.nombre} ${empleado.apellido_paterno} ${empleado.apellido_materno}`;
+    };
+  },
+},
   methods: {
     mostrarEditar() {
       this.showAddEditar = true;
