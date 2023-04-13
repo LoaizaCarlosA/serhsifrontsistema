@@ -10,6 +10,7 @@
 body{
   padding: 0px;
   margin: 0px;
+  background: #fafafa;;
 }
 #app {
   font-family: Roboto, Helvetica, Arial, sans-serif;

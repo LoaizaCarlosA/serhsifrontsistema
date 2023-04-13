@@ -8,7 +8,8 @@ import Empleados from "./views/Empleados.vue";
 import Clientes from "./views/Clientes.vue";
 import Cotizacion from "./views/Cotizacion.vue"
 import Herramientas from "./views/Herramientas.vue"
-
+import Perfil from "./views/Perfil1.vue";
+import Almacen from "./views/Almacen.vue"
 import prueba from "./views/prueba.vue";
 import prueba2 from "./views/Prueba2.vue";
 
@@ -42,6 +43,16 @@ const routes = [
     path: "/Herramientas",
     name: "Herramientas",
     component: Herramientas,
+  },
+  {
+    path: "/Perfil",
+    name: "Perfil",
+    component: Perfil,
+  },
+  {
+    path: "/Almacen",
+    name: "Almacen",
+    component: Almacen,
   },
   
 

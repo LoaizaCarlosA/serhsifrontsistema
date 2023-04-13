@@ -12,9 +12,15 @@
           <!-- <div class="nombreUsuario">{{ nombreUsuario }}</div>
           <div class="locacionSistema">{{ descripcionRol }}</div> -->
         </div>
-        <div class="contenedorIconoUsuario ocultar-movil">
-          <img class="imagenUsuario" src="../assets/svg/icono-usuario.svg" alt="" />
-        </div>
+        <router-link to="/Perfil">
+          <div class="contenedorIconoUsuario ocultar-movil">
+            <img
+              class="imagenUsuario"
+              src="../assets/svg/icono-usuario.svg"
+              alt=""
+            />
+          </div>
+        </router-link>
       </div>
     </section>
   </header>
