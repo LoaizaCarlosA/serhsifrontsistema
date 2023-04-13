@@ -6,149 +6,141 @@
         <div class="separador"></div>
       </section>
       <section class="contenedorSeccionPrincipal">
-        <section class="seccionUno">
-          <div>
-            <div class="label">ID Cotización:</div>
-            <input
-              class="inputEditar"
-              type="text"
-              name=""
-              id=""
-              placeholder="5456"
-              disabled
-            />
+        <div>
+          <div class="contenedorSecciones">
+            <section class="seccionUno">
+              <div>
+                <div class="label">ID Cotización:</div>
+                <input
+                  class="inputEditar"
+                  type="text"
+                  name=""
+                  id=""
+                  placeholder="5456"
+                  disabled
+                />
+              </div>
+              <div>
+                <div class="label">ID Cliente:</div>
+                <input
+                  class="inputEditar"
+                  type="text"
+                  name=""
+                  id=""
+                  placeholder="12345"
+                  disabled
+                />
+              </div>
+              <div>
+                <div class="label">Nombre:</div>
+                <input
+                  class="inputEditar"
+                  type="text"
+                  name=""
+                  id=""
+                  placeholder="Carlos Andrés Loaiza López"
+                  disabled
+                />
+              </div>
+              <div>
+                <div class="label">Fecha de Cotización:</div>
+                <input
+                  class="inputEditar"
+                  type="text"
+                  name=""
+                  id=""
+                  placeholder="03/04/2023"
+                  disabled
+                />
+              </div>
+              <!-- <div>
+                <div class="label">Monto:</div>
+                <input
+                  class="inputEditar"
+                  type="text"
+                  name=""
+                  id=""
+                  placeholder="$4,839.00"
+                  disabled
+                />
+              </div> -->
+            </section>
+            <section class="separadorTres"></section>
+            <section class="seccionDos">
+              <div>
+                <div>
+                  <div class="label">Marca:</div>
+                  <input
+                    class="inputEditar"
+                    type="text"
+                    name=""
+                    id=""
+                    placeholder="Makita"
+                    disabled
+                  />
+                </div>
+                <div>
+                  <div class="label">Modelo:</div>
+                  <input
+                    class="inputEditar"
+                    type="text"
+                    name=""
+                    id=""
+                    placeholder="MAK019239SJ"
+                    disabled
+                  />
+                </div>
+                <div>
+                  <div class="label">No. de serie:</div>
+                  <input
+                    class="inputEditar"
+                    type="text"
+                    name=""
+                    id=""
+                    placeholder="352156165"
+                    disabled
+                  />
+                </div>
+                <div>
+                  <div class="label">Tipo:</div>
+                  <input
+                    class="inputEditar"
+                    type="text"
+                    name=""
+                    id=""
+                    placeholder="Rotomartillo"
+                    disabled
+                  />
+                </div>
+                <!-- <div>
+                  <div class="label">Color:</div>
+                  <input
+                    class="inputEditar"
+                    type="text"
+                    name=""
+                    id=""
+                    placeholder="Rojo"
+                    disabled
+                  />
+                </div> -->
+              </div>
+            </section>
           </div>
-          <div>
-            <div class="label">ID Cliente:</div>
-            <input
-              class="inputEditar"
-              type="text"
-              name=""
-              id=""
-              placeholder="12345"
-              disabled
-            />
-          </div>
-          <div>
-            <div class="label">Nombre:</div>
-            <input
-              class="inputEditar"
-              type="text"
-              name=""
-              id=""
-              placeholder="Carlos Andrés Loaiza López"
-              disabled
-            />
-          </div>
-          <div>
-            <div class="label">Fecha de Cotización:</div>
-            <input
-              class="inputEditar"
-              type="text"
-              name=""
-              id=""
-              placeholder="03/04/2023"
-              disabled
-            />
-          </div>
-          <div>
-            <div class="label">Monto:</div>
-            <input
-              class="inputEditar"
-              type="text"
-              name=""
-              id=""
-              placeholder="$4,839.00"
-              disabled
-            />
-          </div>
-          <div>
-            <div class="label">Comentarios:</div>
-            <textarea
-              class="inputTextArea"
-              name=""
-              id=""
-              cols="30"
-              rows="10"
-              disabled
-              placeholder="No sirve el enchufe"
-            ></textarea>
-          </div>
-          <div>
-            <div class="label">Estatus:</div>
-            <input type="text" />
-          </div>
-        </section>
-        <section class="separadorDos"></section>
-        <section class="seccionDos">
           <div>
             <div>
-              <div class="label">Marca:</div>
-              <input
-                class="inputEditar"
-                type="text"
-                name=""
-                id=""
-                placeholder="Makita"
-                disabled
-              />
-            </div>
-            <div>
-              <div class="label">Modelo:</div>
-              <input
-                class="inputEditar"
-                type="text"
-                name=""
-                id=""
-                placeholder="MAK019239SJ"
-                disabled
-              />
-            </div>
-            <div>
-              <div class="label">No. de serie:</div>
-              <input
-                class="inputEditar"
-                type="text"
-                name=""
-                id=""
-                placeholder="352156165"
-                disabled
-              />
-            </div>
-            <div>
-              <div class="label">Tipo:</div>
-              <input
-                class="inputEditar"
-                type="text"
-                name=""
-                id=""
-                placeholder="Rotomartillo"
-                disabled
-              />
-            </div>
-            <div>
-              <div class="label">Color:</div>
-              <input
-                class="inputEditar"
-                type="text"
-                name=""
-                id=""
-                placeholder="Rojo"
-                disabled
-              />
-            </div>
-            <div>
-              <div class="label">Seguimiento:</div>
+              <div class="label">Comentarios:</div>
               <textarea
                 class="inputTextArea"
                 name=""
                 id=""
                 cols="30"
                 rows="10"
+                disabled
+                placeholder="No sirve el enchufe"
               ></textarea>
             </div>
           </div>
-        </section>
+        </div>
         <section class="separadorDos"></section>
         <section>
           <section class="tablaPrincipal">
@@ -194,11 +186,53 @@
               </tr>
             </table>
           </section>
+          <div class="seccionEstatus">
+            <div class="inputSeguimiento">
+              <div class="label">Seguimiento:</div>
+              <div>
+                <textarea
+                  class="inputTextArea"
+                  name=""
+                  id=""
+                  cols="30"
+                  rows="10"
+                  placeholder="Ingrea un comentario adicional"
+                ></textarea>
+              </div>
+            </div>
+            <div class="inputEstatus">
+              <div class="label">Estatus:</div>
+              <select class="buscadorSelect" name="" id="">
+                <option value="rojo">Seleccionar...</option>
+                <option value="rojo">Administrador</option>
+                <option value="verde">Gerente</option>
+                <option value="azul">Auxiliar</option>
+                <option value="amarillo">Reparador</option>
+              </select>
+            </div>
+          </div>
+          <section class="contenedorTotales">
+            <div class="total">
+              <div>Subtotal:</div>
+              <div>$ 9,827.00</div>
+            </div>
+            <div class="total">
+              <div>IVA:</div>
+              <div>$ 1,723.00</div>
+            </div>
+            <div class="separadorTotal"></div>
+            <div class="total">
+              <div>Total:</div>
+              <div>$ 11,550.00</div>
+            </div>
+          </section>
+          <section class="contenedorBotones">
+            <Button class="btn-regresar" @click="cancelar">Regresar</Button>
+            <Button class="btn-guardar" @click="mostrarAddService"
+              >Guardar</Button
+            >
+          </section>
         </section>
-      </section>
-      <section class="contenedorBotones">
-        <Button class="btn-regresar" @click="cancelar">Regresar</Button>
-        <Button class="btn-guardar" @click="mostrarAddService">Guardar</Button>
       </section>
     </section>
     <LoadScreen v-if="showAddProducto" @cerrar="ocultarAddProd"></LoadScreen>
@@ -242,7 +276,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .titulo {
   padding: 30px 0px 0px 0px;
   font-size: 30px;
@@ -250,11 +284,13 @@ export default {
 .separador {
   border-top: 3px solid #ef7b14;
   height: 2px;
-  max-width: 80%;
+  width: 100%; 
   padding: 0;
-  /* margin: 20px auto 0 auto; */
   margin-top: 5px;
   margin-bottom: 30px;
+}
+.contenedorSecciones {
+  display: flex;
 }
 .contenedorSeccionPrincipal {
   display: flex;
@@ -265,8 +301,11 @@ export default {
 .label {
   margin: 17px 0px 5px;
 }
+.inputEstatus {
+  width: 40%;
+}
 .inputTextArea {
-  width: 300px;
+  width: 98%;
   height: 100px;
   border: 0px solid #000000;
   box-shadow: 0px 3px 6px #00000029;
@@ -275,6 +314,7 @@ export default {
   padding: 0px 7px;
   border-radius: 10px;
   padding-top: 5px;
+  resize: none;
   font-family: Roboto, Helvetica, Arial, sans-serif;
 }
 .inputEditar {
@@ -298,9 +338,19 @@ export default {
 }
 .separadorDos {
   border-left: 1px solid #ef7b14;
+  /* left: 50%; */
+  /* top: 0; */
+  margin: 0px 20px;
+  height: 441px;
+  /* border-left: 1px solid #ef7b14;
   left: 50%;
   top: 0;
-  margin: 0px 50px;
+  margin: 0px 50px; */
+}
+.separadorTres {
+  border-left: 1px solid #ef7b14;
+  margin: 0px 20px;
+  height: 293px;
 }
 .contenedorBotones {
   display: flex;
@@ -315,6 +365,14 @@ export default {
   justify-content: center;
   align-items: center;
   display: flex;
+}
+.seccionEstatus {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+.inputSeguimiento {
+  width: 55%;
 }
 
 .default {
@@ -357,5 +415,20 @@ export default {
 
 .default td a:hover {
   text-decoration: underline;
+}
+.contenedorTotales {
+  margin-top: 43px;
+}
+.total {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0px;
+}
+.separadorTotal {
+  border-top: 1px solid #ef7b14;
+  max-width: 100%;
+  padding: 0;
+  justify-content: right;
+  display: flex;
 }
 </style>

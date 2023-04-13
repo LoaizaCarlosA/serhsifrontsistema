@@ -35,13 +35,14 @@ export default {
   padding-top: 70px;
 }
 .module-container {
-  padding: 30px 20px;
+  padding: 30px 20px 0px 40px;
+  /* padding: 30px 20px; */
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
   background-color: #fafafa;
   position: relative;
-  min-height: calc(100vh - 70px);
+  min-height: calc(90vh - 70px);
 }
 @media (max-width: 767px) {
   .module-container {

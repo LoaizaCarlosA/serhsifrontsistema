@@ -9,6 +9,7 @@
   <router-link to="/Clientes" class="menu-item" active-class="active">Clientes</router-link>
   <router-link to="/Empleados"  class="menu-item" active-class="active">Empleados</router-link>
   <router-link to="/Herramientas"  class="menu-item" active-class="active">Herramientas</router-link>
+  <router-link to="/Almacen"  class="menu-item" active-class="active">Almacén</router-link>
         <!-- <router-link>Hola</router-link> -->
         <!-- <ItemListModulo class="item-list-module" name="Usuarios" url="usuarios" icon="usuariosIcon.svg"/>
         <ItemListModulo class="item-list-module" name="Proveedores" url="proveedores" icon="proveedoresIcon.svg"/> -->

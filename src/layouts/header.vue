@@ -12,11 +12,15 @@
           <!-- <div class="nombreUsuario">{{ nombreUsuario }}</div>
           <div class="locacionSistema">{{ descripcionRol }}</div> -->
         </div>
-        <div class="contenedorIconoUsuario ocultar-movil">
-          <router-link to="/Perfil">
-          <img class="imagenUsuario" src="../assets/svg/icono-usuario.svg" alt="" />
+        <router-link to="/Perfil">
+          <div class="contenedorIconoUsuario ocultar-movil">
+            <img
+              class="imagenUsuario"
+              src="../assets/svg/icono-usuario.svg"
+              alt=""
+            />
+          </div>
         </router-link>
-        </div>
       </div>
     </section>
   </header>
@@ -28,8 +32,6 @@
 // import { useMenuBahk } from '@store/menu.js';
 
 export default {
-
-  
   // name: 'HeaderI',
   // computed: {
   //   ...mapState(useUsuarioBahk, {

@@ -5,52 +5,101 @@
         <div class="titulo">{{ tituloHeader }}</div>
         <div class="separador"></div>
       </section>
-      <div>
+      <!-- <div>
         <div class="label">No. ID:</div>
         <input
           class="inputEditar"
           type="text"
           name=""
           id=""
-          disabled
-          placeholder="12345"
+          placeholder="Agrega un ID"
         />
-      </div>
-
+      </div> -->
       <div>
-        <div class="label">Marca:</div>
+        <div class="label">Nombre:</div>
         <input
           class="inputEditar"
           type="text"
           name=""
           id=""
-          placeholder="Makita"
+          placeholder="Ingrese el nombre"
         />
       </div>
+      <!-- <div>
+        <div class="label">Puesto:</div>
+        <div>
+          <select class="buscadorSelect" name="" id="">
+            <option value="rojo">Seleccionar...</option>
+            <option value="rojo">Administrador</option>
+            <option value="verde">Gerente</option>
+            <option value="azul">Auxiliar</option>
+            <option value="amarillo">Reparador</option>
+          </select>
+        </div>
+      </div> -->
       <div>
-        <div class="label">Modelo:</div>
+        <div class="label">Apellido paterno:</div>
         <input
           class="inputEditar"
           type="text"
           name=""
           id=""
-          placeholder="López"
+          placeholder="Ingrese un teléfono"
         />
       </div>
-
       <div>
-        <div class="label">Tipo de herramienta:</div>
+        <div class="label">Apellido materno:</div>
         <input
           class="inputEditar"
           type="text"
           name=""
           id=""
-          placeholder="6672476316"
+          placeholder="Ingrese un teléfono"
+        />
+      </div>
+      <div>
+        <div class="label">Teléfono:</div>
+        <input
+          class="inputEditar"
+          type="text"
+          name=""
+          id=""
+          placeholder="Ingrese un correo electrónico"
+        />
+      </div>
+      <div>
+        <div class="label">Correo:</div>
+        <input
+          class="inputEditar"
+          type="text"
+          name=""
+          id=""
+          placeholder="Ingrese un teléfono"
+        />
+      </div>
+      <div>
+        <div class="label">Contraseña:</div>
+        <input
+          class="inputEditar"
+          type="password"
+          name=""
+          id=""
+          placeholder="Ingrese un teléfono"
+        />
+      </div>
+      <div>
+        <div class="label">Confirmar contraseña:</div>
+        <input
+          class="inputEditar"
+          type="password"
+          name=""
+          id=""
+          placeholder="Ingrese un teléfono"
         />
       </div>
       <section class="contenedorBotones">
-        <Button class="btn-regresar" @click="cancelar">Regresar</Button>
-        <Button class="btn-guardar" @click="mostrarAddService">Guardar</Button>
+        <Button class="btn-regresar" @click="cancelar">Cancelar</Button>
+        <Button class="btn-guardar" @click="mostrarAddService">Registrarme</Button>
       </section>
     </section>
     <LoadScreen v-if="showAddProducto" @cerrar="ocultarAddProd"></LoadScreen>
@@ -58,9 +107,9 @@
 </template>
 
 <script>
-import ModalBase from "@/components/Modales/ModalBase.vue";
-import Button from "@/components/Forms/Button.vue";
-import LoadScreen from "@/components/Forms/LoadScreen.vue";
+import ModalBase from "../Modales/ModalBase.vue";
+import Button from "../Forms/Button.vue";
+import LoadScreen from "../Forms/LoadScreen.vue";
 
 export default {
   components: {
@@ -71,7 +120,7 @@ export default {
   props: {
     tituloHeader: {
       type: String,
-      default: "Agregar herramienta",
+      default: "Registro",
     },
   },
   data() {

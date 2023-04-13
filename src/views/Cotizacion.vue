@@ -9,7 +9,7 @@
             type="text"
             placeholder="Inserte nombre o ID"
           />
-          <Button class="btn-buscar">Buscar</Button>
+          <!-- <Button class="btn-buscar">Buscar</Button> -->
           <Button class="btn-agregar" @click="mostrarAddService"
             >Agregar</Button
           >

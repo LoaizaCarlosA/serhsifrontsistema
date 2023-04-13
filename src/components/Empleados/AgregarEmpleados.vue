@@ -111,7 +111,7 @@ export default {
 .separador {
   border-top: 3px solid #ef7b14;
   height: 2px;
-  max-width: 80%;
+  max-width: 100%;
   padding: 0;
   /* margin: 20px auto 0 auto; */
   margin-top: 5px;
@@ -121,6 +121,7 @@ export default {
   margin: 0px 30px;
 }
 .label {
+  /* font-weight: 500; */
   margin: 17px 0px 5px;
 }
 .inputEditar {

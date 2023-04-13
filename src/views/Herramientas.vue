@@ -10,7 +10,7 @@
               v-model="searchText"
               placeholder="Buscar herramienta"
             />
-            <Button class="btn-buscar">Buscar</Button>
+            <!-- <Button class="btn-buscar">Buscar</Button> -->
             <Button class="btn-agregar" @click="mostrarAddService" >Agregar</Button>
           </div>
         </section>
