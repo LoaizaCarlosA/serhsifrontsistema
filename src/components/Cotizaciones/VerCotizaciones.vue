@@ -204,10 +204,10 @@
               <div class="label">Estatus:</div>
               <select class="buscadorSelect" name="" id="">
                 <option value="rojo">Seleccionar...</option>
-                <option value="rojo">Administrador</option>
-                <option value="verde">Gerente</option>
-                <option value="azul">Auxiliar</option>
-                <option value="amarillo">Reparador</option>
+                <option value="rojo">En espera</option>
+                <option value="verde">En proceso</option>
+                <option value="azul">Reparado</option>
+                <option value="amarillo">Finalizado</option>
               </select>
             </div>
           </div>
@@ -284,7 +284,7 @@ export default {
 .separador {
   border-top: 3px solid #ef7b14;
   height: 2px;
-  width: 100%; 
+  width: 100%;
   padding: 0;
   margin-top: 5px;
   margin-bottom: 30px;
