@@ -13,7 +13,7 @@
           name=""
           id=""
           disabled
-          placeholder="12345"
+          value="12345"
         />
       </div>
       <div>
@@ -23,7 +23,29 @@
           type="text"
           name=""
           id=""
-          placeholder="Carlos Andrés Loaiza López"
+          value="Carlos Andrés"
+        />
+      </div>
+      <div>
+        <div class="label">Apellido paterno:</div>
+        <input
+          class="inputEditar"
+          type="text"
+          maxlength="20"
+          name=""
+          id=""
+          value="Loaiza"
+        />
+      </div>
+      <div>
+        <div class="label">Apellido materno:</div>
+        <input
+          class="inputEditar"
+          type="text"
+          maxlength="20"
+          name=""
+          id=""
+          value="López"
         />
       </div>
       <div>
@@ -41,10 +63,11 @@
         <div class="label">Teléfono:</div>
         <input
           class="inputEditar"
-          type="text"
+          type="tel"
+          maxlength="10"
           name=""
           id=""
-          placeholder="6672476316"
+          value="6672476316"
         />
       </div>
       <div>
@@ -54,7 +77,7 @@
           type="text"
           name=""
           id=""
-          placeholder="carlos-andres-loaiza@hotmail.com"
+          value="carlos-andres-loaiza@hotmail.com"
         />
       </div>
       <section class="contenedorBotones">

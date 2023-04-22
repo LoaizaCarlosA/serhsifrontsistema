@@ -4,24 +4,26 @@
       <section class="contenedorInfoLogin">
         <img class="logo" src="../assets/img/LogotipoB.png" alt="" />
         <div class="bienvenidoCopie">Bienvenido</div>
-        <Input
+        <input
           class="contenedorInputUsuario"
           id="inputCorreo"
+          v-model="inputCorreo"
           placeholder="Correo electrónico"
           :maxlength="50"
         />
-        <Input
+        <input
           class="contenedorInputPassword"
           id="inputPass"
+          v-model="inputPass"
           placeholder="Contraseña"
           :maxlength="60"
           autocomplete="off"
           type="password"
-        >
+        />
           <div class="ojo user-select-none">
             <i class="icon-visualizar"></i>
           </div>
-        </Input>
+        
         <div
           v-if="loginErrorMsg !== null"
           class="contenedorError error"
@@ -51,7 +53,7 @@
 <script>
 import Button from "@/components/Forms/Button.vue";
 import ModalRegistro from "@/components/Modales/ModalRegistro.vue";
-
+import axios from 'axios';
 export default {
   components: {
     Button,
@@ -59,8 +61,30 @@ export default {
   },
   methods: {
     login() {
-      this.$router.push("/Dashboard");
-    },
+      const username = this.inputCorreo;
+      const password = this.inputPass;
+      
+      const basicAuth = 'Basic ' + btoa(username + ':' + password);
+      axios.post('http://localhost:10000/auth', {}, {
+        headers: {
+          'Authorization': basicAuth,
+          'Content-Type': 'application/json'
+        },
+        withCredentials: true
+      })
+      .then(response => {
+        const user = response.data[0].nombre; // the user object
+        const role = response.data[1]; // the role string
+        console.log('Bienvenido: ' + user); // the user object
+        console.log('Role: ' + role); // the role string
+        this.$router.push('/Dashboard');
+      })
+      .catch(error => {
+        console.error(error);
+        console.log('Credenciales incorrectas')
+      });
+    }
+    ,
     mostrarEditar() {
       this.showAddEditar = true;
     },
@@ -78,6 +102,8 @@ export default {
     return {
       showAddEditar: false,
       showAddProducto: false,
+      inputCorreo: '',
+      inputPass: ''
     };
   },
 };

@@ -22,7 +22,8 @@
             <div class="label">ID Cliente:</div>
             <input
               class="inputEditar"
-              type="text"
+              type="tel"
+              maxlength="10"
               name=""
               id=""
               placeholder="12345"
@@ -33,6 +34,7 @@
             <input
               class="inputEditar"
               type="text"
+              maxlength="35"
               name=""
               id=""
               placeholder="Carlos Andrés Loaiza López"
@@ -48,19 +50,20 @@
           <div>
             <div>
               <div class="label">Marca:</div>
-              <input
-                class="inputEditar"
-                type="text"
-                name=""
-                id=""
-                placeholder="Makita"
-              />
+              <select class="buscadorSelect" name="" id="">
+                <option value="rojo">Seleccionar...</option>
+                <option value="rojo">MAKITA</option>
+                <option value="verde">TRUPER</option>
+                <option value="azul">DEWALT</option>
+                <option value="amarillo">BOSCH</option>
+              </select>
             </div>
             <div>
               <div class="label">Modelo:</div>
               <input
                 class="inputEditar"
                 type="text"
+                maxlength="15"
                 name=""
                 id=""
                 placeholder="Ingrese el modelo"
@@ -70,7 +73,8 @@
               <div class="label">No. de serie:</div>
               <input
                 class="inputEditar"
-                type="text"
+                type="tel"
+                maxlength="15"
                 name=""
                 id=""
                 placeholder="Ingrese número de serie"
@@ -78,13 +82,17 @@
             </div>
             <div>
               <div class="label">Tipo:</div>
-              <input
-                class="inputEditar"
-                type="text"
-                name=""
-                id=""
-                placeholder="Ingrese el tipo de herramienta"
-              />
+              <select class="buscadorSelect" name="" id="">
+                <option value="rojo">Seleccionar...</option>
+                <option value="rojo">Lima</option>
+                <option value="verde">Sierra</option>
+                <option value="azul">Segueta</option>
+                <option value="azul">Cepillo</option>
+                <option value="azul">Broca</option>
+                <option value="azul">Taladro</option>
+                <option value="azul">Segueta</option>
+                <option value="azul">Soplete</option>
+              </select>
             </div>
           </div>
         </section>
@@ -137,15 +145,26 @@
               </tr>
 
               <td>
-                <input class="inputCantidad" type="number" name="" id="" />
+                <input
+                  class="inputCantidad"
+                  type="tel"
+                  maxlength="3"
+                  name=""
+                  id=""
+                />
               </td>
 
               <td>
-                <input class="inputDescripcion" type="text" />
+                <input class="inputDescripcion" type="text" maxlength="30" />
               </td>
 
               <td>
-                <input class="inputCantidad" type="number" step="any" />
+                <input
+                  class="inputCantidad"
+                  type="tel"
+                  step="any"
+                  maxlength="5"
+                />
               </td>
 
               <td>
@@ -187,10 +206,10 @@
                   <span class="spanServicios">(+ $180)</span>
                 </div>
               </div>
-              <div class="inputRadio">
+              <!-- <div class="inputRadio">
                 <input type="radio" />
                 <div>+IVA <span class="spanServicios">(+ 16%)</span></div>
-              </div>
+              </div> -->
             </div>
           </div>
           <section class="contenedorTotales">
@@ -311,12 +330,16 @@ export default {
 }
 .buscadorSelect {
   width: 100%;
-  height: 32px;
+  height: 34px;
   border: 0px solid #000000;
   box-shadow: 0px 3px 6px #00000029;
   outline: none;
   padding: 0px 7px;
   border-radius: 10px;
+}
+.inputRadio input:checked ~ .check {
+  background-color: red;
+  border: none;
 }
 .separadorDos {
   border-left: 1px solid #ef7b14;

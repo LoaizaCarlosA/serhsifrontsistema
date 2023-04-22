@@ -10,6 +10,7 @@
         <input
           class="inputEditar"
           type="text"
+          maxlength="10"
           name=""
           id=""
           placeholder="Agrega un ID"
@@ -20,9 +21,32 @@
         <input
           class="inputEditar"
           type="text"
+          maxlength="20"
           name=""
           id=""
           placeholder="Ingrese el nombre"
+        />
+      </div>
+      <div>
+        <div class="label">Apellido paterno:</div>
+        <input
+          class="inputEditar"
+          type="text"
+          maxlength="20"
+          name=""
+          id=""
+          placeholder="Ingrese el apellido paterno"
+        />
+      </div>
+      <div>
+        <div class="label">Apellido materno:</div>
+        <input
+          class="inputEditar"
+          type="text"
+          maxlength="20"
+          name=""
+          id=""
+          placeholder="Ingrese el apellido materno"
         />
       </div>
       <div>
@@ -42,6 +66,7 @@
         <input
           class="inputEditar"
           type="text"
+          maxlength="10"
           name=""
           id=""
           placeholder="Ingrese un teléfono"
@@ -52,6 +77,7 @@
         <input
           class="inputEditar"
           type="text"
+          maxlength="40"
           name=""
           id=""
           placeholder="Ingrese un correo electrónico"

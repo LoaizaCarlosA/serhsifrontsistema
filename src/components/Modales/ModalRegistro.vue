@@ -5,45 +5,25 @@
         <div class="titulo">{{ tituloHeader }}</div>
         <div class="separador"></div>
       </section>
-      <!-- <div>
-        <div class="label">No. ID:</div>
-        <input
-          class="inputEditar"
-          type="text"
-          name=""
-          id=""
-          placeholder="Agrega un ID"
-        />
-      </div> -->
       <div>
         <div class="label">Nombre:</div>
         <input
           class="inputEditar"
           type="text"
           name=""
-          id=""
+          id="nombre"
+          v-model="nombre"
           placeholder="Ingrese el nombre"
         />
       </div>
-      <!-- <div>
-        <div class="label">Puesto:</div>
-        <div>
-          <select class="buscadorSelect" name="" id="">
-            <option value="rojo">Seleccionar...</option>
-            <option value="rojo">Administrador</option>
-            <option value="verde">Gerente</option>
-            <option value="azul">Auxiliar</option>
-            <option value="amarillo">Reparador</option>
-          </select>
-        </div>
-      </div> -->
       <div>
         <div class="label">Apellido paterno:</div>
         <input
           class="inputEditar"
           type="text"
           name=""
-          id=""
+          id="apellidoPaterno"
+          v-model="apellidoPaterno"
           placeholder="Ingrese un teléfono"
         />
       </div>
@@ -53,8 +33,31 @@
           class="inputEditar"
           type="text"
           name=""
-          id=""
+          id="apellidoMaterno"
+          v-model="apellidoMaterno"
           placeholder="Ingrese un teléfono"
+        />
+      </div>
+      <div>
+        <div class="label">Género:</div>
+        <input
+          class="inputEditar"
+          type="text"
+          name=""
+          id="sexo"
+          v-model="sexo"
+          placeholder="Ingrese su género"
+        />
+      </div>
+      <div>
+        <div class="label">Fecha de nacimiento:</div>
+        <input
+          class="inputEditar"
+          type="text"
+          name=""
+          id="fechaNacimiento"
+          v-model="fechaNacimiento"
+          placeholder="Ingrese su fecha de nacimiento"
         />
       </div>
       <div>
@@ -63,8 +66,9 @@
           class="inputEditar"
           type="text"
           name=""
-          id=""
-          placeholder="Ingrese un correo electrónico"
+          id="telefono"
+          v-model="telefono"
+          placeholder="Ingrese un número telefónico"
         />
       </div>
       <div>
@@ -73,8 +77,9 @@
           class="inputEditar"
           type="text"
           name=""
-          id=""
-          placeholder="Ingrese un teléfono"
+          id="correo"
+          v-model="correo"
+          placeholder="Ingrese un correo electrónico"
         />
       </div>
       <div>
@@ -83,23 +88,14 @@
           class="inputEditar"
           type="password"
           name=""
-          id=""
-          placeholder="Ingrese un teléfono"
-        />
-      </div>
-      <div>
-        <div class="label">Confirmar contraseña:</div>
-        <input
-          class="inputEditar"
-          type="password"
-          name=""
-          id=""
+          id="clave"
+          v-model="clave"
           placeholder="Ingrese un teléfono"
         />
       </div>
       <section class="contenedorBotones">
         <Button class="btn-regresar" @click="cancelar">Cancelar</Button>
-        <Button class="btn-guardar" @click="mostrarAddService">Registrarme</Button>
+        <Button class="btn-guardar" @click="registrarCliente">Registrarme</Button>
       </section>
     </section>
     <LoadScreen v-if="showAddProducto" @cerrar="ocultarAddProd"></LoadScreen>
@@ -110,7 +106,7 @@
 import ModalBase from "../Modales/ModalBase.vue";
 import Button from "../Forms/Button.vue";
 import LoadScreen from "../Forms/LoadScreen.vue";
-
+import axios from 'axios';
 export default {
   components: {
     ModalBase,
@@ -126,7 +122,16 @@ export default {
   data() {
     return {
       showAddProducto: false,
+      nombre: '',
+      apellidoPaterno: '',
+      apellidoMaterno: '',
+      sexo: '',
+      fechaNacimiento: '',
+      telefono: '',
+      correo: '',
+      clave: ''
     };
+
   },
   emits: ["cancelar"],
   methods: {
@@ -139,6 +144,26 @@ export default {
     cancelar() {
       this.$emit("cancelar");
     },
+    registrarCliente: function(){
+      const cliente = {
+        nombre: this.nombre,
+        apellidoPaterno: this.apellidoPaterno,
+        apellidoMaterno: this.apellidoMaterno,
+        sexo:this.sexo,
+        fechaNacimiento:this.fechaNacimiento,
+        telefono:this.telefono,
+        correo:this.correo,
+        clave:this.clave
+      }
+      axios.post('http://localhost:10000/clientes', cliente)
+        .then(response => {
+          console.log(response.cliente);
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    },
+    
   },
 };
 </script>

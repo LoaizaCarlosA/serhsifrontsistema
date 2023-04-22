@@ -17,13 +17,20 @@
           <form>
             <div class="contenedorInputs">
               <label for="nombre">Nombre:</label>
-              <input type="text" id="nombre" name="nombre" value="Juan" />
+              <input
+                type="text"
+                maxlength="20"
+                id="nombre"
+                name="nombre"
+                value="Juan"
+              />
             </div>
 
             <div class="contenedorInputs">
               <label for="apellidos">Apellido paterno:</label>
               <input
                 type="text"
+                maxlength="20"
                 id="apellido_paterno"
                 name="apellido_paterno"
                 value="Perez "
@@ -34,29 +41,32 @@
               <label for="apellidos">Apellido materno:</label>
               <input
                 type="text"
+                maxlength="20"
                 id="apellido_materno"
                 name="apellido_materno"
                 value="Garcia "
               />
             </div>
 
-            <div class="contenedorInputs">
+            <!-- <div class="contenedorInputs">
               <label for="direccion">Dirección:</label>
               <input
                 type="text"
+                maxlength="50"
                 id="direccion"
                 name="direccion"
                 value="Calle 123, Ciudad"
               />
-            </div>
+            </div> -->
 
             <div class="contenedorInputs">
               <label for="telefono">Teléfono:</label>
               <input
                 type="tel"
+                maxlength="10"
                 id="telefono"
                 name="telefono"
-                value="555-555-5555"
+                value="6672476318"
               />
             </div>
 
@@ -64,6 +74,7 @@
               <label for="telefono">Correo:</label>
               <input
                 type="text"
+                maxlength="40"
                 id="correo"
                 name="correo"
                 value="ejemplo@hotmail.com"
@@ -228,9 +239,9 @@ main {
 }
 .perfil {
   box-shadow: 0px 3px 6px #00000029;
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 10px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
   /* background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
@@ -364,7 +375,6 @@ main {
   display: flex;
   justify-content: flex-end;
 }
-
 
 /* .buttons button {
   background-color: #0077ff;

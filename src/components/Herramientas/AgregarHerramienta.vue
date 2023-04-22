@@ -10,43 +10,47 @@
         <input
           class="inputEditar"
           type="text"
+          maxlength="10"
           name=""
           id=""
-          disabled
-          placeholder="12345"
+          placeholder="Ingrese un ID"
         />
       </div>
 
       <div>
         <div class="label">Marca:</div>
-        <input
-          class="inputEditar"
-          type="text"
-          name=""
-          id=""
-          placeholder="Makita"
-        />
+        <select class="buscadorSelect" name="" id="">
+          <option value="rojo">Seleccionar...</option>
+          <option value="rojo">MAKITA</option>
+          <option value="verde">TRUPER</option>
+          <option value="azul">DEWALT</option>
+          <option value="amarillo">BOSCH</option>
+        </select>
       </div>
       <div>
         <div class="label">Modelo:</div>
         <input
           class="inputEditar"
           type="text"
+          maxlength="10"
           name=""
           id=""
-          placeholder="López"
+          placeholder="Ingrese el modelo"
         />
       </div>
-
       <div>
         <div class="label">Tipo de herramienta:</div>
-        <input
-          class="inputEditar"
-          type="text"
-          name=""
-          id=""
-          placeholder="6672476316"
-        />
+        <select class="buscadorSelect" name="" id="">
+          <option value="rojo">Seleccionar...</option>
+          <option value="rojo">Lima</option>
+          <option value="verde">Sierra</option>
+          <option value="azul">Segueta</option>
+          <option value="azul">Cepillo</option>
+          <option value="azul">Broca</option>
+          <option value="azul">Taladro</option>
+          <option value="azul">Segueta</option>
+          <option value="azul">Soplete</option>
+        </select>
       </div>
       <section class="contenedorBotones">
         <Button class="btn-regresar" @click="cancelar">Regresar</Button>

@@ -4,6 +4,13 @@
       <section class="filtrosEmpleados">
         <div class="tituloModulo">Lista de cotizaciones</div>
         <div>
+          <select class="buscadorSelect" v-model="SelectEstatus" id="estatus">
+            <option value="">Seleccionar...</option>
+            <option v-for="estatus in estados" :key="estatus">
+              {{ estatus }}
+            </option>
+          </select>
+
           <input
             class="inputBuscador"
             type="text"
@@ -33,70 +40,26 @@
 
               <td>Acciones</td>
             </tr>
+            <tbody>
+              <tr v-for="cotizacion in FiltroCotizaciones" :key="cotizacion.id">
+                <td>{{ cotizacion.id }}</td>
+                <td>{{ cotizacion.clienteid }}</td>
+                <td>{{ cotizacion.cliente }}</td>
+                <td>{{ cotizacion.fecha }}</td>
+                <td>{{ cotizacion.monto }}</td>
+                <td>{{ cotizacion.estatus }}</td>
 
-            <tr>
-              <td>5456</td>
-
-              <td>12345</td>
-
-              <td>Carlos Andrés Loaiza López</td>
-
-              <td>03/04/2023</td>
-
-              <td>$0.00</td>
-
-              <td>En espera</td>
-
-              <td>
-                <div class="botonesTabla">
-                  <Button class="btn-editar" @click="mostrarEditar">Ver</Button>
-                  <Button class="btn-guardar-cotizacion">Descargar</Button>
-                  <!-- <Button class="btn-eliminar">Eliminar</Button> -->
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>6154</td>
-
-              <td>97854</td>
-
-              <td>Ana Gabriel García Martínez</td>
-
-              <td>03/04/2023</td>
-
-              <td>$5,599.00</td>
-
-              <td>En proceso</td>
-
-              <td>
-                <div class="botonesTabla">
-                  <Button class="btn-editar" @click="mostrarEditar">Ver</Button>
-                  <Button class="btn-guardar-cotizacion">Descargar</Button>
-                  <!-- <Button class="btn-eliminar">Eliminar</Button> -->
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>8456</td>
-
-              <td>65482</td>
-
-              <td>Javier López Hernández</td>
-
-              <td>03/04/2023</td>
-
-              <td>$9,548.00</td>
-
-              <td>Finalizada</td>
-
-              <td>
-                <div class="botonesTabla">
-                  <Button class="btn-editar" @click="mostrarEditar">Ver</Button>
-                  <Button class="btn-guardar-cotizacion">Descargar</Button>
-                  <!-- <Button class="btn-eliminar">Eliminar</Button> -->
-                </div>
-              </td>
-            </tr>
+                <td>
+                  <div class="botonesTabla">
+                    <Button class="btn-editar" @click="mostrarEditar"
+                      >Ver</Button
+                    >
+                    <Button class="btn-guardar-cotizacion">Descargar</Button>
+                    <!-- <Button class="btn-eliminar">Eliminar</Button> -->
+                  </div>
+                </td>
+              </tr>
+            </tbody>
           </table>
         </section>
       </section>
@@ -146,6 +109,34 @@ export default {
     return {
       showAddEditar: false,
       showAddProducto: false,
+      cotizaciones: [
+        {
+          id: 1234,
+          clienteid: 1,
+          cliente: "Carlos loaiza lopez",
+          fecha: "12/12/2012",
+          monto: "$12512.13",
+          estatus: "En espera",
+        },
+        {
+          id: 1324,
+          clienteid: 2,
+          cliente: "Cristopher gutierrez enriquez",
+          fecha: "12/12/2013",
+          monto: "$12512.13",
+          estatus: "En proceso",
+        },
+        {
+          id: 1324,
+          clienteid: 2,
+          cliente: "Cristopher gutierrez enriquez",
+          fecha: "12/12/2013",
+          monto: "$12512.13",
+          estatus: "Finalizada",
+        },
+      ],
+      estados: ["En espera", "En proceso", "Finalizada"],
+      SelectEstatus: "",
     };
   },
   methods: {
@@ -162,6 +153,16 @@ export default {
       this.showAddProducto = false;
     },
   },
+  computed: {
+    FiltroCotizaciones() {
+      if (!this.SelectEstatus) {
+        return this.cotizaciones;
+      }
+      return this.cotizaciones.filter(
+        (cotizacion) => cotizacion.estatus === this.SelectEstatus
+      );
+    },
+  },
 };
 </script>
 
@@ -176,6 +177,16 @@ export default {
   height: 100%;
   justify-content: center;
   align-items: center;
+}
+
+.buscadorSelect {
+  width: 20%;
+  height: 32px;
+  border: 0px solid #000000;
+  box-shadow: 0px 3px 6px #00000029;
+  outline: none;
+  margin-right: 20px;
+  border-radius: 10px;
 }
 
 .filtrosEmpleados {

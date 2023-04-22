@@ -11,8 +11,8 @@
 </template>
 
 <script>
-import Header from "../layouts/header.vue";
-import MenuLateral from "../layouts/MenuLateral.vue";
+import Header from "./header.vue";
+import MenuLateral from "./MenuLateral.vue";
 
 export default {
   components: {
