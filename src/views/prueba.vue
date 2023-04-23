@@ -1,205 +1,234 @@
 <template>
-  <Header></Header>
-    <body>
-      <router-link to="/Cotizacion">
-        <button id="return-to-top">← Regresar</button>
-      </router-link>
-      <main>
-        <div class="profile-info">
-          <section class="perfil">
-            <h1>Perfil</h1>
-            <img src="../assets/img/LogoPerfil.png" alt="Foto de perfil" />
-          </section>
+  <section class="bodyPrincipal">
+    <section class="infoLocal">
+      <div>
+        <img class="imgLogo" src="../assets/img/LogotipoB.png" alt="" />
+      </div>
+      <div class="contenedorInfo">
+        <div class="tituloSerhsi">
+          Servicios y Herramientas de Sinaloa SA de CV
         </div>
-        <div class="edit-form">
-          <section class="informacion">
-            <h2>Informacion actual del perfil</h2>
-            <form>
-              <label for="nombre">Nombre:</label>
-              <input type="text" id="nombre" name="nombre" value="Juan" />
-
-              <label for="apellidos">Apellido paterno:</label>
-              <input
-                type="text"
-                id="apellido_paterno"
-                name="apellido_paterno"
-                value="Perez "
-              />
-              <label for="apellidos">Apellido materno:</label>
-              <input
-                type="text"
-                id="apellido_materno"
-                name="apellido_materno"
-                value="Garcia "
-              />
-              <label for="direccion">Dirección:</label>
-              <input
-                type="text"
-                id="direccion"
-                name="direccion"
-                value="Calle 123, Ciudad"
-              />
-
-              <label for="telefono">Teléfono:</label>
-              <input
-                type="tel"
-                id="telefono"
-                name="telefono"
-                value="555-555-5555"
-              />
-
-              <label for="telefono">Correo:</label>
-              <input
-                type="text"
-                id="correo"
-                name="correo"
-                value="ejemplo@hotmail.com"
-              />
-
-              <div class="buttons">
-                <button type="submit">Guardar</button>
-              </div>
-            </form>
-          </section>
+        <div class="infoCabecera">Ignacio Aldama #534 sur</div>
+        <div class="infoCabecera">
+          Col. Miguel Alemán, Culiacán, Sinaloa, México.
         </div>
-      </main>
-    </body>
+        <div class="infoCabecera">6675026781</div>
+      </div>
+    </section>
+    <section class="tituloCotizacion">Cotización</section>
+    <section class="separador"></section>
+    <section>
+      <div class="contenedorClientes">
+        <div class="tituloCont">Cliente:</div>
+        <div class="infoDelCont">Carlos Andrés Loaiza López</div>
+      </div>
+      <div class="contenedorClientes">
+        <div class="tituloCont">ID Cotización:</div>
+        <div class="infoDelCont">315489</div>
+      </div>
+      <div class="contenedorClientes">
+        <div class="tituloCont">Fecha de cotización:</div>
+        <div class="infoDelCont">22/04/2023</div>
+      </div>
+    </section>
+    <section class="separador"></section>
+    <section class="tablaPrincipal">
+      <table class="default">
+        <tr class="cabecera">
+          <td>Cantidad:</td>
+          <td>Descripción:</td>
+          <td>Costo unitario:</td>
+          <td>Costo total:</td>
+        </tr>
+        <tr>
+          <td>10</td>
+          <td>Fuente de alimentación</td>
+          <td>$15.65</td>
+          <td>$156.05</td>
+        </tr>
+        <tr>
+          <td>10</td>
+          <td>Fuente de alimentación</td>
+          <td>$15.65</td>
+          <td>$156.05</td>
+        </tr>
+      </table>
+    </section>
+    <section class="infoPago">
+      <section class="contenedorNota">
+        <div class="tituloNotas">Notas:</div>
+        <div class="nota">-Precios en pesos mexicanos.</div>
+        <div class="nota">
+          -Vigencia de cuidado despues de reparar la herramienta es de 10 días
+          hábiles, tanscurrido este tiempo, se cobra $50.00 por día.
+        </div>
+        <div class="nota">
+          -Se requiere el 50% para comenzar la reparación, el resto al terminar.
+        </div>
+        <div class="nota">
+          -Cualquier servicio o producto no especificado en esta cotización,
+          tiene un costo adicional.
+        </div>
+      </section>
+      <section class="contenedorTotales">
+        <div class="total">
+          <div>Subtotal:</div>
+          <div>$ 9,827.00</div>
+        </div>
+        <div class="total">
+          <div>IVA:</div>
+          <div>$ 1,723.00</div>
+        </div>
+        <div class="separadorTotal"></div>
+        <div class="total">
+          <div>Total:</div>
+          <div>$ 11,550.00</div>
+        </div>
+      </section>
+    </section>
+  </section>
 </template>
 
 <script>
-import Header from "@/layouts/header.vue";
-
-export default {
-  components: {
-    Header,
-  },
-
-  props: {},
-  data() {
-    return {
-      showAddEditar: false,
-      showAddProducto: false,
-    };
-  },
-  methods: {
-    mostrarEditar() {
-      this.showAddEditar = true;
-    },
-    ocultarEditar() {
-      this.showAddEditar = false;
-    },
-    mostrarAddService() {
-      this.showAddProducto = true;
-    },
-    ocultarAddProd() {
-      this.showAddProducto = false;
-    },
-  },
-};
+export default {};
 </script>
 
 <style scoped>
-#return-to-top {
-  bottom: 20px;
-  right: 30px;
-  font-size: 15px;
-  border: none;
-  outline: none;
-  color: solid black;
-  cursor: pointer;
-  padding: 15px;
-  border-radius: 4px;
-  background: #fafafa;
+.bodyPrincipal {
+  padding: 50px 80px;
 }
-
-body {
-  font-family: Arial, sans-serif;
-  margin: 70px 0px 0px;
-  padding: 0;
-  background: #fafafa;
-}
-
-/* Contenido principal */
-main {
-  padding: 42px;
+.infoLocal {
   display: flex;
-  flex-direction: row;
 }
-.perfil {
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-  padding: 20px;
-  padding-bottom: 50px;
+.imgLogo {
+  height: 150px;
 }
-
-.profile-info {
-  flex-basis: 10%;
-  margin-left: 30px;
+.contenedorInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 15px;
 }
-
-.profile-info h1 {
-  margin-top: 0;
-  margin-left: 15px;
-}
-
-.profile-info img {
-  width: 100%;
-}
-
-.edit-form {
-  flex-basis: 70%;
-  padding-left: 50px;
-}
-
-.informacion {
-  border: 1px solid #ccc;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-  margin-left: 30px;
-}
-
-.informacion h2 {
-  margin-top: 0;
-}
-
-.informacion form label {
-  display: block;
-  margin-bottom: 5px;
+.tituloSerhsi {
+  padding: 5px;
+  font-size: 26px;
   font-weight: bold;
 }
-
-.informacion form input {
-  display: block;
-  width: 100%;
+.infoCabecera {
   padding: 5px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  margin-bottom: 15px;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  font-size: 18px;
 }
-
-.buttons {
+.tituloCotizacion {
+  display: flex;
+  justify-content: right;
+  font-size: 24px;
+  padding: 35px 20px 0px;
+}
+.tituloCont {
+  font-weight: bold;
+  font-size: 18px;
+}
+.infoDelCont {
+  font-size: 18px;
+  align-items: center;
+  display: flex;
+  padding: 0px 0px 0px 10px;
+}
+.separador {
+  border-top: 4px solid #ef7b14;
+  height: 2px;
+  max-width: 100%;
+  padding: 0;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.contenedorClientes {
+  display: flex;
+  padding: 5px 0px;
+}
+.tablaPrincipal {
+  padding-top: 10px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+.seccionEstatus {
   margin-top: 20px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
 }
-
-.buttons button {
-  background-color: #0077ff;
+.inputSeguimiento {
+  width: 55%;
+}
+.default {
+  /* font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif; */
+  border-collapse: collapse;
+  border-radius: 10px;
+  width: 100%;
+  box-shadow: 0px 3px 6px #00000029;
+  /* margin-bottom: 40px; */
+}
+.cabecera {
+  background: black;
   color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-left: 10px;
 }
-
-.buttons button:first-child {
-  background-color: green;
+.default td,
+.default th {
+  border: none;
+  padding: 12px 15px;
+  text-align: center;
+}
+.default tr:nth-child(even) {
+  background-color: #f8f8f8;
+}
+.default th {
+  background-color: #1abc9c;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+.default td a {
+  color: #1abc9c;
+  text-decoration: none;
+  font-weight: bold;
+}
+.default td a:hover {
+  text-decoration: underline;
+}
+.infoPago {
+  justify-content: space-between;
+  display: flex;
+  padding-top: 400px;
+  text-align: justify;
+}
+.contenedorNota {
+  width: 50%;
+}
+.tituloNotas {
+  font-size: 18px;
+  font-weight: bold;
+}
+.nota {
+  padding: 5px 60px 5px 10px;
+}
+.contenedorTotales {
+  /* margin-top: 43px; */
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.total {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0px;
+}
+.separadorTotal {
+  border-top: 2px solid #ef7b14;
+  max-width: 100%;
+  padding: 0;
+  justify-content: right;
+  display: flex;
 }
 </style>
