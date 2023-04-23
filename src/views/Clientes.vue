@@ -102,6 +102,7 @@ import Button from "../components/Forms/Button.vue";
 import Paginacion from "../components/Forms/Paginacion.vue";
 import EditarCliente from "@/components/Clientes/EditarCliente.vue";
 import AgregarClientes from "@/components/Clientes/AgregarClientes.vue";
+import axios from 'axios';
 // import TableCollapse from "../components/Tables/TableCollapse.vue";
 // import HeadTableCollapse from "../components/Tables/HeadTableCollapse.vue";
 
@@ -122,14 +123,25 @@ export default {
       showAddEditar: false,
       showAddProducto: false,
       clientes: [
-        { id: 1, nombre: 'Juan', apellido_paterno: 'Pérez', apellido_materno: 'González', telefono: '1234567890', correo: 'juan.perez@prueba.com' },
-        { id: 2, nombre: 'Ana', apellido_paterno: 'García', apellido_materno: 'Martínez', telefono: '2345678901', correo: 'ana.garcia@prueba.com' },
-        { id: 3, nombre: 'Carlos', apellido_paterno: 'López', apellido_materno: 'Sánchez', telefono: '3456789012', correo: 'carlos.lopez@prueba.com' },
+
+
+        //{ id: 1, nombre: 'Juan', apellido_paterno: 'Pérez', apellido_materno: 'González', telefono: '1234567890', correo: 'juan.perez@prueba.com' },
+        //{ id: 2, nombre: 'Ana', apellido_paterno: 'García', apellido_materno: 'Martínez', telefono: '2345678901', correo: 'ana.garcia@prueba.com' },
+        //{ id: 3, nombre: 'Carlos', apellido_paterno: 'López', apellido_materno: 'Sánchez', telefono: '3456789012', correo: 'carlos.lopez@prueba.com' },
         // ...
         
       ],
       searchText: '',
     };
+  },
+  created() {
+    axios.get('http://localhost:10000/clientes')
+      .then(response => {
+        this.clientes = response.data;
+      })
+      .catch(error => {
+        console.log(error);
+      });
   },
   computed: {
   filteredList() {
