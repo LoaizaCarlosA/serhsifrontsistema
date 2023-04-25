@@ -5,26 +5,15 @@
         <div class="titulo">{{ tituloHeader }}</div>
         <div class="separador"></div>
       </section>
-      <div>
-        <div class="label">No. ID:</div>
-        <input
-          class="inputEditar"
-          type="text"
-          maxlength="10"
-          name=""
-          id=""
-          placeholder="Ingrese un ID"
-        />
-      </div>
+    
 
       <div>
         <div class="label">Marca:</div>
-        <select class="buscadorSelect" name="" id="">
-          <option value="rojo">Seleccionar...</option>
-          <option value="rojo">MAKITA</option>
-          <option value="verde">TRUPER</option>
-          <option value="azul">DEWALT</option>
-          <option value="amarillo">BOSCH</option>
+        <select class="buscadorSelect" name="" id="marca" v-model="idMarca" >
+          <option value="">Seleccionar...</option>
+            <option :value="marca_herramienta.id_marca" v-for="marca_herramienta in marcas" :key="marca_herramienta.id_marca">
+              {{ marca_herramienta.marca}}
+            </option>
         </select>
       </div>
       <div>
@@ -34,27 +23,23 @@
           type="text"
           maxlength="10"
           name=""
-          id=""
+          id="modelo"
+          v-model="modelo"
           placeholder="Ingrese el modelo"
         />
       </div>
       <div>
         <div class="label">Tipo de herramienta:</div>
-        <select class="buscadorSelect" name="" id="">
-          <option value="rojo">Seleccionar...</option>
-          <option value="rojo">Lima</option>
-          <option value="verde">Sierra</option>
-          <option value="azul">Segueta</option>
-          <option value="azul">Cepillo</option>
-          <option value="azul">Broca</option>
-          <option value="azul">Taladro</option>
-          <option value="azul">Segueta</option>
-          <option value="azul">Soplete</option>
+        <select class="buscadorSelect" name="" id="estatus" v-model="idTipoHerramienta" >
+          <option value="">Seleccionar...</option>
+            <option :value="tipo_herramienta.id_tipo_herramienta" v-for="tipo_herramienta in tipos" :key="tipo_herramienta.id_tipo_herramienta">
+              {{ tipo_herramienta.tipo }}
+            </option>
         </select>
       </div>
       <section class="contenedorBotones">
         <Button class="btn-regresar" @click="cancelar">Regresar</Button>
-        <Button class="btn-guardar" @click="mostrarAddService">Guardar</Button>
+        <Button class="btn-guardar" @click="registrarHerramienta">Guardar</Button>
       </section>
     </section>
     <LoadScreen v-if="showAddProducto" @cerrar="ocultarAddProd"></LoadScreen>
@@ -62,6 +47,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import ModalBase from "@/components/Modales/ModalBase.vue";
 import Button from "@/components/Forms/Button.vue";
 import LoadScreen from "@/components/Forms/LoadScreen.vue";
@@ -81,6 +67,11 @@ export default {
   data() {
     return {
       showAddProducto: false,
+      tipos: [],
+      marcas:[],
+      idMarca:'',
+      idTipoHerramienta: '',
+      modelo:'',
     };
   },
   emits: ["cancelar"],
@@ -94,7 +85,44 @@ export default {
     cancelar() {
       this.$emit("cancelar");
     },
+    cargarTipos() {
+    axios.get('http://localhost:10000/herramientas/tipo')
+      .then(response => {
+        this.tipos = response.data
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    },
+    cargarMarcas() {
+    axios.get('http://localhost:10000/herramientas/marcas')
+      .then(response => {
+        this.marcas = response.data
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    },
+    registrarHerramienta: function(){
+      const herramienta = {
+        idMarca: this.idMarca,
+        modelo: this.modelo,
+        idTipoHerramienta: this.idTipoHerramienta,
+        activo:true
+      }
+      axios.post('http://localhost:10000/herramientas', herramienta)
+        .then(response => {
+          console.log(response.herramienta);
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    },
   },
+  mounted() {
+  this.cargarTipos();
+  this.cargarMarcas();
+  }
 };
 </script>
 
