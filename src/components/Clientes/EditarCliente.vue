@@ -7,14 +7,12 @@
       </section>
       <div>
         <div class="label">No. ID:</div>
-        <input
-          class="inputEditar"
-          type="text"
+        <input type="text"
+        class="inputEditar"
           name=""
-          id="id"
-          v-model="id"
+          :value="idUsuario"
+          @input="$emit('update:idUsuario', $event.target.value)"
           disabled
-          placeholder="12345"
         />
       </div>
       <div>
@@ -100,17 +98,7 @@
           placeholder="Ingrese un correo electrónico"
         />
       </div>
-      <div>
-        <div class="label">Contraseña:</div>
-        <input
-          class="inputEditar"
-          type="password"
-          name=""
-          id="clave"
-          v-model="clave"
-          placeholder="Ingrese un teléfono"
-        />
-      </div>
+      
       <section class="contenedorBotones">
         <Button class="btn-regresar" @click="cancelar">Regresar</Button>
         <Button class="btn-guardar" @click="actualizarCliente">Guardar</Button>
@@ -132,23 +120,29 @@ export default {
     LoadScreen,
   },
   props: {
+    idUsuario: {
+    type: Number, // o el tipo de dato que corresponda
+    required: true // o false, según sea necesario
+    },
     tituloHeader: {
       type: String,
       default: "Editar cliente",
     },
+    
+    
   },
   data() {
     return {
       showAddProducto: false,
-      id: "",
-      nombre: "",
-      apellidoPaterno: "",
-      apellidoMaterno: "",
-      sexo: "",
-      fechaNacimiento: "",
-      telefono: "",
-      correo: "",
-      clave: "",
+      
+      nombre: '',
+      apellidoPaterno: '',
+      apellidoMaterno: '',
+      sexo: '',
+      fechaNacimiento: '',
+      telefono: '',
+      correo: '',
+      clave: '',
     };
   },
   emits: ["cancelar"],
@@ -170,10 +164,9 @@ export default {
       sexo: this.sexo,
       fechaNacimiento: this.fechaNacimiento,
       telefono: this.telefono,
-      correo: this.correo,
-      clave: this.clave
+      correo: this.correo
     };
-    axios.put(`http://localhost:10000/clientes/${this.id}`, cliente)
+    axios.put(`http://localhost:10000/clientes/${this.idUsuario}`, cliente)
       .then(response => {
         console.log(response);
       })
@@ -181,7 +174,27 @@ export default {
         console.log(error);
       });
   },
+
     
+  },
+  mounted() {
+    // aquí puedes utilizar el idUsuario para obtener los datos del usuario
+    // y asignarlos a la variable usuario
+    console.log('ID USUARIO: ' + this.idUsuario);
+    axios.get(`http://localhost:10000/clientes/${this.idUsuario}`)
+      .then(response => {
+        this.nombre = response.data.nombre;
+        this.apellidoPaterno = response.data.apellidoPaterno;
+        this.apellidoMaterno = response.data.apellidoMaterno;
+        this.sexo = response.data.sexo;
+        this.fechaNacimiento = response.data.fechaNacimiento;
+        this.telefono = response.data.telefono;
+        this.correo = response.data.correo;
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   },
 };
 </script>

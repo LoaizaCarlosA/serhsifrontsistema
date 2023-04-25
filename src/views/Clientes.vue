@@ -30,16 +30,16 @@
             </tr>
 
             <tbody>
-         <tr v-for="cliente in filteredList" :key="cliente.id">
+         <tr v-for="cliente in filteredList" :key="cliente.idUsuario">
 
-          <td>{{ cliente.id }}</td>
+          <td>{{ cliente.idUsuario }}</td>
           <td>{{ nombreCompleto(cliente) }}</td>
           <td>{{ cliente.telefono }}</td>
           <td>{{ cliente.correo }}</td>
           <td>
                 <div class="botonesTabla">
-                  <Button class="btn-editar" @click="mostrarEditar">Editar</Button>
-                  <Button class="btn-eliminar">Eliminar</Button>
+                  <Button class="btn-editar" @click="mostrarEditar(cliente.idUsuario)">Editar</Button>
+                  <Button class="btn-eliminar" @click="eliminarCliente(cliente.idUsuario)">Eliminar</Button>
                 </div>
               </td>
           </tr>
@@ -88,7 +88,7 @@
     v-if="showAddProducto"
     @cancelar="showAddProducto=false">
     </AgregarClientes>
-    <EditarCliente
+    <EditarCliente :idUsuario="idUsuario"
       v-if="showAddEditar"
       @cancelar="showAddEditar=false"
     ></EditarCliente>
@@ -96,13 +96,13 @@
 </template>
 
 <script>
+import axios from 'axios';
 import LayoutPrincipal from "@/layouts/LayoutPrincipal.vue";
 import ContainerWhite from "@/layouts/ContainerWhite.vue";
 import Button from "../components/Forms/Button.vue";
 import Paginacion from "../components/Forms/Paginacion.vue";
 import EditarCliente from "@/components/Clientes/EditarCliente.vue";
 import AgregarClientes from "@/components/Clientes/AgregarClientes.vue";
-import axios from 'axios';
 // import TableCollapse from "../components/Tables/TableCollapse.vue";
 // import HeadTableCollapse from "../components/Tables/HeadTableCollapse.vue";
 
@@ -122,26 +122,9 @@ export default {
     return {
       showAddEditar: false,
       showAddProducto: false,
-      clientes: [
-
-
-        //{ id: 1, nombre: 'Juan', apellido_paterno: 'Pérez', apellido_materno: 'González', telefono: '1234567890', correo: 'juan.perez@prueba.com' },
-        //{ id: 2, nombre: 'Ana', apellido_paterno: 'García', apellido_materno: 'Martínez', telefono: '2345678901', correo: 'ana.garcia@prueba.com' },
-        //{ id: 3, nombre: 'Carlos', apellido_paterno: 'López', apellido_materno: 'Sánchez', telefono: '3456789012', correo: 'carlos.lopez@prueba.com' },
-        // ...
-        
-      ],
+      clientes: [],
       searchText: '',
     };
-  },
-  created() {
-    axios.get('http://localhost:10000/clientes')
-      .then(response => {
-        this.clientes = response.data;
-      })
-      .catch(error => {
-        console.log(error);
-      });
   },
   computed: {
   filteredList() {
@@ -150,21 +133,22 @@ export default {
       list = list.filter(cliente => {
         const searchValue = this.searchText.toLowerCase();
         return cliente.nombre.toLowerCase().includes(searchValue)
-          || cliente.apellido_paterno.toLowerCase().includes(searchValue)
-          || cliente.apellido_materno.toLowerCase().includes(searchValue)
-          || cliente.id.toString().toLowerCase().includes(searchValue);
+          || cliente.apellidoPaterno.toLowerCase().includes(searchValue)
+          || cliente.apellidoMaterno.toLowerCase().includes(searchValue)
+          || cliente.idUsuario.toString().toLowerCase().includes(searchValue);
       });
     }
     return list;
   },
   nombreCompleto() {
     return (cliente) => {
-      return `${cliente.nombre} ${cliente.apellido_paterno} ${cliente.apellido_materno}`;
+      return `${cliente.nombre} ${cliente.apellidoPaterno} ${cliente.apellidoMaterno}`;
     };
   },
 },
   methods: {
-    mostrarEditar() {
+    mostrarEditar(idUsuario) {
+      this.idUsuario = idUsuario;
       this.showAddEditar = true;
     },
     ocultarEditar() {
@@ -176,7 +160,28 @@ export default {
     ocultarAddProd() {
       this.showAddProducto = false;
     },
+    cargarClientes() {
+    axios.get('http://localhost:10000/clientes')
+      .then(response => {
+        this.clientes = response.data
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    },
+    eliminarCliente(idUsuario) {
+      axios.delete(`http://localhost:10000/clientes/${idUsuario}`).then(() => {
+        const indice = this.clientes.findIndex(
+          (cliente) => cliente.idUsuario === idUsuario
+        );
+        this.clientes.splice(indice, 1);
+      });
+    }
   },
+  mounted() {
+  this.cargarClientes()
+  }
+
 };
 </script>
 
