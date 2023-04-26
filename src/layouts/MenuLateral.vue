@@ -4,12 +4,12 @@
     <div class="container-menu" :class="collapsedMenu ? 'active' : ''">
       <div class="cerrarMenuMovil" @click="collapseMenu">X</div>
       <div class="module-list">
-        <router-link to="/Dashboard" class="menu-item" active-class="active">Dashboard</router-link>      
-  <router-link to="/Cotizacion" class="menu-item" active-class="active">Cotización</router-link>
-  <router-link to="/Clientes" class="menu-item" active-class="active">Clientes</router-link>
-  <router-link to="/Empleados"  class="menu-item" active-class="active">Empleados</router-link>
-  <router-link to="/Herramientas"  class="menu-item" active-class="active">Herramientas</router-link>
-  <router-link to="/Almacen"  class="menu-item" active-class="active">Almacén</router-link>
+        <router-link v-if="isAllowed('/Dashboard')" to="/Dashboard" class="menu-item" active-class="active">Dashboard</router-link>      
+        <router-link v-if="isAllowed('/Cotizacion')" to="/Cotizacion" class="menu-item" active-class="active">Cotización</router-link>
+        <router-link v-if="isAllowed('/Clientes')" to="/Clientes" class="menu-item" active-class="active">Clientes</router-link>
+        <router-link v-if="isAllowed('/Empleados')" to="/Empleados"  class="menu-item" active-class="active">Empleados</router-link>
+        <router-link v-if="isAllowed('/Herramientas')" to="/Herramientas"  class="menu-item" active-class="active">Herramientas</router-link>
+        <router-link v-if="isAllowed('/Almacen')" to="/Almacen"  class="menu-item" active-class="active">Almacén</router-link>
         <!-- <router-link>Hola</router-link> -->
         <!-- <ItemListModulo class="item-list-module" name="Usuarios" url="usuarios" icon="usuariosIcon.svg"/>
         <ItemListModulo class="item-list-module" name="Proveedores" url="proveedores" icon="proveedoresIcon.svg"/> -->
@@ -33,8 +33,14 @@
 // import { useMenuBahk } from '@store/menu.js';
 // import loginService from '@services/login.js';
 
+import store from '@/store';
 export default {
   name: 'MenuLateral',
+  computed: {
+    role() {
+      return store.state.role;
+    },
+  },
   components: {
     // ItemListModulo,
   },
@@ -51,7 +57,19 @@ export default {
   //   ...mapState(useMenuBahk, ['collapsedMenu']),
   // },
   methods: {
-
+    isAllowed(route) {
+      
+      if (this.role === 'ROLE_ADMINISTRADOR') {
+        // Si el rol es admin, se permite el acceso a todas las vistas
+        return true;
+      } else if (this.role === 'ROLE_CLIENTE') {
+        // Si el rol es user, se permite el acceso solo a las vistas que no tienen restricciones
+        const unrestrictedRoutes = ['/Dashboard','/Cotizacion'];
+        
+        return unrestrictedRoutes.includes(route);
+      }
+      return false;
+    },
     
     // collapseMenu() {
     //   this.setCollapsedMenu(!this.collapsedMenu);

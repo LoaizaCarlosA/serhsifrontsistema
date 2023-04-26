@@ -54,6 +54,7 @@
 import Button from "@/components/Forms/Button.vue";
 import ModalRegistro from "@/components/Modales/ModalRegistro.vue";
 import axios from 'axios';
+import store from '@/store';
 export default {
   components: {
     Button,
@@ -77,6 +78,7 @@ export default {
         const role = response.data[1]; // the role string
         console.log('Bienvenido: ' + user); // the user object
         console.log('Role: ' + role); // the role string
+        store.commit('setRole', role); // save role in global state
         this.$router.push('/Dashboard');
       })
       .catch(error => {
