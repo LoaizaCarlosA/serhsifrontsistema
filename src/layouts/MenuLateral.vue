@@ -36,7 +36,14 @@
 import store from '@/store';
 export default {
   name: 'MenuLateral',
-  computed: {
+  
+  created() {
+  const role = localStorage.getItem('role');
+  if (role) {
+    store.commit('setRole', role); // establecer el valor del rol en el store
+  }
+},
+computed: {
     role() {
       return store.state.role;
     },
@@ -58,7 +65,7 @@ export default {
   // },
   methods: {
     isAllowed(route) {
-      
+  localStorage.setItem('role', this.role);
       if (this.role === 'ROLE_ADMINISTRADOR') {
         // Si el rol es admin, se permite el acceso a todas las vistas
         return true;

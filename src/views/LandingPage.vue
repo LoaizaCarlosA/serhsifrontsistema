@@ -56,6 +56,13 @@ import ModalRegistro from "@/components/Modales/ModalRegistro.vue";
 import axios from 'axios';
 import store from '@/store';
 export default {
+  beforeRouteEnter(to, from, next) {
+    store.commit('setRole', ''); // establecer el valor de rol en el store a ''
+    store.commit('setNombreCompleto', '');
+    localStorage.setItem('role', '');
+    localStorage.setItem('nombre','');
+    next();
+  },
   components: {
     Button,
     ModalRegistro,
@@ -74,11 +81,14 @@ export default {
         withCredentials: true
       })
       .then(response => {
-        const user = response.data[0].nombre; // the user object
+        const user = response.data[0].nombre + ' ' + response.data[0].apellidoPaterno + ' ' + response.data[0].apellidoMaterno;
         const role = response.data[1]; // the role string
         console.log('Bienvenido: ' + user); // the user object
         console.log('Role: ' + role); // the role string
         store.commit('setRole', role); // save role in global state
+        store.commit('setNombreCompleto', user);
+        localStorage.setItem('role', role);
+        localStorage.setItem('nombre',user);
         this.$router.push('/Dashboard');
       })
       .catch(error => {
