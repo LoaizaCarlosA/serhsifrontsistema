@@ -6,12 +6,14 @@ import LandingPage from "./views/LandingPage.vue";
 import Dashboard from "./views/DashBoard.vue";
 import Empleados from "./views/Empleados.vue";
 import Clientes from "./views/Clientes.vue";
-import Cotizacion from "./views/Cotizacion.vue"
-import Herramientas from "./views/Herramientas.vue"
+import Cotizacion from "./views/Cotizacion.vue";
+import Herramientas from "./views/Herramientas.vue";
 import Perfil from "./views/Perfil1.vue";
-import Almacen from "./views/Almacen.vue"
+import Almacen from "./views/Almacen.vue";
 import prueba from "./views/prueba.vue";
 import prueba2 from "./views/Prueba2.vue";
+import Ordenes from "./views/Ordenes.vue";
+// import LandingPrincipal from "./views/LandingPrincipal.vue"
 
 const routes = [
   {
@@ -54,10 +56,16 @@ const routes = [
     name: "Almacen",
     component: Almacen,
   },
-  
-
-
-
+  {
+    path: "/Ordenes",
+    name: "Ordenes",
+    component: Ordenes,
+  },
+  // {
+  //   path: "/LandingPrincipal",
+  //   name: "LandingPrincipal",
+  //   component: LandingPrincipal,
+  // },
 
   {
     path: "/prueba",

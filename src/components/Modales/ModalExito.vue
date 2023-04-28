@@ -1,90 +1,130 @@
 <template>
-    <div class="popup center">
-      <div class="icon">
-        <i class="fa fa-check"></i>
-      </div>
-      
-      <div class="description">
-        El usuario ha sido registrado exitosamente
-      </div>
-      <div class="dismiss-btn">
-        <button id="dismiss-popup-btn">
-          Cerrar
-        </button>
-      </div>
-    </div>
-  </template>
-  
-  <script>
-  export default {
-  
-  }
-  </script>
-  
-  <style scooped>
-  body{
-    background:#ddd;
-    font-family:"Raleway";
+  <ModalBaseConfirmacion>
+    <section class="contenedorPrincipal">
+      <section>
+        <div class="contenedorLogo">
+          <img class="imgLogo" src="../assets/img/LogotipoSerhsi.png" alt="" />
+        </div>
+        <div class="separador"></div>
+      </section>
+      <section class="contenedorImg">
+        <img class="imgE" src="../assets/img/exito.png" alt="" />
+      </section>
+      <div class="titulo">{{ mensajeExito }}</div>
+      <section class="contenedorBotones">
+        <Button class="btn-guardar" @click="mostrarAddService"
+          >Continuar</Button
+        >
+      </section>
+    </section>
+    <LoadScreen v-if="showAddProducto" @cerrar="ocultarAddProd"></LoadScreen>
+  </ModalBaseConfirmacion>
+</template>
 
-  }
-  .center{
-    position: absolute;
-    top:50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-  }
-  .popup{
-    width:500px;
-    height: 300px;
-    padding:30px 20px;
-    background: #f5f5f5f5;
-    border-radius: 10px;
-    box-sizing: border-box;
-    z-index: 2;
-    text-align: center;
-  }
-  .popup .icon{
-    margin: 5px 0px;
-    width:90px;
-    height: 90px;
-    border:2px solid #34f234;
-    text-align: center;
-    display: inline-block;
-    border-radius: 50%;
-    line-height: 60px;
+<script>
+import ModalBaseConfirmacion from "../components/Modales/ModalBaseConfirmacion.vue";
+import Button from "../components/Forms/Button.vue";
+import LoadScreen from "../components/Forms/LoadScreen.vue";
 
-  }
-  .popup .icon i.fa{
-    font-size:40px;
-    color:#34f234;
-  }
-  .popup .title{
-    margin:5px 0px;
-    font-size:30px;
-    font-weight:600;
+export default {
+  components: {
+    ModalBaseConfirmacion,
+    Button,
+    LoadScreen,
+  },
+  props: {
+    mensajeExito: {
+      type: String,
+      default: "¡Proceso concluido de manera exitosa!",
+    },
+  },
+  data() {
+    return {
+      showAddProducto: false,
+    };
+  },
+  emits: ["cancelar"],
+  methods: {
+    mostrarAddService() {
+      this.showAddProducto = true;
+    },
+    ocultarAddProd() {
+      this.showAddProducto = false;
+    },
+    cancelar() {
+      this.$emit("cancelar");
+    },
+  },
+};
+</script>
 
-  }
-  .popup .description{
-    color:#222;
-    font-size:20px;
-    padding:5px;
-    }
-    .popup .dismiss-btn{
-      margin-top:50px;
-    }
-    .popup .dismiss-btn button{
-      padding:10px 20px;
-      background:#111;
-      color:#f5f5f5;
-      border:2px solid #111;
-      font-size:16px;
-      font-weight:600;
-      outline:none;
-      border-radius:10px;
-      transition: all 300ms ease-in-out;
-    }
-    .popup .dismiss-btn button:hover{
-      color:#111;
-      background:#f5f5f5;
-    }
-  </style>
+<style scoped>
+.contenido-modal {
+  min-width: 500px !important;
+}
+.titulo {
+  display: flex;
+  justify-content: center;
+  padding: 30px 0px 0px 0px;
+  font-size: 30px;
+}
+.contenedorLogo {
+  justify-content: center;
+  display: flex;
+  padding: 15px 0px 10px;
+}
+.imgLogo{
+  height: 90px;
+}
+.separador {
+  border-top: 3px solid #ef7b14;
+  height: 2px;
+  max-width: 100%;
+  padding: 0;
+  /* margin: 20px auto 0 auto; */
+  margin-top: 5px;
+  margin-bottom: 30px;
+}
+.contenedorImg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px 0px 5px;
+}
+.contenedorPrincipal {
+  margin: 0px 30px;
+}
+.imgE {
+  height: 200px;
+}
+.label {
+  /* font-weight: 500; */
+  margin: 17px 0px 5px;
+}
+.inputEditar {
+  width: 300px;
+  height: 32px;
+  border: 0px solid #000000;
+  box-shadow: 0px 3px 6px #00000029;
+  outline: none;
+  color: #000000;
+  padding: 0px 7px;
+  border-radius: 10px;
+}
+.buscadorSelect {
+  width: 100%;
+  height: 32px;
+  border: 0px solid #000000;
+  box-shadow: 0px 3px 6px #00000029;
+  outline: none;
+  padding: 0px 7px;
+  border-radius: 10px;
+}
+.contenedorBotones {
+  display: flex;
+  justify-content: center;
+  max-width: 80%;
+  margin: auto;
+  padding: 30px 0px 20px;
+}
+</style>

@@ -7,7 +7,7 @@
           <!-- <img src="@assets/img/menu-movil.svg" alt="" /> -->
         </button>
         <div class="infoUsuario ocultar-movil">
-          <div class="nombreUsuario">Carlos Andrés Loaiza</div>
+          <div class="nombreUsuario">{{ this.user }}</div>
           <div class="locacionSistema">Gerente</div>
           <!-- <div class="nombreUsuario">{{ nombreUsuario }}</div>
           <div class="locacionSistema">{{ descripcionRol }}</div> -->
@@ -30,8 +30,21 @@
 // import { mapState, mapActions } from 'pinia';
 // import { useUsuarioBahk } from '@store/user.js';
 // import { useMenuBahk } from '@store/menu.js';
+import store from '@/store';
 
 export default {
+
+  created() {
+  const user= localStorage.getItem('nombre');
+  if (user) {
+    store.commit('setNombreCompleto', user); // establecer el valor del rol en el store
+  }
+},
+computed: {
+  user() {
+      return store.state.user;
+    },
+  },
   // name: 'HeaderI',
   // computed: {
   //   ...mapState(useUsuarioBahk, {
