@@ -5,9 +5,8 @@
     </span>
     <div class="contenedor-buscar">
       <div>
-        <div>
-          <button>Acceder / Registrarse</button>
-        </div>
+          <button class="btn-accion" @click="irALogin">Acceder / Registrarse</button>
+
       </div>
     </div>
     <div id="burguer-movil" class="barras-menu-movil">
@@ -340,7 +339,11 @@
 
 <script>
 export default {
-
+  methods: {
+    irALogin() {
+      this.$router.push('/Login')
+    }
+  }
   
 };
 
@@ -364,6 +367,22 @@ body {
 
 .seccion-uno {
   display: none;
+}
+.btn-accion {
+  background-color: #FF4136; 
+  border: none; 
+  color: white; 
+  padding: 12px 24px; 
+  font-size: 18px; 
+  border-radius: 10px; 
+  box-shadow: 0px 4px 0px #FF4136;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-accion:hover {
+  background-color: #E71D36; 
+  box-shadow: 0px 8px 0px #E71D36; 
+  transform: translateY(-4px);
 }
 
 .botonBuscarMobile {
