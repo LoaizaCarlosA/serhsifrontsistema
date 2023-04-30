@@ -11,9 +11,9 @@
           class="inputEditar"
           type="text"
           name=""
-          id=""
+          :value="idUsuario"
+          @input="$emit('update:idUsuario', $event.target.value)"
           disabled
-          value="12345"
         />
       </div>
       <div>
@@ -23,7 +23,8 @@
           type="text"
           name=""
           id=""
-          value="Carlos Andrés"
+          v-model="nombre"
+          placeholder="Ingrese el nombre"
         />
       </div>
       <div>
@@ -34,7 +35,9 @@
           maxlength="20"
           name=""
           id=""
-          value="Loaiza"
+          v-model="apellidoPaterno"
+          placeholder="Ingrese el apellido paterno"
+
         />
       </div>
       <div>
@@ -45,17 +48,41 @@
           maxlength="20"
           name=""
           id=""
-          value="López"
+          v-model="apellidoMaterno"
+          placeholder="Ingrese el apellido materno"
+
         />
+        <div>
+        <div class="label">Genero:</div>
+        <div>
+          <select class="buscadorSelect" name="" id="" v-model="sexo">
+            <option value="">Seleccionar...</option>
+            <option value="Masculino">Masculino</option>
+            <option value="Femenino">Femenino</option>
+            
+          </select>
+        </div>
+      </div>
+      <div>
+      <div class="label">Fecha de nacimiento:</div>
+        <input
+          class="inputEditar"
+          type="text"
+          name=""
+          id="fechaNacimiento"
+          v-model="fechaNacimiento"
+          placeholder="Ingrese su fecha de nacimiento"
+        />
+      </div>
       </div>
       <div>
         <div class="label">Puesto:</div>
         <div>
-          <select class="buscadorSelect" name="" id="">
-            <option value="rojo">Administrador</option>
-            <option value="verde">Gerente</option>
-            <option value="azul">Auxiliar</option>
-            <option value="amarillo">Reparador</option>
+          <select class="buscadorSelect" name="" id="" v-model="rol">
+            <option value="">Seleccionar...</option>
+            <option value="ROLE_ADMIN">Administrador</option>
+            <option value="ROLE_AUXILIAR">Auxiliar</option>
+            <option value="ROLE_REPARADOR">Reparador</option>
           </select>
         </div>
       </div>
@@ -63,11 +90,12 @@
         <div class="label">Teléfono:</div>
         <input
           class="inputEditar"
-          type="tel"
+          type="text"
           maxlength="10"
           name=""
           id=""
-          value="6672476316"
+          v-model="telefono"
+          placeholder="Ingrese un teléfono"
         />
       </div>
       <div>
@@ -75,14 +103,16 @@
         <input
           class="inputEditar"
           type="text"
+          maxlength="40"
           name=""
           id=""
-          value="carlos-andres-loaiza@hotmail.com"
+          v-model="correo"
+          placeholder="Ingrese un correo electrónico"
         />
       </div>
       <section class="contenedorBotones">
         <Button class="btn-regresar" @click="cancelar">Regresar</Button>
-        <Button class="btn-guardar" @click="mostrarAddService">Guardar</Button>
+        <Button class="btn-guardar" @click="actualizarEmpleado">Guardar</Button>
       </section>
     </section>
     <LoadScreen v-if="showAddProducto" @cerrar="ocultarAddProd"></LoadScreen>
@@ -93,6 +123,7 @@
 import ModalBase from "../Modales/ModalBase.vue";
 import Button from "../Forms/Button.vue";
 import LoadScreen from "../Forms/LoadScreen.vue";
+import axios from 'axios';
 
 export default {
   components: {
@@ -101,6 +132,10 @@ export default {
     LoadScreen,
   },
   props: {
+    idUsuario: {
+    type: Number, // o el tipo de dato que corresponda
+    required: true // o false, según sea necesario
+    },
     tituloHeader: {
       type: String,
       default: "Editar empleado",
@@ -109,6 +144,15 @@ export default {
   data() {
     return {
       showAddProducto: false,
+      nombre: '',
+      apellidoPaterno: '',
+      apellidoMaterno: '',
+      sexo: '',
+      fechaNacimiento: '',
+      rol:'',
+      telefono: '',
+      correo: '',
+      
     };
   },
   emits: ["cancelar"],
@@ -122,6 +166,45 @@ export default {
     cancelar() {
       this.$emit("cancelar");
     },
+    actualizarEmpleado() {
+    const empleado = {
+      nombre: this.nombre,
+      apellidoPaterno: this.apellidoPaterno,
+      apellidoMaterno: this.apellidoMaterno,
+      sexo: this.sexo,
+      fechaNacimiento: this.fechaNacimiento,
+      rol:this.rol,
+      telefono: this.telefono,
+      correo: this.correo
+    };
+    axios.put(`http://localhost:10000/empleados/${this.idUsuario}`, empleado)
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  },
+  },
+  mounted() {
+    // aquí puedes utilizar el idUsuario para obtener los datos del usuario
+    // y asignarlos a la variable usuario
+    console.log('ID USUARIO: ' + this.idUsuario);
+    axios.get(`http://localhost:10000/empleados/${this.idUsuario}`)
+      .then(response => {
+        this.nombre = response.data.nombre;
+        this.apellidoPaterno = response.data.apellidoPaterno;
+        this.apellidoMaterno = response.data.apellidoMaterno;
+        this.sexo = response.data.sexo;
+        this.fechaNacimiento = response.data.fechaNacimiento;
+        this.rol=response.data.rol;
+        this.telefono = response.data.telefono;
+        this.correo = response.data.correo;
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   },
 };
 </script>

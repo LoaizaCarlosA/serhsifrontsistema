@@ -5,17 +5,7 @@
         <div class="titulo">{{ tituloHeader }}</div>
         <div class="separador"></div>
       </section>
-      <div>
-        <div class="label">No. ID:</div>
-        <input
-          class="inputEditar"
-          type="text"
-          maxlength="10"
-          name=""
-          id=""
-          placeholder="Agrega un ID"
-        />
-      </div>
+      
       <div>
         <div class="label">Nombre:</div>
         <input
@@ -24,6 +14,7 @@
           maxlength="20"
           name=""
           id=""
+          v-model="nombre"
           placeholder="Ingrese el nombre"
         />
       </div>
@@ -35,6 +26,7 @@
           maxlength="20"
           name=""
           id=""
+          v-model="apellidoPaterno"
           placeholder="Ingrese el apellido paterno"
         />
       </div>
@@ -46,18 +38,40 @@
           maxlength="20"
           name=""
           id=""
+          v-model="apellidoMaterno"
           placeholder="Ingrese el apellido materno"
+        />
+      </div>
+      <div>
+        <div class="label">Genero:</div>
+        <div>
+          <select class="buscadorSelect" name="" id="" v-model="sexo">
+            <option value="">Seleccionar...</option>
+            <option value="Masculino">Masculino</option>
+            <option value="Femenino">Femenino</option>
+            
+          </select>
+        </div>
+      </div>
+      <div>
+      <div class="label">Fecha de nacimiento:</div>
+        <input
+          class="inputEditar"
+          type="text"
+          name=""
+          id="fechaNacimiento"
+          v-model="fechaNacimiento"
+          placeholder="Ingrese su fecha de nacimiento"
         />
       </div>
       <div>
         <div class="label">Puesto:</div>
         <div>
-          <select class="buscadorSelect" name="" id="">
-            <option value="rojo">Seleccionar...</option>
-            <option value="rojo">Administrador</option>
-            <option value="verde">Gerente</option>
-            <option value="azul">Auxiliar</option>
-            <option value="amarillo">Reparador</option>
+          <select class="buscadorSelect" name="" id="" v-model="rol">
+            <option value="">Seleccionar...</option>
+            <option value="ROLE_ADMIN">Administrador</option>
+            <option value="ROLE_AUXILIAR">Auxiliar</option>
+            <option value="ROLE_REPARADOR">Reparador</option>
           </select>
         </div>
       </div>
@@ -69,6 +83,7 @@
           maxlength="10"
           name=""
           id=""
+          v-model="telefono"
           placeholder="Ingrese un teléfono"
         />
       </div>
@@ -80,12 +95,24 @@
           maxlength="40"
           name=""
           id=""
+          v-model="correo"
           placeholder="Ingrese un correo electrónico"
+        />
+      </div>
+      <div>
+        <div class="label">Contraseña:</div>
+        <input
+          class="inputEditar"
+          type="password"
+          name=""
+          id="clave"
+          v-model="clave"
+          placeholder="Ingrese una contraseña"
         />
       </div>
       <section class="contenedorBotones">
         <Button class="btn-regresar" @click="cancelar">Regresar</Button>
-        <Button class="btn-guardar" @click="mostrarAddService">Guardar</Button>
+        <Button class="btn-guardar" @click="registrarEmpleado">Guardar</Button>
       </section>
     </section>
     <LoadScreen v-if="showAddProducto" @cerrar="ocultarAddProd"></LoadScreen>
@@ -96,6 +123,7 @@
 import ModalBase from "../Modales/ModalBase.vue";
 import Button from "../Forms/Button.vue";
 import LoadScreen from "../Forms/LoadScreen.vue";
+import axios from 'axios';
 
 export default {
   components: {
@@ -104,6 +132,7 @@ export default {
     LoadScreen,
   },
   props: {
+    
     tituloHeader: {
       type: String,
       default: "Agregar empleado",
@@ -112,6 +141,15 @@ export default {
   data() {
     return {
       showAddProducto: false,
+      nombre: '',
+      apellidoPaterno: '',
+      apellidoMaterno: '',
+      sexo: '',
+      fechaNacimiento: '',
+      rol: '',
+      telefono: '',
+      correo: '',
+      clave: ''
     };
   },
   emits: ["cancelar"],
@@ -124,6 +162,26 @@ export default {
     },
     cancelar() {
       this.$emit("cancelar");
+    },
+    registrarEmpleado: function(){
+      const empleado = {
+        nombre: this.nombre,
+        apellidoPaterno: this.apellidoPaterno,
+        apellidoMaterno: this.apellidoMaterno,
+        sexo:this.sexo,
+        fechaNacimiento:this.fechaNacimiento,
+        rol:this.rol,
+        telefono:this.telefono,
+        correo:this.correo,
+        clave:this.clave
+      }
+      axios.post('http://localhost:10000/empleados', empleado)
+        .then(response => {
+          console.log(response.empleado);
+        })
+        .catch(error => {
+          console.error(error);
+        });
     },
   },
 };

@@ -71,7 +71,7 @@ computed: {
         return true;
       } else if (this.role === 'ROLE_CLIENTE') {
         // Si el rol es user, se permite el acceso solo a las vistas que no tienen restricciones
-        const unrestrictedRoutes = ['/Dashboard','/Cotizacion'];
+        const unrestrictedRoutes = ['/Dashboard','/Cotizacion','/Empleados'];
         
         return unrestrictedRoutes.includes(route);
       }

@@ -33,17 +33,17 @@
               <td>Acciones</td>
             </tr>
             <tbody>
-         <tr v-for="empleado in filteredList" :key="empleado.id">
+         <tr v-for="empleado in filteredList" :key="empleado.idUsuario">
 
-          <td>{{ empleado.id }}</td>
+          <td>{{ empleado.idUsuario }}</td>
           <td>{{ nombreCompleto(empleado) }}</td>
-          <td>{{ empleado.puesto }}</td>
+          <td>{{ empleado.rol }}</td>
           <td>{{ empleado.telefono }}</td>
           <td>{{ empleado.correo }}</td>
           <td>
                 <div class="botonesTabla">
-                  <Button class="btn-editar" @click="mostrarEditar">Editar</Button>
-                  <Button class="btn-eliminar">Eliminar</Button>
+                  <Button class="btn-editar" @click="mostrarEditar(empleado.idUsuario)">Editar</Button>
+                  <Button class="btn-eliminar" @click="eliminarEmpleado(empleado.idUsuario)">Eliminar</Button>
                 </div>
               </td>
           </tr>
@@ -92,7 +92,7 @@
       v-if="showAddProducto"
       @cancelar="showAddProducto = false"
     ></AgregarEmpleados>
-    <EditarEmpleado
+    <EditarEmpleado :idUsuario="idUsuario"
       v-if="showAddEditar"
       @cancelar="showAddEditar = false"
     ></EditarEmpleado>
@@ -106,7 +106,7 @@ import Button from "../components/Forms/Button.vue";
 import Paginacion from "../components/Forms/Paginacion.vue";
 import EditarEmpleado from "@/components/Empleados/EditarEmpleado.vue";
 import AgregarEmpleados from "@/components/Empleados/AgregarEmpleados.vue";
-
+import axios from 'axios';
 // import TableCollapse from "../components/Tables/TableCollapse.vue";
 // import HeadTableCollapse from "../components/Tables/HeadTableCollapse.vue";
 
@@ -128,13 +128,7 @@ export default {
     return {
       showAddEditar: false,
       showAddProducto: false,
-      empleados: [
-        { id: 1, nombre: 'Juan', apellido_paterno: 'Pérez', apellido_materno: 'González',puesto:'Auxiliar de tienda', telefono: '1234567890', correo: 'juan.perez@prueba.com' },
-        { id: 2, nombre: 'Carlos', apellido_paterno: 'Loaiza', apellido_materno: 'Lopez',puesto:'Reparador', telefono: '1234567123', correo: 'Carlos.loiza@prueba.com' },
-        { id: 3, nombre: 'Martin', apellido_paterno: 'Jimenez', apellido_materno: 'Rosas',puesto:'Reparador', telefono: '1234567123', correo: 'Martin.jimenez@prueba.com' },
-        // ...
-        
-      ],
+      empleados: [],
       searchText: '',
     };
   },
@@ -145,22 +139,24 @@ export default {
       list = list.filter(empleado => {
         const searchValue = this.searchText.toLowerCase();
         return empleado.nombre.toLowerCase().includes(searchValue)
-          || empleado.apellido_paterno.toLowerCase().includes(searchValue)
-          || empleado.apellido_materno.toLowerCase().includes(searchValue)
-          || empleado.id.toString().toLowerCase().includes(searchValue);
+          || empleado.apellidoPaterno.toLowerCase().includes(searchValue)
+          || empleado.apellidoMaterno.toLowerCase().includes(searchValue)
+          || empleado.idUsuario.toString().toLowerCase().includes(searchValue);
       });
     }
     return list;
   },
   nombreCompleto() {
     return (empleado) => {
-      return `${empleado.nombre} ${empleado.apellido_paterno} ${empleado.apellido_materno}`;
+      return `${empleado.nombre} ${empleado.apellidoPaterno} ${empleado.apellidoMaterno}`;
     };
   },
 },
   methods: {
-    mostrarEditar() {
+    mostrarEditar(idUsuario) {
+      this.idUsuario = idUsuario;
       this.showAddEditar = true;
+
     },
     ocultarEditar() {
       this.showAddEditar = false;
@@ -171,6 +167,37 @@ export default {
     ocultarAddProd() {
       this.showAddProducto = false;
     },
+    cargarEmpleados() {
+      axios.get('http://localhost:10000/empleados')
+    .then(response => {
+      let empleados = response.data;
+      console.log(response.data);
+      empleados.forEach(empleado => {
+        if (empleado.rol=== 'ROLE_AUXILIAR') {
+          empleado.rol = 'Auxiliar';
+        }
+        if (empleado.rol === 'ROLE_REPARADOR') {
+          empleado.rol = 'Reparador';
+        }
+        if (empleado.rol === 'ROLE_ADMIN') {
+          empleado.rol= 'Administrador';
+        }
+        
+      });
+      this.empleados = empleados;
+    })
+    },
+    eliminarEmpleado(idUsuario) {
+      axios.delete(`http://localhost:10000/empleados/${idUsuario}`).then(() => {
+        const indice = this.empleados.findIndex(
+          (empleado) => empleado.idUsuario === idUsuario
+        );
+        this.empleados.splice(indice, 1);
+      });
+    },
+  },
+  mounted() {
+  this.cargarEmpleados()
   },
 };
 </script>
