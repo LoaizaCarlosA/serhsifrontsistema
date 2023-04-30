@@ -7,6 +7,11 @@ export default createStore({
         user: '',
         id:''
     },
+    actions: {
+      actualizarNombreCompleto(context, nombreCompleto) {
+        context.commit('setNombreCompleto', nombreCompleto);
+      },
+    },
     mutations: {
         setRole(state, role) {
             state.role = role;

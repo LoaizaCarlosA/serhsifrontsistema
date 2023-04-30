@@ -244,6 +244,10 @@ export default {
       axios.put(`http://localhost:10000/clientes/${id}`, cliente)
         .then(response => {
           console.log(response)
+          const nombreCompleto = `${this.nombre} ${this.apellidoPaterno} ${this.apellidoMaterno}`;
+      localStorage.setItem('nombre',nombreCompleto);
+      this.$store.dispatch('actualizarNombreCompleto', nombreCompleto);
+          
           // Aquí puedes agregar alguna acción después de actualizar el usuario
         })
         .catch(error => {
