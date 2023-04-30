@@ -6,7 +6,7 @@
       </div>
       <div>
         <Button class="btn-agregar" @click="mostrarAddService"
-          >Generar orden</Button
+          >Generar cotización</Button
         >
       </div>
     </div>

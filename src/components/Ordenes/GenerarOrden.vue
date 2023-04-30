@@ -7,32 +7,29 @@
       </section>
       <div>
         <div class="label">Cliente:</div>
-        <select class="buscadorSelect" name="" id="">
-          <option value="rojo">Seleccionar...</option>
-          <option value="rojo">En espera</option>
-          <option value="verde">En proceso</option>
-          <option value="azul">Reparado</option>
-          <option value="amarillo">Finalizado</option>
+        <select class="buscadorSelect" name="" id="idcliente" v-model="idCliente" >
+          <option value="" disabled selected>Seleccionar...</option>
+            <option :value="cliente_nombre.idUsuario" v-for="cliente_nombre in clientes" :key="cliente_nombre.idUsuario">
+              {{ `${cliente_nombre.nombre} ${cliente_nombre.apellidoPaterno} ${cliente_nombre.apellidoMaterno}`}}
+            </option>
         </select>
       </div>
       <div>
         <div class="label">Reparador:</div>
-        <select class="buscadorSelect" name="" id="">
-          <option value="rojo">Seleccionar...</option>
-          <option value="rojo">En espera</option>
-          <option value="verde">En proceso</option>
-          <option value="azul">Reparado</option>
-          <option value="amarillo">Finalizado</option>
+        <select class="buscadorSelect" name="" id="idreparador" v-model="idReparador" >
+          <option value="" disabled selected>Seleccionar...</option>
+            <option :value="reparador_nombre.idUsuario" v-for="reparador_nombre in reparadores" :key="reparador_nombre.idUsuario">
+              {{ `${reparador_nombre.nombre} ${reparador_nombre.apellidoPaterno} ${reparador_nombre.apellidoMaterno}`}}
+            </option>
         </select>
       </div>
       <div>
         <div class="label">Herramienta:</div>
-        <select class="buscadorSelect" name="" id="">
-          <option value="rojo">Seleccionar...</option>
-          <option value="rojo">En espera</option>
-          <option value="verde">En proceso</option>
-          <option value="azul">Reparado</option>
-          <option value="amarillo">Finalizado</option>
+        <select class="buscadorSelect" name="" id="idherramienta" v-model="idHerramienta" >
+          <option value="" disabled selected>Seleccionar...</option>
+            <option :value="herramienta_nombre.id_herramienta" v-for="herramienta_nombre in herramientas" :key="herramienta_nombre.idUsuario">
+              {{ `${herramienta_nombre.marca} ${herramienta_nombre.modelo}`}}
+            </option>
         </select>
       </div>
       <div>
@@ -43,13 +40,14 @@
           maxlength="10"
           name=""
           id=""
-          placeholder="Ingrese un teléfono"
+          placeholder="Ingrese el número de serie"
+          v-model="numeroSerie" 
         />
       </div>
 
       <section class="contenedorBotones">
         <Button class="btn-regresar" @click="cancelar">Regresar</Button>
-        <Button class="btn-guardar" @click="mostrarAddService">Guardar</Button>
+        <Button class="btn-guardar" @click="registrarCotizacion">Guardar</Button>
       </section>
     </section>
     <LoadScreen v-if="showAddProducto" @cerrar="ocultarAddProd"></LoadScreen>
@@ -60,6 +58,7 @@
 import ModalBase from "../Modales/ModalBase.vue";
 import Button from "../Forms/Button.vue";
 import LoadScreen from "../Forms/LoadScreen.vue";
+import axios from 'axios';
 
 export default {
   components: {
@@ -70,14 +69,22 @@ export default {
   props: {
     tituloHeader: {
       type: String,
-      default: "Agregar orden",
+      default: "Agregar cotización",
     },
   },
   data() {
     return {
       showAddProducto: false,
+      clientes:[],
+      reparadores:[],
+      herramientas:[],
+      idCliente:'',
+      idReparador:'',
+      idHerramienta:'',
     };
   },
+  
+
   emits: ["cancelar"],
   methods: {
     mostrarAddService() {
@@ -89,7 +96,55 @@ export default {
     cancelar() {
       this.$emit("cancelar");
     },
+    cargarClientes() {
+    axios.get('http://localhost:10000/clientes')
+      .then(response => {
+        this.clientes = response.data
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    },
+    cargarReparadores() {
+    axios.get('http://localhost:10000/empleados')
+      .then(response => {
+        this.reparadores = response.data.filter(empleado => empleado.rol === 'ROLE_REPARADOR');
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    },
+    cargarHerramientas() {
+    axios.get('http://localhost:10000/herramientas')
+      .then(response => {
+        this.herramientas = response.data
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    },
+    registrarCotizacion: function(){
+      const cotizacion = {
+        idReparador:this.idReparador,
+        idCliente: this.idCliente,
+        idHerramienta:this.idHerramienta,
+        numeroSerie:this.numeroSerie,
+        
+      }
+      axios.post('http://localhost:10000/cotizaciones', cotizacion)
+        .then(response => {
+          console.log(response.cotizacion);
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    },
   },
+  mounted() {
+  this.cargarClientes()
+  this.cargarReparadores();
+  this.cargarHerramientas();
+  }
 };
 </script>
 

@@ -14,37 +14,41 @@
       <div class="edit-form">
         <section class="informacion">
           <h2>Informacion actual del perfil</h2>
-          <form>
+          <div>
             <div class="contenedorInputs">
-              <label for="nombre">Nombre:</label>
+              <label>Nombre:</label>
               <input
-                type="text"
-                maxlength="20"
-                id="nombre"
-                name="nombre"
-                value="Juan"
+              type="text"
+          maxlength="20"
+          name=""
+          id="nombre"
+          v-model="nombre"
+          placeholder="Ingrese el nombre"
               />
             </div>
 
             <div class="contenedorInputs">
               <label for="apellidos">Apellido paterno:</label>
               <input
-                type="text"
-                maxlength="20"
-                id="apellido_paterno"
-                name="apellido_paterno"
-                value="Perez "
+              type="text"
+          maxlength="20"
+          name=""
+          id="apellidoPaterno"
+          v-model="apellidoPaterno"
+          placeholder="Ingrese el apellido paterno"
               />
             </div>
 
             <div class="contenedorInputs">
               <label for="apellidos">Apellido materno:</label>
               <input
+                
                 type="text"
-                maxlength="20"
-                id="apellido_materno"
-                name="apellido_materno"
-                value="Garcia "
+          maxlength="20"
+          name=""
+          id="apellidoMaterno"
+          v-model="apellidoMaterno"
+          placeholder="Ingrese el apellido materno"
               />
             </div>
 
@@ -62,29 +66,31 @@
             <div class="contenedorInputs">
               <label for="telefono">Teléfono:</label>
               <input
-                type="tel"
-                maxlength="10"
-                id="telefono"
-                name="telefono"
-                value="6672476318"
+              type="tel"
+          maxlength="10"
+          name=""
+          id="telefono"
+          v-model="telefono"
+          placeholder="Ingrese un teléfono"
               />
             </div>
 
             <div class="contenedorInputs">
               <label for="telefono">Correo:</label>
               <input
-                type="text"
-                maxlength="40"
-                id="correo"
-                name="correo"
-                value="ejemplo@hotmail.com"
+              type="text"
+          maxlength="40"
+          name=""
+          id="correo"
+          v-model="correo"
+          placeholder="Ingrese un correo electrónico"
               />
             </div>
 
             <div class="buttons">
-              <Button class="btn-guardar" type="submit">Guardar</Button>
+              <Button class="btn-guardar" @click="actualizarUsuario">Guardar</Button>
             </div>
-          </form>
+          </div>
         </section>
       </div>
       <div class="edit-form">
@@ -174,8 +180,20 @@
 <script>
 import Header from "@/layouts/header.vue";
 import Button from "@/components/Forms/Button.vue";
-
+import store from '@/store';
+import axios from 'axios';
 export default {
+  created() {
+  const role = localStorage.getItem('role');
+  const id = localStorage.getItem('id');
+  if (id) {
+    store.commit('setId', id); // establecer el valor del id en el store
+  }
+  if (role) {
+    store.commit('setRole', role); // establecer el valor del rol en el store
+  }
+
+},
   components: {
     Header,
     Button,
@@ -186,6 +204,14 @@ export default {
     return {
       showAddEditar: false,
       showAddProducto: false,
+      nombre: '',
+      apellidoPaterno: '',
+      apellidoMaterno: '',
+      sexo: '',
+      fechaNacimiento: '',
+      telefono: '',
+      correo: '',
+    
     };
   },
   methods: {
@@ -201,6 +227,90 @@ export default {
     ocultarAddProd() {
       this.showAddProducto = false;
     },
+    actualizarUsuario() {
+      const id = store.state.id;
+      const role = store.state.role;
+      
+      if(role === 'ROLE_CLIENTE'){
+        const cliente= {
+         nombre: this.nombre,
+      apellidoPaterno: this.apellidoPaterno,
+      apellidoMaterno: this.apellidoMaterno,
+      sexo: this.sexo,
+      fechaNacimiento: this.fechaNacimiento,
+      telefono: this.telefono,
+      correo: this.correo
+      }
+      axios.put(`http://localhost:10000/clientes/${id}`, cliente)
+        .then(response => {
+          console.log(response)
+          // Aquí puedes agregar alguna acción después de actualizar el usuario
+        })
+        .catch(error => {
+          console.log(error)
+          // Aquí puedes manejar el error de la solicitud PUT
+        })
+      }else{
+        const empleado= {
+          nombre: this.nombre,
+      apellidoPaterno: this.apellidoPaterno,
+      apellidoMaterno: this.apellidoMaterno,
+      sexo: this.sexo,
+      fechaNacimiento: this.fechaNacimiento,
+      rol:this.rol,
+      telefono: this.telefono,
+      correo: this.correo
+      }
+        axios.put(`http://localhost:10000/empleados/${id}`, empleado)
+        .then(response => {
+          console.log(response)
+          // Aquí puedes agregar alguna acción después de actualizar el usuario
+        })
+        .catch(error => {
+          console.log(error)
+          // Aquí puedes manejar el error de la solicitud PUT
+        })
+      }
+    },
+    
+  },
+  
+  mounted() {
+    const id = store.state.id;
+    const role = store.state.role;
+    if(role === 'ROLE_CLIENTE'){
+      console.log(id);
+    axios.get(`http://localhost:10000/clientes/${id}`)
+      .then(response => {
+        this.nombre = response.data.nombre;
+        this.apellidoPaterno = response.data.apellidoPaterno;
+        this.apellidoMaterno = response.data.apellidoMaterno;
+        this.sexo = response.data.sexo;
+        this.fechaNacimiento = response.data.fechaNacimiento;
+        this.telefono = response.data.telefono;
+        this.correo = response.data.correo;
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+    } else{
+      axios.get(`http://localhost:10000/empleados/${id}`)
+      .then(response => {
+        this.nombre = response.data.nombre;
+        this.apellidoPaterno = response.data.apellidoPaterno;
+        this.apellidoMaterno = response.data.apellidoMaterno;
+        this.sexo = response.data.sexo;
+        this.fechaNacimiento = response.data.fechaNacimiento;
+        this.rol=response.data.rol;
+        this.telefono = response.data.telefono;
+        this.correo = response.data.correo;
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+    }
   },
 };
 </script>
@@ -344,13 +454,13 @@ main {
   margin-top: 0;
 }
 
-.informacion form label {
+.informacion label {
   /* display: block; */
   margin-bottom: 5px;
   font-weight: bold;
 }
 
-.informacion form input {
+.informacion input {
   height: 32px;
   border: 0px solid #000000;
   box-shadow: 0px 3px 6px #00000029;

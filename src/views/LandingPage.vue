@@ -59,8 +59,10 @@ export default {
   beforeRouteEnter(to, from, next) {
     store.commit('setRole', ''); // establecer el valor de rol en el store a ''
     store.commit('setNombreCompleto', '');
+    store.commit('setId','');
     localStorage.setItem('role', '');
     localStorage.setItem('nombre','');
+    localStorage.setItem('id','');
     next();
   },
   components: {
@@ -82,12 +84,15 @@ export default {
       })
       .then(response => {
         const user = response.data[0].nombre + ' ' + response.data[0].apellidoPaterno + ' ' + response.data[0].apellidoMaterno;
+        const id = response.data[0].idUsuario;
         const role = response.data[1]; // the role string
         console.log('Bienvenido: ' + user); // the user object
         console.log('Role: ' + role); // the role string
         store.commit('setRole', role); // save role in global state
+        store.commit('setId', id);
         store.commit('setNombreCompleto', user);
         localStorage.setItem('role', role);
+        localStorage.setItem('id', id);
         localStorage.setItem('nombre',user);
         this.$router.push('/Dashboard');
       })

@@ -8,7 +8,7 @@
         </button>
         <div class="infoUsuario ocultar-movil">
           <div class="nombreUsuario">{{ this.user }}</div>
-          <div class="locacionSistema">Gerente</div>
+          <div class="locacionSistema">{{ getRolCambiado() }}</div>
           <!-- <div class="nombreUsuario">{{ nombreUsuario }}</div>
           <div class="locacionSistema">{{ descripcionRol }}</div> -->
         </div>
@@ -36,14 +36,20 @@ export default {
 
   created() {
   const user= localStorage.getItem('nombre');
+  const role = localStorage.getItem('role');
   if (user) {
-    store.commit('setNombreCompleto', user); // establecer el valor del rol en el store
+    store.commit('setNombreCompleto', user); // establecer el valor del nombre en el store
   }
+  if (role) {
+    store.commit('setRole', role); // establecer el valor del rol en el store
+  }
+
 },
 computed: {
   user() {
       return store.state.user;
     },
+    
   },
   // name: 'HeaderI',
   // computed: {
@@ -53,12 +59,23 @@ computed: {
   //   }),
   //   ...mapState(useMenuBahk, ['collapsedMenu']),
   // },
-  // methods: {
-  //   ...mapActions(useMenuBahk, ['setCollapsedMenu']),
-  //   activarMenu() {
-  //     this.setCollapsedMenu(!this.collapsedMenu);
-  //   },
-  // },
+  methods: {
+    getRolCambiado() {
+      const role = store.state.role;
+      switch (role) {
+        case 'ROLE_CLIENTE':
+          return 'Cliente';
+        case 'ROLE_REPARADOR':
+          return 'Reparador';
+        case 'ROLE_ADMIN':
+          return 'Administrador';
+        case 'ROLE_AUXILIAR':
+          return 'Auxiliar';
+        default:
+          return 'Desconocido';
+      }
+    },
+   },
 };
 </script>
 

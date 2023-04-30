@@ -45,8 +45,8 @@
       <div>
         <div class="label">Genero:</div>
         <div>
-          <select class="buscadorSelect" name="" id="" v-model="sexo">
-            <option value="">Seleccionar...</option>
+          <select class="buscadorSelect" name="" id="" v-model="sexo" >
+            <option value="" disabled selected>Seleccionar...</option>
             <option value="Masculino">Masculino</option>
             <option value="Femenino">Femenino</option>
             
@@ -68,7 +68,7 @@
         <div class="label">Puesto:</div>
         <div>
           <select class="buscadorSelect" name="" id="" v-model="rol">
-            <option value="">Seleccionar...</option>
+            <option value="" disabled selected>Seleccionar...</option>
             <option value="ROLE_ADMIN">Administrador</option>
             <option value="ROLE_AUXILIAR">Auxiliar</option>
             <option value="ROLE_REPARADOR">Reparador</option>
