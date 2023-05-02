@@ -14,7 +14,7 @@ import prueba from "./views/prueba.vue";
 import prueba2 from "./views/Prueba2.vue";
 import Ordenes from "./views/Ordenes.vue";
 import LandingPrincipal from "./views/LandingPrincipal.vue"
-
+import store from '@/store';
 const routes = [
   {
     path: "/Login",
@@ -35,6 +35,9 @@ const routes = [
     path: "/Clientes",
     name: "Clientes",
     component: Clientes,
+    meta: {
+      requiresAdmin: true // Esta ruta requiere el rol de admin
+    }
   },
   {
     path: "/Cotizacion",
@@ -79,9 +82,25 @@ const routes = [
   },
 ];
 
+
 const router = createRouter({
   history: createWebHistory(),
   routes,
 });
+router.beforeEach((to, from, next) => {
+  const requiresAdmin = to.meta.requiresAdmin
+  const role = localStorage.getItem('role');
+  if (role) {
+    store.commit('setRole', role); // establecer el valor del rol en el store
+  }
+  const isAdmin = store.state.role === 'ROLE_ADMIN'
+
+
+  if (requiresAdmin && !isAdmin) {
+    next('/') // Redireccionamos a la pagina principal si el usuario no es admin
+  }  else {
+    next() // Continuamos a la ruta requerida
+  }
+})
 
 export default router;

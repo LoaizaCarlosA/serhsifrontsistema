@@ -3,90 +3,36 @@
     <ContainerWhite>
       <section class="filtrosEmpleados">
         <div class="tituloModulo">Almacén</div>
-        <!-- <div>
-          <input
-            class="inputBuscador"
-            type="text"
-            v-model="searchText"
-            placeholder="Inserte nombre o ID"
-          />
-          
-          <Button class="btn-agregar" @click="mostrarAddService" >Agregar</Button>
-        </div> -->
+        
       </section>
       <section>
         <section class="tablaPrincipal">
           <table class="default">
             <tr class="cabecera">
-              <td>ID Cotización</td>
+              <td>ID</td>
 
-              <td>Cliente</td>
+              <td>Sección</td>
 
-              <td>Herramienta</td>
+              <td>Estado</td>
 
-              <td>Estante</td>
-
-              <td>Columna</td>
-
-              <td>Fila</td>
+              
 
 
               <!-- <td>Acciones</td> -->
             </tr>
 
             <tbody>
-              <tr v-for="cliente in filteredList" :key="cliente.id">
-                <td>{{ cliente.seccion }}</td>
-                <td>{{ cliente.estante }}</td>
-                <td>{{ cliente.columna }}</td>
-                <td>{{ cliente.fila }}</td>
-                <!-- <td>
-                  <div class="botonesTabla">
-                    <Button class="btn-editar" @click="mostrarEditar"
-                      >Editar</Button
-                    >
-                    <Button class="btn-eliminar">Eliminar</Button>
-                  </div>
-                </td> -->
+              <tr v-for="seccion in almacenes" :key="seccion.idSeccion">
+                <td>{{ seccion.idSeccion }}</td>
+                <td>{{ seccion.nombreSeccion }}</td>
+                <td>{{ seccion.ocupado ? 'Ocupado' : 'Libre' }}</td>
+                
+                
               </tr>
             </tbody>
           </table>
         </section>
-        <!-- <TableCollapse>
-          <HeadTableCollapse
-            class="thead-sticky"
-            :titles="[
-              { nombre: 'Nombre' },
-              { nombre: 'Apellidos' },
-              { nombre: 'Puesto' },
-              { nombre: 'Fecha de alta' },
-              { nombre: 'Correo electrónico' },
-              { nombre: 'Teléfono' },
-              { nombre: '' },
-            ]"
-          >
-          </HeadTableCollapse>
-           <BodyTableCollapse v-show="!load">
-              <RowEmpleadosCollapse
-                v-for="(empleado, index) in listaEmpleados"
-                :key="empleado.id"
-                :empleado="empleado"
-                :flagPar="(index + 1) % 2 == 0"
-                :idActivo="idActivo"
-                :flagModalError="showModalError"
-                :puestoApi="puesto"
-                :sucursalApi="statusSucursal"
-                @editExito="mostrarExito"
-                @reactExito="mostrarExito"
-                @modalError="mostrarError"
-                @hayActivo="hayActivo"
-                @pinExito="getEmpleados"
-                @desactivarExito="getEmpleados"
-                @exitoReestablecer="mostrarExitoReestablecer"
-              >
-              </RowEmpleadosCollapse>
-            </BodyTableCollapse>
-        </TableCollapse> -->
+       
       </section>
       <Paginacion></Paginacion>
     </ContainerWhite>
@@ -100,6 +46,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import LayoutPrincipal from "@/layouts/LayoutPrincipal.vue";
 import ContainerWhite from "@/layouts/ContainerWhite.vue";
 // import Button from "../components/Forms/Button.vue";
@@ -125,52 +72,14 @@ export default {
     return {
       showAddEditar: false,
       showAddProducto: false,
-      clientes: [
-        {
-          seccion: "Verde",
-          estante: "3",
-          columna: "A3",
-          fila: "B2",
-        },
-        {
-          seccion: "Azul",
-          estante: "1",
-          columna: "A3",
-          fila: "C7",
-        },
-        {
-          seccion: "Rojo",
-          estante: "6",
-          columna: "B2",
-          fila: "A2",
-        },
+      almacenes: [
+        
         // ...
       ],
       searchText: "",
     };
   },
-  computed: {
-    filteredList() {
-      let list = this.clientes;
-      if (this.searchText !== "") {
-        list = list.filter((cliente) => {
-          const searchValue = this.searchText.toLowerCase();
-          return (
-            cliente.nombre.toLowerCase().includes(searchValue) ||
-            cliente.apellido_paterno.toLowerCase().includes(searchValue) ||
-            cliente.apellido_materno.toLowerCase().includes(searchValue) ||
-            cliente.id.toString().toLowerCase().includes(searchValue)
-          );
-        });
-      }
-      return list;
-    },
-    nombreCompleto() {
-      return (cliente) => {
-        return `${cliente.nombre} ${cliente.apellido_paterno} ${cliente.apellido_materno}`;
-      };
-    },
-  },
+ 
   methods: {
     mostrarEditar() {
       this.showAddEditar = true;
@@ -184,7 +93,19 @@ export default {
     ocultarAddProd() {
       this.showAddProducto = false;
     },
+    cargarAlmacen() {
+    axios.get('http://localhost:10000/almacenamiento')
+      .then(response => {
+        this.almacenes = response.data
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    },
   },
+  mounted() {
+  this.cargarAlmacen()
+  }
 };
 </script>
 
