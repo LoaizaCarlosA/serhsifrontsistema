@@ -13,6 +13,7 @@ import Almacen from "./views/Almacen.vue";
 import prueba from "./views/prueba.vue";
 import prueba2 from "./views/Prueba2.vue";
 import Ordenes from "./views/Ordenes.vue";
+import Cotizaciones from "./views/CotizacionCliente.vue";
 import LandingPrincipal from "./views/LandingPrincipal.vue"
 import store from '@/store';
 const routes = [
@@ -44,6 +45,12 @@ const routes = [
     name: "Cotizacion",
     component: Cotizacion,
   },
+  {
+    path: "/Cotizaciones",
+    name: "Cotizaciones",
+    component: Cotizaciones,
+  },
+  
   {
     path: "/Herramientas",
     name: "Herramientas",

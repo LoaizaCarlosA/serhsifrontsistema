@@ -3,13 +3,15 @@
     <ContainerWhite>
       <section class="filtrosEmpleados">
         <div class="tituloModulo">Lista de cotizaciones</div>
+        
         <div>
-          <select class="buscadorSelect" v-model="SelectEstatus" id="estatus">
+        <select class="buscadorSelect" v-model="SelectEstatus" id="estatus">
             <option value="">Seleccionar...</option>
             <option v-for="estadoCotizacion in estados" :key="estadoCotizacion">
               {{ estadoCotizacion }}
             </option>
           </select>
+
 
           <input
             class="inputBuscador"
@@ -17,9 +19,8 @@
             placeholder="Inserte nombre o ID"
           />
           <!-- <Button class="btn-buscar">Buscar</Button> -->
-          <Button class="btn-agregar" @click="mostrarAddService"
-            >Agregar</Button
-          >
+          
+          
         </div>
       </section>
       <section>
@@ -28,9 +29,8 @@
             <tr class="cabecera">
               <td>ID Cotización</td>
 
-           
+              <td>Reparador</td>
 
-              <td>Cliente</td>
 
               <td>Herramienta</td>
 
@@ -45,8 +45,7 @@
             <tbody>
               <tr v-for="cotizacion in FiltroCotizaciones" :key="cotizacion.idCotizacion">
                 <td>{{ cotizacion.idCotizacion }}</td>
-             
-                <td>{{ cotizacion.nombreCliente }}</td>
+                <td>{{ cotizacion.nombreReparador }}</td>
                 <td>{{ `${cotizacion.marca} ${cotizacion.modelo} ${cotizacion.numeroSerie}`}}</td>
                 <td>{{ cotizacion.costo }}</td>
                 <td>{{ cotizacion.fechaEntrada }}</td>
@@ -54,10 +53,10 @@
 
                 <td>
                   <div class="botonesTabla">
-                    <Button class="btn-editar" @click="mostrarEditar"
+                    <Button v-if="cotizacion.estadoCotizacion === 'Cotizado'" class="btn-editar" @click="mostrarEditar"
                       >Ver</Button
                     >
-                    <Button class="btn-guardar-cotizacion">Descargar</Button>
+                    <Button v-if="cotizacion.estadoCotizacion === 'Cotizado'" class="btn-cancelar-cotizacion">Cancelar</Button>
                     <!-- <Button class="btn-eliminar">Eliminar</Button> -->
                   </div>
                 </td>
@@ -121,7 +120,7 @@ export default {
       showAddProducto: false,
       cotizaciones: [
       ],
-      estados: ["Pendiente","Aceptada"],
+      estados: ["Pendiente","Cotizado"],
       SelectEstatus: "",
     };
   },
@@ -140,17 +139,27 @@ export default {
     },
     cargarCotizaciones() {
       const id = store.state.id;
-    axios.get(`http://localhost:10000/reparadores/${id}/cotizaciones/pendientes`)
-      .then(response => {
-        this.cotizaciones = response.data
-      })
-      .catch(error => {
-        console.log(error)
-      })
+      const request1 = axios.get(`http://localhost:10000/clientes/${id}/cotizaciones/pendientes`);
+const request2 = axios.get(`http://localhost:10000/clientes/${id}/cotizaciones/realizadas`);
+
+Promise.all([request1, request2])
+  .then(([response1, response2]) => {
+    const cotizaciones1 = response1.data;
+    const cotizaciones2 = response2.data;
+    const cotizaciones = [...cotizaciones1, ...cotizaciones2];
+    this.cotizaciones = cotizaciones;
+  })
+  .catch(error => {
+    console.log(error);
+  });
     }
+    
   },
+ 
+  
   mounted() {
     this.cargarCotizaciones();
+
   },
 
   computed: {

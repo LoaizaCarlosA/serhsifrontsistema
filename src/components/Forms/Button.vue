@@ -163,6 +163,18 @@ export default {
   box-shadow: 0px 3px 6px #00000029;
   font-weight: 700;
 }
+.btn-cancelar-cotizacion {
+  background: white 0% 0% no-repeat padding-box;
+  border: 1px solid #b40000;
+  color: #b40000;
+  border-radius: 18px;
+  opacity: 1;
+  width: 80px;
+  height: 28px;
+  cursor: pointer;
+  box-shadow: 0px 3px 6px #00000029;
+  font-weight: 700;
+}
 .btn-guardar-cotizacion:hover {
   background: #237a1b 0% 0% no-repeat padding-box;
   color: white;
