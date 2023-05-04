@@ -66,6 +66,11 @@ computed: {
   //   ...mapState(useMenuBahk, ['collapsedMenu']),
   // },
   methods: {
+
+
+    cerrarSesion(){
+      this.$router.push('/Login');
+    },
     isAllowed(route) {
   localStorage.setItem('role', this.role);
       if (this.role === 'ROLE_ADMIN') {

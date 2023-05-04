@@ -53,7 +53,7 @@
 
                 <td>
                   <div class="botonesTabla">
-                    <Button v-if="cotizacion.estadoCotizacion === 'Cotizado'" class="btn-editar" @click="mostrarEditar"
+                    <Button v-if="cotizacion.estadoCotizacion === 'Cotizado'" class="btn-editar" @click="mostrarEditar(cotizacion.idCotizacion)"
                       >Ver</Button
                     >
                     <Button v-if="cotizacion.estadoCotizacion === 'Cotizado'" class="btn-cancelar-cotizacion">Cancelar</Button>
@@ -71,10 +71,12 @@
       v-if="showAddProducto"
       @cancelar="showAddProducto = false"
     ></AgregarCotizacion>
-    <VerCotizaciones
-      v-if="showAddEditar"
-      @cancelar="showAddEditar = false"
-    ></VerCotizaciones>
+    <VerCotizacionCliente :idCotizacion="idCotizacion"
+    v-if="showAddEditar"
+      @cancelar="showAddEditar = false">
+      
+    </VerCotizacionCliente>
+
   </LayoutPrincipal>
 </template>
 
@@ -85,10 +87,10 @@ import Button from "../components/Forms/Button.vue";
 import Paginacion from "../components/Forms/Paginacion.vue";
 // import EditarEmpleado from "@/components/Empleados/EditarEmpleado.vue";
 // import AgregarEmpleados from "@/components/Empleados/AgregarEmpleados.vue";
-import VerCotizaciones from "@/components/Cotizaciones/VerCotizaciones.vue";
 import AgregarCotizacion from "@/components/Cotizaciones/AgregarCotizacion.vue";
 import store from '@/store';
 import axios from 'axios';
+import VerCotizacionCliente from "@/components/Cotizaciones/VerCotizacionCliente.vue";
 // import TableCollapse from "../components/Tables/TableCollapse.vue";
 // import HeadTableCollapse from "../components/Tables/HeadTableCollapse.vue";
 
@@ -100,12 +102,9 @@ export default {
     Paginacion,
     // EditarEmpleado,
     // AgregarEmpleados,
-    VerCotizaciones,
     AgregarCotizacion,
-
-    // TableCollapse,
-    // HeadTableCollapse,
-  },
+    VerCotizacionCliente
+},
   created() {
   const id = localStorage.getItem('id');
   if (id) {
@@ -125,7 +124,8 @@ export default {
     };
   },
   methods: {
-    mostrarEditar() {
+    mostrarEditar(idCotizacion) {
+      this.idCotizacion = idCotizacion;
       this.showAddEditar = true;
     },
     ocultarEditar() {

@@ -54,7 +54,7 @@
 
                 <td>
                   <div class="botonesTabla">
-                    <Button class="btn-editar" @click="mostrarEditar"
+                    <Button class="btn-editar" @click="mostrarEditar(cotizacion.idCotizacion)"
                       >Ver</Button
                     >
                     <Button class="btn-guardar-cotizacion">Descargar</Button>
@@ -72,7 +72,7 @@
       v-if="showAddProducto"
       @cancelar="showAddProducto = false"
     ></AgregarCotizacion>
-    <VerCotizaciones
+    <VerCotizaciones :idCotizacion="idCotizacion"
       v-if="showAddEditar"
       @cancelar="showAddEditar = false"
     ></VerCotizaciones>
@@ -126,8 +126,10 @@ export default {
     };
   },
   methods: {
-    mostrarEditar() {
+    mostrarEditar(idCotizacion) {
       this.showAddEditar = true;
+      this.idCotizacion = idCotizacion;
+     
     },
     ocultarEditar() {
       this.showAddEditar = false;

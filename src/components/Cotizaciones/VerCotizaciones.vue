@@ -16,29 +16,20 @@
                   type="text"
                   name=""
                   id=""
-                  placeholder="5456"
+                  :value="idCotizacion"
+          @input="$emit('update:idCotizacion', $event.target.value)"
                   disabled
                 />
               </div>
               <div>
-                <div class="label">ID Cliente:</div>
+                <div class="label">Cliente:</div>
                 <input
                   class="inputEditar"
                   type="text"
                   name=""
                   id=""
-                  placeholder="12345"
-                  disabled
-                />
-              </div>
-              <div>
-                <div class="label">Nombre:</div>
-                <input
-                  class="inputEditar"
-                  type="text"
-                  name=""
-                  id=""
-                  placeholder="Carlos Andrés Loaiza López"
+                  v-model="nombreCliente"
+                  
                   disabled
                 />
               </div>
@@ -49,10 +40,21 @@
                   type="text"
                   name=""
                   id=""
-                  placeholder="03/04/2023"
+                  v-model="fechaEntrada"
                   disabled
                 />
               </div>
+              <div>
+                  <div class="label">Marca:</div>
+                  <input
+                    class="inputEditar"
+                    type="text"
+                    name=""
+                    id=""
+                    v-model="marca"
+                    disabled
+                  />
+                </div>
               <!-- <div>
                 <div class="label">Monto:</div>
                 <input
@@ -68,17 +70,7 @@
             <section class="separadorTres"></section>
             <section class="seccionDos">
               <div>
-                <div>
-                  <div class="label">Marca:</div>
-                  <input
-                    class="inputEditar"
-                    type="text"
-                    name=""
-                    id=""
-                    placeholder="Makita"
-                    disabled
-                  />
-                </div>
+              
                 <div>
                   <div class="label">Modelo:</div>
                   <input
@@ -86,7 +78,7 @@
                     type="text"
                     name=""
                     id=""
-                    placeholder="MAK019239SJ"
+                    v-model="modelo"
                     disabled
                   />
                 </div>
@@ -97,18 +89,18 @@
                     type="text"
                     name=""
                     id=""
-                    placeholder="352156165"
+                    v-model="numeroSerie"
                     disabled
                   />
                 </div>
                 <div>
-                  <div class="label">Tipo:</div>
+                  <div class="label">Seccion:</div>
                   <input
                     class="inputEditar"
                     type="text"
                     name=""
                     id=""
-                    placeholder="Rotomartillo"
+                    v-model="nombreSeccion"
                     disabled
                   />
                 </div>
@@ -135,8 +127,7 @@
                 id=""
                 cols="30"
                 rows="10"
-                disabled
-                placeholder="No sirve el enchufe"
+                v-model="descripcion"
               ></textarea>
             </div>
           </div>
@@ -202,12 +193,10 @@
             </div>
             <div class="inputEstatus">
               <div class="label">Estatus:</div>
-              <select class="buscadorSelect" name="" id="">
+              <select class="buscadorSelect" name="" id="" v-model="estadoCotizacion">
                 <option value="rojo">Seleccionar...</option>
-                <option value="rojo">En espera</option>
-                <option value="verde">En proceso</option>
-                <option value="azul">Reparado</option>
-                <option value="amarillo">Finalizado</option>
+                <option value="Pendiente">Pendiente</option>
+                <option value="Cotizado">Cotizado</option>
               </select>
             </div>
           </div>
@@ -243,7 +232,7 @@
 import ModalBase from "@/components/Modales/ModalBase.vue";
 import Button from "@/components/Forms/Button.vue";
 import LoadScreen from "@/components/Forms/LoadScreen.vue";
-
+import axios from 'axios';
 export default {
   components: {
     ModalBase,
@@ -251,6 +240,10 @@ export default {
     LoadScreen,
   },
   props: {
+    idCotizacion: {
+    type: Number, // o el tipo de dato que corresponda
+    required: true // o false, según sea necesario
+    },
     tituloHeader: {
       type: String,
       default: "Cotización",
@@ -259,6 +252,13 @@ export default {
   data() {
     return {
       showAddProducto: false,
+      nombreCliente: '',
+      marca:'',
+      modelo:'',
+      numeroSerie:'',
+      nombreSeccion:'',
+      fechaEntrada:'',
+      estadoCotizacion:'',
     };
   },
   emits: ["cancelar"],
@@ -272,6 +272,26 @@ export default {
     cancelar() {
       this.$emit("cancelar");
     },
+  },
+  mounted() {
+    // aquí puedes utilizar el idUsuario para obtener los datos del usuario
+    // y asignarlos a la variable usuario
+    console.log('ID Cotizacion: ' + this.idCotizacion);
+    axios.get(`http://localhost:10000/cotizaciones/${this.idCotizacion}`)
+      .then(response => {
+        this.nombreCliente = response.data.nombreCliente;
+        this.marca = response.data.marca;
+        this.modelo = response.data.modelo;
+        this.numeroSerie = response.data.numeroSerie;
+        this.nombreSeccion = response.data.nombreSeccion;
+        this.fechaEntrada = response.data.fechaEntrada ;
+        this.estadoCotizacion=response.data.estadoCotizacion;
+
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   },
 };
 </script>
