@@ -137,44 +137,67 @@
           <section class="tablaPrincipal">
             <table class="default">
               <tr class="cabecera">
-                <td>Cantidad:</td>
+                <td>Cantidad</td>
 
-                <td>Descripción:</td>
+                <td>Descripción</td>
 
-                <td>Costo unitario:</td>
+                <td>Costo unitario</td>
 
-                <td>Costo total:</td>
+                <td>Costo total</td>
+
+                <td>Acción</td>
               </tr>
 
-              <tr>
-                <td>10</td>
-
-                <td>Fuente de alimentación</td>
-
-                <td>$15.65</td>
-
-                <td>$156.05</td>
+              <tbody>
+              <tr v-for="refaccion in refacciones" :key="refaccion.idRefaccion">
+                <td>{{ refaccion.cantidad }}</td>
+                <td>{{ refaccion.descripcion }}</td>
+                <td>$ {{ refaccion.costoUnitario }}</td>
+                <td>$ {{ refaccion.cantidad * refaccion.costoUnitario }}</td>
+                <td>
+                  <div class="botonesTabla">
+                    <Button class="btn-eliminar" @click="EliminarRefaccion(refaccion.idRefaccion)">Eliminar</Button>
+                  </div>
+                </td>
+                
               </tr>
+            </tbody>
 
-              <tr>
-                <td>10</td>
+              <td>
+                <input
+                  class="inputCantidad"
+                  type="tel"
+                  maxlength="3"
+                  name=""
+                  id=""
+                  v-model="cantidad"
+                />
+              </td>
 
-                <td>Fuente de alimentación</td>
+              <td>
+                <input class="inputDescripcion" type="text" maxlength="30"  v-model="descripcionRefaccion"/>
+              </td>
 
-                <td>$15.65</td>
+              <td>
+                <input
+                  class="inputCantidad"
+                  type="tel"
+                  step="any"
+                  maxlength="5"
+                  v-model="costoUnitario"
+                />
+              </td>
 
-                <td>$156.05</td>
-              </tr>
-
-              <tr>
-                <td>10</td>
-
-                <td>Fuente de alimentación</td>
-
-                <td>$15.65</td>
-
-                <td>$156.05</td>
-              </tr>
+              <td>
+                <input class="inputCantidad" type="number" v-model="costoTotal" disabled />
+              </td>
+              <td>
+                <div class="botonesTabla">
+                  <Button class="btn-editar" @click="registrarRefaccion">Guardar</Button>
+                  <!-- <Button class="btn-guardar-cotizacion">Descargar</Button> -->
+                  <!-- <Button class="btn-eliminar">Eliminar</Button> -->
+                </div>
+              </td>
             </table>
           </section>
           <div class="seccionEstatus">
@@ -203,21 +226,21 @@
           <section class="contenedorTotales">
             <div class="total">
               <div>Subtotal:</div>
-              <div>$ 9,827.00</div>
+              <div>$ {{ total }}</div>
             </div>
             <div class="total">
               <div>IVA:</div>
-              <div>$ 1,723.00</div>
+              <div>$ {{ iva }}</div>
             </div>
             <div class="separadorTotal"></div>
             <div class="total">
               <div>Total:</div>
-              <div>$ 11,550.00</div>
+              <div>$ {{ cantidadtotal }}</div>
             </div>
           </section>
           <section class="contenedorBotones">
             <Button class="btn-regresar" @click="cancelar">Regresar</Button>
-            <Button class="btn-guardar" @click="mostrarAddService"
+            <Button class="btn-guardar" @click="cotizar"
               >Guardar</Button
             >
           </section>
@@ -233,6 +256,7 @@ import ModalBase from "@/components/Modales/ModalBase.vue";
 import Button from "@/components/Forms/Button.vue";
 import LoadScreen from "@/components/Forms/LoadScreen.vue";
 import axios from 'axios';
+const IVA_TASA = 0.16;
 export default {
   components: {
     ModalBase,
@@ -259,6 +283,16 @@ export default {
       nombreSeccion:'',
       fechaEntrada:'',
       estadoCotizacion:'',
+
+      //datos refacciones
+      cantidad:'',
+      descripcionRefaccion:'',
+      costoUnitario:'',
+      costoTotal:'',
+
+      refacciones:[
+      ],
+
     };
   },
   emits: ["cancelar"],
@@ -268,6 +302,75 @@ export default {
     },
     ocultarAddProd() {
       this.showAddProducto = false;
+    },
+    cargarRefacciones() {
+    axios.get('http://localhost:10000/refacciones')
+      .then(response => {
+        console.log(this.idCotizacion);
+        let refacciones = response.data;
+        
+      this.refacciones = refacciones.filter(refaccion => refaccion.idCotizacion === this.idCotizacion);
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    },
+    EliminarRefaccion(idRefaccion){
+      axios.delete(`http://localhost:10000/refacciones/${idRefaccion}`).then(() => {
+        const indice = this.refacciones.findIndex(
+          (refaccion) => refaccion.descripcion === this.refacciones.descripcionRefaccion
+        );
+        this.refacciones.splice(indice, 1);
+      });
+
+    },
+    registrarRefaccion: function(){
+      const refa = {
+        idCotizacion:this.idCotizacion,
+        descripcion: this.descripcionRefaccion,
+        costoUnitario: this.costoUnitario,
+        cantidad: this.cantidad,
+        
+        
+        
+      }
+      axios.post('http://localhost:10000/refacciones', refa)
+        .then(response => {
+          console.log(response.refa);
+          axios.get('http://localhost:10000/refacciones')
+      .then(response => {
+        console.log(this.idCotizacion);
+        let refacciones = response.data;
+        
+      this.refacciones = refacciones.filter(refaccion => refaccion.idCotizacion === this.idCotizacion);
+      this.cantidad ='';
+      this.descripcionRefaccion ='';
+      this.costoUnitario ='';
+
+
+      })
+      .catch(error => {
+        console.log(error);
+      })
+          
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    },
+
+
+    cotizar: function(){
+      const cotizacion = {
+        descripcion: this.descripcion,
+      }
+      axios.put(`http://localhost:10000/cotizaciones/${this.idCotizacion}/cotizar`, cotizacion)
+        .then(response => {
+          console.log(response.cotizacion);
+        })
+        .catch(error => {
+          console.error(error);
+        });
     },
     cancelar() {
       this.$emit("cancelar");
@@ -292,7 +395,24 @@ export default {
       .catch(error => {
         console.log(error);
       });
+
+     this.cargarRefacciones();
   },
+  computed: {
+  total() {
+    return this.refacciones.reduce((sum, refaccion) => {
+      return sum + (refaccion.cantidad * refaccion.costoUnitario);
+    }, 0);
+  },
+  iva() {
+    return (this.total * IVA_TASA).toFixed(2);
+  },
+  cantidadtotal() {
+    const ivaNumero = parseFloat(this.iva);
+    return this.total + ivaNumero;
+  },
+  
+}
 };
 </script>
 
@@ -385,6 +505,29 @@ export default {
   justify-content: center;
   align-items: center;
   display: flex;
+}
+.inputCantidad {
+  width: 60px;
+  height: 32px;
+  border: 0px solid #000000;
+  box-shadow: 0px 3px 6px #00000029;
+  outline: none;
+  color: #000000;
+  padding: 0px 7px;
+  border-radius: 10px;
+  font-size: 15px;
+  text-align: center;
+}
+.inputDescripcion {
+  width: 200px;
+  height: 32px;
+  border: 0px solid #000000;
+  box-shadow: 0px 3px 6px #00000029;
+  outline: none;
+  color: #000000;
+  padding: 0px 7px;
+  border-radius: 10px;
+  font-size: 15px;
 }
 .seccionEstatus {
   margin-top: 20px;

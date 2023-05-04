@@ -137,51 +137,20 @@
                   <td>Costo total:</td>
                 </tr>
   
-                <tr>
-                  <td>10</td>
-  
-                  <td>Fuente de alimentación</td>
-  
-                  <td>$15.65</td>
-  
-                  <td>$156.05</td>
-                </tr>
-  
-                <tr>
-                  <td>10</td>
-  
-                  <td>Fuente de alimentación</td>
-  
-                  <td>$15.65</td>
-  
-                  <td>$156.05</td>
-                </tr>
-  
-                <tr>
-                  <td>10</td>
-  
-                  <td>Fuente de alimentación</td>
-  
-                  <td>$15.65</td>
-  
-                  <td>$156.05</td>
-                </tr>
+                <tbody>
+              <tr v-for="refaccion in refacciones" :key="refaccion.idRefaccion">
+                <td>{{ refaccion.cantidad }}</td>
+                <td>{{ refaccion.descripcion }}</td>
+                <td>$ {{ refaccion.costoUnitario }}</td>
+                <td>$ {{ refaccion.cantidad * refaccion.costoUnitario }}</td>
+                
+                
+              </tr>
+            </tbody>
               </table>
             </section>
             <div class="seccionEstatus">
-              <div class="inputSeguimiento">
-                <div class="label">Seguimiento:</div>
-                <div>
-                  <textarea
-                    class="inputTextArea"
-                    name=""
-                    id=""
-                    cols="30"
-                    rows="10"
-                    placeholder="Ingrea un comentario adicional"
-                  ></textarea>
-                </div>
-              </div>
+             
               <div class="inputEstatus">
                 <div class="label">Estatus:</div>
                 <select class="buscadorSelect" name="" id="" v-model="estadoCotizacion" disabled>
@@ -193,18 +162,18 @@
             </div>
             <section class="contenedorTotales">
               <div class="total">
-                <div>Subtotal:</div>
-                <div>$ 9,827.00</div>
-              </div>
-              <div class="total">
-                <div>IVA:</div>
-                <div>$ 1,723.00</div>
-              </div>
-              <div class="separadorTotal"></div>
-              <div class="total">
-                <div>Total:</div>
-                <div>$ 11,550.00</div>
-              </div>
+              <div>Subtotal:</div>
+              <div>$ {{ total }}</div>
+            </div>
+            <div class="total">
+              <div>IVA:</div>
+              <div>$ {{ iva }}</div>
+            </div>
+            <div class="separadorTotal"></div>
+            <div class="total">
+              <div>Total:</div>
+              <div>$ {{ cantidadtotal }}</div>
+            </div>
             </section>
             <section class="contenedorBotones">
               <Button class="btn-regresar" @click="cancelar">Regresar</Button>
@@ -224,6 +193,7 @@
   import Button from "@/components/Forms/Button.vue";
   import LoadScreen from "@/components/Forms/LoadScreen.vue";
   import axios from 'axios';
+  const IVA_TASA = 0.16;
   export default {
     components: {
       ModalBase,
@@ -250,6 +220,10 @@
         nombreSeccion:'',
         fechaEntrada:'',
         estadoCotizacion:'',
+        descripcion:'',
+        refacciones:[
+      ],
+
       };
     },
     emits: ["cancelar"],
@@ -263,6 +237,18 @@
       cancelar() {
         this.$emit("cancelar");
       },
+      cargarRefacciones() {
+    axios.get('http://localhost:10000/refacciones')
+      .then(response => {
+        console.log(this.idCotizacion);
+        let refacciones = response.data;
+        
+      this.refacciones = refacciones.filter(refaccion => refaccion.idCotizacion === this.idCotizacion);
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    },
     },
     mounted() {
       // aquí puedes utilizar el idUsuario para obtener los datos del usuario
@@ -277,13 +263,32 @@
           this.nombreSeccion = response.data.nombreSeccion;
           this.fechaEntrada = response.data.fechaEntrada ;
           this.estadoCotizacion=response.data.estadoCotizacion;
+          this.descripcion=response.data.descripcion;
   
           console.log(response.data);
         })
         .catch(error => {
           console.log(error);
         });
+
+        this.cargarRefacciones();
     },
+    computed: {
+  total() {
+    return this.refacciones.reduce((sum, refaccion) => {
+      return sum + (refaccion.cantidad * refaccion.costoUnitario);
+    }, 0);
+  },
+  iva() {
+    return (this.total * IVA_TASA).toFixed(2);
+  },
+  cantidadtotal() {
+    const ivaNumero = parseFloat(this.iva);
+    return this.total + ivaNumero;
+  },
+  
+}
+    
   };
   </script>
   

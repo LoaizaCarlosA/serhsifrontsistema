@@ -17,9 +17,7 @@
             placeholder="Inserte nombre o ID"
           />
           <!-- <Button class="btn-buscar">Buscar</Button> -->
-          <Button class="btn-agregar" @click="mostrarAddService"
-            >Agregar</Button
-          >
+          
         </div>
       </section>
       <section>
@@ -48,7 +46,7 @@
              
                 <td>{{ cotizacion.nombreCliente }}</td>
                 <td>{{ `${cotizacion.marca} ${cotizacion.modelo} ${cotizacion.numeroSerie}`}}</td>
-                <td>{{ cotizacion.costo }}</td>
+                <td>${{ cotizacion.costo }}</td>
                 <td>{{ cotizacion.fechaEntrada }}</td>
                 <td>{{ cotizacion.estadoCotizacion }}</td>
 

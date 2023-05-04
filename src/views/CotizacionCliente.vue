@@ -138,21 +138,21 @@ export default {
       this.showAddProducto = false;
     },
     cargarCotizaciones() {
-      const id = store.state.id;
-      const request1 = axios.get(`http://localhost:10000/clientes/${id}/cotizaciones/pendientes`);
-const request2 = axios.get(`http://localhost:10000/clientes/${id}/cotizaciones/realizadas`);
+  const id = store.state.id;
+  const request1 = axios.get(`http://localhost:10000/clientes/${id}/cotizaciones/pendientes`);
+  const request2 = axios.get(`http://localhost:10000/clientes/${id}/cotizaciones/realizadas`);
 
-Promise.all([request1, request2])
-  .then(([response1, response2]) => {
-    const cotizaciones1 = response1.data;
-    const cotizaciones2 = response2.data;
-    const cotizaciones = [...cotizaciones1, ...cotizaciones2];
-    this.cotizaciones = cotizaciones;
-  })
-  .catch(error => {
-    console.log(error);
-  });
-    }
+  Promise.allSettled([request1, request2])
+    .then(results => {
+      const cotizaciones1 = results[0].status === 'fulfilled' ? results[0].value.data : [];
+      const cotizaciones2 = results[1].status === 'fulfilled' ? results[1].value.data : [];
+      const cotizaciones = [...cotizaciones1, ...cotizaciones2];
+      this.cotizaciones = cotizaciones;
+    })
+    .catch(error => {
+      console.log(error);
+    });
+}
     
   },
  
