@@ -177,7 +177,7 @@
             </section>
             <section class="contenedorBotones">
               <Button class="btn-regresar" @click="cancelar">Regresar</Button>
-              <Button class="btn-guardar" @click="mostrarAddService"
+              <Button class="btn-guardar" @click="aceptarCotizacion"
                 >Aceptar</Button
               >
             </section>
@@ -237,6 +237,16 @@
       cancelar() {
         this.$emit("cancelar");
       },
+      aceptarCotizacion(){
+        axios.put(`http://localhost:10000/cotizaciones/${this.idCotizacion}/aceptar`)
+        .then(response => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.log(error)
+      })
+      },
+
       cargarRefacciones() {
     axios.get('http://localhost:10000/refacciones')
       .then(response => {

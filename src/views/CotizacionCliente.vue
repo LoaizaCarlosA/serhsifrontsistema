@@ -34,7 +34,7 @@
 
               <td>Herramienta</td>
 
-              <td>Costo</td>
+              <td>Costo(Sin IVA)</td>
 
               <td>Fecha</td>
 

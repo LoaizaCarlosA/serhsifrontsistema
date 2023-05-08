@@ -1,5 +1,8 @@
 <template>
-  <ModalBase>
+  <ModalBase v-if="mostrarModal">
+
+      <LoadScreen v-if="mostrarLoader"></LoadScreen>
+  
     <section class="contenedorPrincipal">
       <section>
         <div class="titulo">{{ tituloHeader }}</div>
@@ -115,7 +118,7 @@
         <Button class="btn-guardar" @click="registrarEmpleado">Guardar</Button>
       </section>
     </section>
-    <LoadScreen v-if="showAddProducto" @cerrar="ocultarAddProd"></LoadScreen>
+   
   </ModalBase>
 </template>
 
@@ -141,6 +144,8 @@ export default {
   data() {
     return {
       showAddProducto: false,
+      mostrarLoader: false,
+      mostrarModal: true,
       nombre: '',
       apellidoPaterno: '',
       apellidoMaterno: '',
@@ -159,7 +164,9 @@ export default {
     },
     ocultarAddProd() {
       this.showAddProducto = false;
+      
     },
+    
     cancelar() {
       this.$emit("cancelar");
     },
@@ -174,13 +181,23 @@ export default {
         telefono:this.telefono,
         correo:this.correo,
         clave:this.clave
-      }
+      };
+      this.mostrarLoader = true; // Mostrar el loader
       axios.post('http://localhost:10000/empleados', empleado)
         .then(response => {
           console.log(response.empleado);
+          this.mostrarModal = false; // Ocultar el modal
+          this.mostrarLoader = false; // Ocultar el loader
+          window.location.reload();
+         
+         
         })
         .catch(error => {
           console.error(error);
+          this.mostrarModal = false; // Ocultar el modal
+          this.mostrarLoader = false; // Ocultar el loader
+          
+          
         });
     },
   },
