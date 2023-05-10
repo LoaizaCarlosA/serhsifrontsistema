@@ -134,6 +134,32 @@ export default {
         console.log(error)
       })
     },
+    enviarnotificacion(telefono){
+      axios.post('http://localhost:10000/api/v1/processSMS', {
+        destinationSMSNumber: '+52' + telefono, // número de teléfono del destinatario
+        smsMessage: 'USTED HA SIDO ASIGNADO A UNA NUEVA COTIZACIÓN' // contenido del mensaje
+})
+.then(function (response) {
+  console.log(response);
+})
+.catch(function (error) {
+  console.log(error);
+});
+    },
+    
+    obtenerNumeroTelefonoCliente(idCliente) {
+    axios.get(`http://localhost:10000/clientes/${idCliente}`)
+      .then(response => {
+        const cliente = response.data;
+        const numeroTelefono = cliente.telefono;
+        // Utiliza el número de teléfono como desees
+        console.log(numeroTelefono);
+        this.enviarnotificacion(numeroTelefono);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  },
     registrarCotizacion: function(){
       const cotizacion = {
         idReparador:this.idReparador,
@@ -142,9 +168,12 @@ export default {
         numeroSerie:this.numeroSerie,
         
       }
+
+      
       axios.post('http://localhost:10000/cotizaciones', cotizacion)
         .then(response => {
           console.log(response.cotizacion);
+          this.obtenerNumeroTelefonoCliente(this.idCliente);
           this.mostrarModal = false; // Ocultar el modal
           this.mostrarLoader = true; // Mostrar el loader
           setTimeout(() => {
