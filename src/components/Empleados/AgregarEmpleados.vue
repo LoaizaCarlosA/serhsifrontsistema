@@ -1,7 +1,9 @@
 <template>
+      <LoadScreen v-if="mostrarLoader"></LoadScreen>
+  <ModalExito v-if="mostrarExito"></ModalExito>
+  <ModalError v-if="mostrarError"></ModalError>
   <ModalBase v-if="mostrarModal">
 
-      <LoadScreen v-if="mostrarLoader"></LoadScreen>
   
     <section class="contenedorPrincipal">
       <section>
@@ -127,12 +129,16 @@ import ModalBase from "../Modales/ModalBase.vue";
 import Button from "../Forms/Button.vue";
 import LoadScreen from "../Forms/LoadScreen.vue";
 import axios from 'axios';
+import ModalExito from "../Modales/ModalExito.vue";
+import ModalError from "../Modales/ModalError.vue"
 
 export default {
   components: {
     ModalBase,
     Button,
     LoadScreen,
+    ModalExito,
+    ModalError,
   },
   props: {
     
@@ -146,6 +152,8 @@ export default {
       showAddProducto: false,
       mostrarLoader: false,
       mostrarModal: true,
+      mostrarExito:false,
+      mostrarError:false,
       nombre: '',
       apellidoPaterno: '',
       apellidoMaterno: '',
@@ -182,20 +190,43 @@ export default {
         correo:this.correo,
         clave:this.clave
       };
-      this.mostrarLoader = true; // Mostrar el loader
       axios.post('http://localhost:10000/empleados', empleado)
         .then(response => {
           console.log(response.empleado);
           this.mostrarModal = false; // Ocultar el modal
-          this.mostrarLoader = false; // Ocultar el loader
-          window.location.reload();
+          this.mostrarLoader = true; // Mostrar el loader
+          setTimeout(() => {
+            this.mostrarLoader = false; // Ocultar el loader
+        }, 1000);
+   
+        setTimeout(() => {
+          this.mostrarExito=true;
+        }, 1100);   
+          setTimeout(() => {
+            this.mostrarExito=false;
+            window.location.reload();
+        }, 3000);
+          
+          
+          
          
          
         })
         .catch(error => {
           console.error(error);
           this.mostrarModal = false; // Ocultar el modal
-          this.mostrarLoader = false; // Ocultar el loader
+          this.mostrarLoader = true; // Mostrar el loader
+          setTimeout(() => {
+            this.mostrarLoader = false; // Ocultar el loader
+        }, 1000);
+   
+        setTimeout(() => {
+          this.mostrarError=true;
+        }, 1100);   
+          setTimeout(() => {
+            this.mostrarError=false;
+            window.location.reload();
+        }, 3000);
           
           
         });

@@ -3,18 +3,15 @@
     <section class="contenedorPrincipal">
       <section>
         <div class="contenedorLogo">
-          <img class="imgLogo" src="../assets/img/LogotipoSerhsi.png" alt="" />
+          <img class="imgLogo" src="@/assets/img/LogotipoSerhsi.png" alt="" />
         </div>
         <div class="separador"></div>
       </section>
       <section class="contenedorImg">
-        <img class="imgE" src="../assets/img/exito.png" alt="" />
+        <img class="imgE" src="@/assets/img/exito.png" alt="" />
       </section>
       <div class="titulo">{{ mensajeExito }}</div>
       <section class="contenedorBotones">
-        <Button class="btn-guardar" @click="mostrarAddService"
-          >Continuar</Button
-        >
       </section>
     </section>
     <LoadScreen v-if="showAddProducto" @cerrar="ocultarAddProd"></LoadScreen>
@@ -22,14 +19,14 @@
 </template>
 
 <script>
-import ModalBaseConfirmacion from "../components/Modales/ModalBaseConfirmacion.vue";
-import Button from "../components/Forms/Button.vue";
-import LoadScreen from "../components/Forms/LoadScreen.vue";
+import ModalBaseConfirmacion from "@/components/Modales/ModalBaseConfirmacion.vue";
+
+import LoadScreen from "@/components/Forms/LoadScreen.vue";
 
 export default {
   components: {
     ModalBaseConfirmacion,
-    Button,
+   
     LoadScreen,
   },
   props: {
