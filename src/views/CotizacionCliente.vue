@@ -159,6 +159,7 @@ descargarCotizacion(idCotizacion,costo) {
     this.costo= costo
     this.$router.push({ name: 'HojaCotizacion', query: { idCotizacion, costo } });
   },
+  
     
   },
  

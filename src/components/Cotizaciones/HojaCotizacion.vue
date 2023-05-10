@@ -1,5 +1,5 @@
 <template>
-  <section class="bodyPrincipal">
+  <section class="bodyPrincipal" ref="vueComponent">
     <section class="infoLocal">
       <div>
         <img class="imgLogo" src="@/assets/img/LogotipoB.png" alt="" />
@@ -17,8 +17,8 @@
     </section>
     <section class="tituloCotizacion">
 
-      <Button class="btn-guardar" @click="aceptarCotizacion"
-                >Descargar</Button
+      <Button class="btn-editar" v-show="mostrarBotonRegresar" @click="regresarCotizaciones"
+                >Regresar</Button
               >
     </section>
     <section class="separador"></section>
@@ -95,6 +95,8 @@
 <script>
 import Button from "@/components/Forms/Button.vue";
 import axios from 'axios';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 const IVA_TASA = 0.16;
 export default {
   components: {
@@ -104,6 +106,7 @@ export default {
     },
   data() {
     return {
+      mostrarBotonRegresar: false,
       cotizaciones: [
       ],
       refacciones: [
@@ -122,6 +125,34 @@ export default {
         console.log(error)
       })
     },
+    regresarCotizaciones(){
+      this.$router.push('/Cotizaciones')
+    },
+    generarPDF() {
+      
+  const vueComponent = this.$refs.vueComponent;
+  
+  const options = {
+    scale: 2, // Ajusta la escala del contenido para capturar todos los elementos
+    useCORS: true, // Permite el uso de recursos cruzados (si es necesario)
+  };
+  
+  const width = vueComponent.offsetWidth; // Obtiene el ancho del elemento principal
+  const height = vueComponent.offsetHeight; // Obtiene la altura del elemento principal
+  
+  html2canvas(vueComponent, { ...options, width, height }).then(canvas => {
+    const imgData = canvas.toDataURL('image/png');
+    const pdf = new jsPDF({
+      orientation: 'landscape',
+      unit: 'px', // Establece la unidad de medida en píxeles
+      format: [width, height], // Establece el tamaño del PDF según las dimensiones de la vista
+    });
+    
+    pdf.addImage(imgData, 'PNG', 0, 0, width, height); // Agrega la imagen utilizando las dimensiones de la vista
+    pdf.save("miArchivo.pdf");
+    
+  });
+},
 
    
     cargarRefacciones() {
@@ -140,6 +171,13 @@ export default {
   mounted() {
     this.cargarCotizacion();
     this.cargarRefacciones();
+    setTimeout(() => {
+      this.generarPDF(); // Llama a la función para generar el PDF automáticamente después de 3 segundos
+    }, 500);
+    setTimeout(() => {
+      this.mostrarBotonRegresar = true;
+    }, 800);
+    
 
   },
   computed: {
