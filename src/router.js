@@ -16,6 +16,7 @@ import Ordenes from "./views/Ordenes.vue";
 import Cotizaciones from "./views/CotizacionCliente.vue";
 import LandingPrincipal from "./views/LandingPrincipal.vue"
 import store from '@/store';
+import hoja from "@/components/Cotizaciones/HojaCotizacion.vue";
 const routes = [
   {
     path: "/Login",
@@ -87,6 +88,12 @@ const routes = [
     name: "Pruebita2",
     component: prueba2,
   },
+  {
+    path: "/HojaCotizacion",
+    name: "HojaCotizacion",
+    component: hoja,
+  },
+  
 ];
 
 

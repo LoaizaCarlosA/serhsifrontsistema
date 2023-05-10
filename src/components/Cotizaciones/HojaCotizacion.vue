@@ -2,7 +2,7 @@
   <section class="bodyPrincipal">
     <section class="infoLocal">
       <div>
-        <img class="imgLogo" src="../assets/img/LogotipoB.png" alt="" />
+        <img class="imgLogo" src="@/assets/img/LogotipoB.png" alt="" />
       </div>
       <div class="contenedorInfo">
         <div class="tituloSerhsi">
@@ -15,20 +15,25 @@
         <div class="infoCabecera">6675026781</div>
       </div>
     </section>
-    <section class="tituloCotizacion">Cotización</section>
+    <section class="tituloCotizacion">
+
+      <Button class="btn-guardar" @click="aceptarCotizacion"
+                >Descargar</Button
+              >
+    </section>
     <section class="separador"></section>
     <section>
       <div class="contenedorClientes">
         <div class="tituloCont">Cliente:</div>
-        <div class="infoDelCont">Carlos Andrés Loaiza López</div>
+        <div class="infoDelCont">{{cotizaciones.nombreCliente}}</div>
       </div>
       <div class="contenedorClientes">
         <div class="tituloCont">ID Cotización:</div>
-        <div class="infoDelCont">315489</div>
+        <div class="infoDelCont">{{this.$route.query.idCotizacion}}</div>
       </div>
       <div class="contenedorClientes">
         <div class="tituloCont">Fecha de cotización:</div>
-        <div class="infoDelCont">22/04/2023</div>
+        <div class="infoDelCont">{{cotizaciones.fechaEntrada}}</div>
       </div>
     </section>
     <section class="separador"></section>
@@ -40,18 +45,16 @@
           <td>Costo unitario:</td>
           <td>Costo total:</td>
         </tr>
-        <tr>
-          <td>10</td>
-          <td>Fuente de alimentación</td>
-          <td>$15.65</td>
-          <td>$156.05</td>
-        </tr>
-        <tr>
-          <td>10</td>
-          <td>Fuente de alimentación</td>
-          <td>$15.65</td>
-          <td>$156.05</td>
-        </tr>
+        <tbody>
+              <tr v-for="refaccion in refacciones" :key="refaccion.idRefaccion">
+                <td>{{ refaccion.cantidad }}</td>
+                <td>{{ refaccion.descripcion }}</td>
+                <td>$ {{ refaccion.costoUnitario }}</td>
+                <td>$ {{ refaccion.cantidad * refaccion.costoUnitario }}</td>
+                
+                
+              </tr>
+            </tbody>
       </table>
     </section>
     <section class="infoPago">
@@ -73,16 +76,16 @@
       <section class="contenedorTotales">
         <div class="total">
           <div>Subtotal:</div>
-          <div>$ 9,827.00</div>
+          <div>$ {{this.$route.query.costo}}</div>
         </div>
         <div class="total">
           <div>IVA:</div>
-          <div>$ 1,723.00</div>
+          <div>$ {{ iva }}</div>
         </div>
         <div class="separadorTotal"></div>
         <div class="total">
           <div>Total:</div>
-          <div>$ 11,550.00</div>
+          <div>$ {{ cantidadtotal }}</div>
         </div>
       </section>
     </section>
@@ -90,7 +93,67 @@
 </template>
 
 <script>
-export default {};
+import Button from "@/components/Forms/Button.vue";
+import axios from 'axios';
+const IVA_TASA = 0.16;
+export default {
+  components: {
+      
+      Button,
+    
+    },
+  data() {
+    return {
+      cotizaciones: [
+      ],
+      refacciones: [
+      ],
+    
+    };
+  },
+
+  methods: {
+    cargarCotizacion() {
+      axios.get(`http://localhost:10000/cotizaciones/${this.$route.query.idCotizacion}`)
+      .then(response => {
+        this.cotizaciones = response.data
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    },
+
+   
+    cargarRefacciones() {
+    axios.get('http://localhost:10000/refacciones')
+      .then(response => {
+        console.log(this.$route.query.idCotizacion);
+        const idCotizacion = parseInt(this.$route.query.idCotizacion);
+        let refacciones = response.data;
+        this.refacciones = refacciones.filter(refaccion => refaccion.idCotizacion === idCotizacion);
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    },
+  },
+  mounted() {
+    this.cargarCotizacion();
+    this.cargarRefacciones();
+
+  },
+  computed: {
+  iva() {
+    return (parseFloat(this.$route.query.costo) * IVA_TASA).toFixed(2);
+  },
+  cantidadtotal() {
+    const ivaNumero = parseFloat(this.iva);
+    return parseFloat(this.$route.query.costo) + ivaNumero;
+  },
+}
+};
+
+
 </script>
 
 <style scoped>
@@ -199,7 +262,7 @@ export default {};
 .infoPago {
   justify-content: space-between;
   display: flex;
-  padding-top: 400px;
+  padding-top: 200px;
   text-align: justify;
 }
 .contenedorNota {

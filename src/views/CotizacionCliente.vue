@@ -56,6 +56,7 @@
                     <Button v-if="cotizacion.estadoCotizacion === 'Cotizado'" class="btn-editar" @click="mostrarEditar(cotizacion.idCotizacion)"
                       >Ver</Button
                     >
+                    <Button id="btn-descargar" class="btn-guardar"  @click="descargarCotizacion(cotizacion.idCotizacion,cotizacion.costo)">Descargar</Button >
                     <Button v-if="cotizacion.estadoCotizacion === 'Cotizado'" class="btn-cancelar-cotizacion">Cancelar</Button>
                     <!-- <Button class="btn-eliminar">Eliminar</Button> -->
                   </div>
@@ -152,7 +153,12 @@ export default {
     .catch(error => {
       console.log(error);
     });
-}
+},
+descargarCotizacion(idCotizacion,costo) {
+    this.idCotizacion = idCotizacion;
+    this.costo= costo
+    this.$router.push({ name: 'HojaCotizacion', query: { idCotizacion, costo } });
+  },
     
   },
  
