@@ -8,6 +8,7 @@
         <router-link v-if="isAllowed('/Cotizacion')" to="/Cotizacion" class="menu-item" active-class="active">Cotizaciones</router-link>
         <router-link v-if="isAllowed('/Cotizaciones')" to="/Cotizaciones"  class="menu-item" active-class="active">Cotizaciones</router-link>
         <router-link v-if="isAllowed('/OrdenesC')" to="/OrdenesC"  class="menu-item" active-class="active">Ordenes</router-link>
+        <router-link v-if="isAllowed('/OrdenesR')" to="/OrdenesR"  class="menu-item" active-class="active">Ordenes</router-link>
         <router-link v-if="isAllowed('/Ordenes')" to="/Ordenes" class="menu-item" active-class="active">Cotización</router-link>
         <router-link v-if="isAllowed('/Clientes')" to="/Clientes" class="menu-item" active-class="active">Clientes</router-link>
         <router-link v-if="isAllowed('/Empleados')" to="/Empleados"  class="menu-item" active-class="active">Empleados</router-link>
@@ -91,7 +92,7 @@ computed: {
       }
       else if (this.role === 'ROLE_REPARADOR') {
         // Si el rol es user, se permite el acceso solo a las vistas que no tienen restricciones
-        const unrestrictedRoutes = ['/Dashboard','/Cotizacion'];
+        const unrestrictedRoutes = ['/Dashboard','/Cotizacion','/OrdenesR'];
         
         return unrestrictedRoutes.includes(route);
       }

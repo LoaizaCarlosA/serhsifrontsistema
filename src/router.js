@@ -14,6 +14,7 @@ import prueba from "./views/prueba.vue";
 import prueba2 from "./views/Prueba2.vue";
 import Ordenes from "./views/Ordenes.vue";
 import OrdenesC from "./views/OrdenesCliente.vue";
+import OrdenesR from "./views/OrdenesReparador.vue";
 import Cotizaciones from "./views/CotizacionCliente.vue";
 import LandingPrincipal from "./views/LandingPrincipal.vue"
 import store from '@/store';
@@ -28,6 +29,12 @@ const routes = [
     path: "/OrdenesC",
     name: "OrdenesC",
     component: OrdenesC,
+  },
+
+  {
+    path: "/OrdenesR",
+    name: "OrdenesR",
+    component: OrdenesR,
   },
   {
     path: "/Dashboard",

@@ -37,6 +37,8 @@
   
                 <td>Costo total</td>
 
+                <td>Acciones</td>
+
               </tr>
               <tbody>
                 <tr v-for="orden in FiltroCotizaciones" :key="orden.idOrdenReparacion">
@@ -45,6 +47,15 @@
                   <td>{{ orden.fechaFin }}</td>
                   <td>{{ orden.estado }}</td>
                   <td>{{ orden.costoTotal }}</td>
+
+                  <td>
+                  <div class="botonesTabla">
+                    <Button class="btn-editar" @click="mostrarEditar(orden.idOrdenReparacion)"
+                      >Actualizar</Button
+                    >
+                    <!-- <Button class="btn-eliminar">Eliminar</Button> -->
+                  </div>
+                </td>
                 </tr>
               </tbody>
             </table>
@@ -52,15 +63,12 @@
         </section>
         <Paginacion></Paginacion>
       </ContainerWhite>
-      <AgregarCotizacion
-        v-if="showAddProducto"
-        @cancelar="showAddProducto = false"
-      ></AgregarCotizacion>
-      <VerCotizacionCliente :idCotizacion="idCotizacion"
+    
+      <ActualizarOrden :idOrdenReparacion="idOrdenReparacion"
       v-if="showAddEditar"
         @cancelar="showAddEditar = false">
         
-      </VerCotizacionCliente>
+      </ActualizarOrden>
   
     </LayoutPrincipal>
   </template>
@@ -71,10 +79,11 @@
   import Paginacion from "../components/Forms/Paginacion.vue";
   // import EditarEmpleado from "@/components/Empleados/EditarEmpleado.vue";
   // import AgregarEmpleados from "@/components/Empleados/AgregarEmpleados.vue";
-  import AgregarCotizacion from "@/components/Cotizaciones/AgregarCotizacion.vue";
+  import ActualizarOrden from "@/components/Ordenes/ActualizarOrden.vue";
+  import Button from "../components/Forms/Button.vue";
   import store from '@/store';
   import axios from 'axios';
-  import VerCotizacionCliente from "@/components/Cotizaciones/VerCotizacionCliente.vue";
+ 
   // import TableCollapse from "../components/Tables/TableCollapse.vue";
   // import HeadTableCollapse from "../components/Tables/HeadTableCollapse.vue";
   
@@ -83,10 +92,11 @@
       LayoutPrincipal,
       ContainerWhite,
       Paginacion,
+      Button,
+      ActualizarOrden,
+
       // EditarEmpleado,
       // AgregarEmpleados,
-      AgregarCotizacion,
-      VerCotizacionCliente
   },
     created() {
     const id = localStorage.getItem('id');
@@ -107,8 +117,8 @@
       };
     },
     methods: {
-      mostrarEditar(idCotizacion) {
-        this.idCotizacion = idCotizacion;
+      mostrarEditar(idOrdenReparacion) {
+        this.idOrdenReparacion = idOrdenReparacion;
         this.showAddEditar = true;
       },
       ocultarEditar() {
@@ -121,13 +131,12 @@
         this.showAddProducto = false;
       },
       cargarOrdenes() {
-        const idCliente = store.state.id;
+        const idReparador = store.state.id;
         axios.get('http://localhost:10000/ordenes')
       .then(response => {
       
-        console.log(idCliente);
         let ordenes = response.data;
-        this.ordenes = ordenes.filter(orden => orden.idCliente === parseInt(idCliente));
+        this.ordenes = ordenes.filter(orden => orden.idReparador === parseInt(idReparador));
       })
       .catch(error => {
         console.log(error)
