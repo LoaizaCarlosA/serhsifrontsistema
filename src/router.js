@@ -13,6 +13,7 @@ import Almacen from "./views/Almacen.vue";
 import prueba from "./views/prueba.vue";
 import prueba2 from "./views/Prueba2.vue";
 import Ordenes from "./views/Ordenes.vue";
+import OrdenesC from "./views/OrdenesCliente.vue";
 import Cotizaciones from "./views/CotizacionCliente.vue";
 import LandingPrincipal from "./views/LandingPrincipal.vue"
 import store from '@/store';
@@ -22,6 +23,11 @@ const routes = [
     path: "/Login",
     name: "LandingPage",
     component: LandingPage,
+  },
+  {
+    path: "/OrdenesC",
+    name: "OrdenesC",
+    component: OrdenesC,
   },
   {
     path: "/Dashboard",
@@ -72,6 +78,8 @@ const routes = [
     name: "Ordenes",
     component: Ordenes,
   },
+  
+  
    {
     path: "/",
     name: "LandingPrincipal",
