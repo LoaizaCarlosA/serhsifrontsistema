@@ -1,4 +1,7 @@
 <template>
+    <LoadScreen v-if="mostrarLoader"></LoadScreen>
+   <ModalExito v-if="mostrarExito"></ModalExito>
+   <ModalError v-if="mostrarError"></ModalError>
     <LayoutPrincipal>
       <ContainerWhite>
         <section class="filtrosEmpleados">
@@ -50,9 +53,11 @@
 
                   <td>
                   <div class="botonesTabla">
-                    <Button class="btn-editar" @click="mostrarEditar(orden.idOrdenReparacion)"
+                    <Button v-if="orden.estado === 'Pendiente'" class="btn-editar" @click="mostrarEditar(orden.idOrdenReparacion)"
                       >Actualizar</Button
                     >
+
+                    <Button v-if="orden.estado === 'En Proceso'" id="btn-descargar" class="btn-guardar" @click="terminarOrden(orden.idOrdenReparacion)">Terminar</Button >
                     <!-- <Button class="btn-eliminar">Eliminar</Button> -->
                   </div>
                 </td>
@@ -83,7 +88,9 @@
   import Button from "../components/Forms/Button.vue";
   import store from '@/store';
   import axios from 'axios';
- 
+  import ModalExito from "@/components/Modales/ModalExito.vue";
+ import ModalError from "@/components/Modales/ModalError.vue";
+ import LoadScreen from "@/components/Forms/LoadScreen.vue";
   // import TableCollapse from "../components/Tables/TableCollapse.vue";
   // import HeadTableCollapse from "../components/Tables/HeadTableCollapse.vue";
   
@@ -93,7 +100,11 @@
       ContainerWhite,
       Paginacion,
       Button,
+      
       ActualizarOrden,
+      LoadScreen,
+     ModalExito,
+     ModalError,
 
       // EditarEmpleado,
       // AgregarEmpleados,
@@ -110,6 +121,9 @@
       return {
         showAddEditar: false,
         showAddProducto: false,
+        mostrarLoader: false,
+       mostrarExito:false,
+       mostrarError:false,
         ordenes: [
         ],
         estados: ["Pendiente","En proceso","Terminada"],
@@ -129,6 +143,39 @@
       },
       ocultarAddProd() {
         this.showAddProducto = false;
+      },
+      terminarOrden(idOrdenReparacion){
+      axios.put(`http://localhost:10000/ordenes/${idOrdenReparacion}/terminar`)
+         .then(response => {
+           console.log(response.cliente);
+           this.mostrarLoader = true; // Mostrar el loader
+           setTimeout(() => {
+             this.mostrarLoader = false; // Ocultar el loader
+         }, 1000);
+    
+         setTimeout(() => {
+           this.mostrarExito=true;
+         }, 1100);   
+           setTimeout(() => {
+             this.mostrarExito=false;
+             window.location.reload();
+         }, 3000);
+         })
+         .catch(error => {
+           console.error(error);
+           this.mostrarLoader = true; // Mostrar el loader
+           setTimeout(() => {
+             this.mostrarLoader = false; // Ocultar el loader
+         }, 1000);
+    
+         setTimeout(() => {
+           this.mostrarError=true;
+         }, 1100);   
+           setTimeout(() => {
+             this.mostrarError=false;
+             window.location.reload();
+         }, 3000);
+         });
       },
       cargarOrdenes() {
         const idReparador = store.state.id;

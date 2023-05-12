@@ -149,7 +149,7 @@ export default {
     });
     
     pdf.addImage(imgData, 'PNG', 0, 0, width, height); // Agrega la imagen utilizando las dimensiones de la vista
-    pdf.save("miArchivo.pdf");
+    pdf.save("miCotizacion.pdf");
     
   });
 },
