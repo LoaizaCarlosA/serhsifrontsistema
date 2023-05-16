@@ -58,14 +58,7 @@
       </div>
       <div>
       <div class="label">Fecha de nacimiento:</div>
-        <input
-          class="inputEditar"
-          type="text"
-          name=""
-          id="fechaNacimiento"
-          v-model="fechaNacimiento"
-          placeholder="Ingrese su fecha de nacimiento"
-        />
+      <input class="inputEditar" type="date" v-model="fechaNacimiento" @change="formatoFecha" />
       </div>
       <div>
         <div class="label">Teléfono:</div>
@@ -159,6 +152,16 @@ export default {
     },
     cancelar() {
       this.$emit("cancelar");
+    },
+    formatoFecha() {
+      var partesFecha = this.fechaNacimiento.split('-'); // Divide la fecha en año, mes y día
+
+      // Formato deseado: AAAA-MM-DD
+      this.fechaNacimiento = partesFecha[0] + '-' + partesFecha[1] + '-' + partesFecha[2];
+
+      console.log(this.fechaNacimiento); // Muestra la fecha formateada en la consola
+
+      
     },
     registrarCliente: function(){
       const cliente = {
