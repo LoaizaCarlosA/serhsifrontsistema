@@ -57,7 +57,7 @@
                       >Ver</Button
                     >
                     <Button v-if="cotizacion.estadoCotizacion === 'Cotizado'" id="btn-descargar" class="btn-guardar"  @click="descargarCotizacion(cotizacion.idCotizacion,cotizacion.costo)">Descargar</Button >
-                    <Button v-if="cotizacion.estadoCotizacion === 'Cotizado'" class="btn-cancelar-cotizacion">Cancelar</Button>
+                    <Button v-if="cotizacion.estadoCotizacion === 'Cotizado'" class="btn-cancelar-cotizacion" @click="CancelarCotizacion(cotizacion.idCotizacion)">Cancelar</Button>
                     <!-- <Button class="btn-eliminar">Eliminar</Button> -->
                   </div>
                 </td>
@@ -159,6 +159,15 @@ descargarCotizacion(idCotizacion,costo) {
     this.costo= costo
     this.$router.push({ name: 'HojaCotizacion', query: { idCotizacion, costo } });
   },
+
+  CancelarCotizacion(idCotizacion) {
+    api.delete(`/cotizaciones/${idCotizacion}`).then(() => {
+        const indice = this.cotizaciones.findIndex(
+          (cotizacion) => cotizacion.idUsuario === idCotizacion
+        );
+        this.cotizaciones.splice(indice, 1);
+      });
+    },
   
     
   },
