@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import api from '@/api.js';
 import LayoutPrincipal from "@/layouts/LayoutPrincipal.vue";
 import ContainerWhite from "@/layouts/ContainerWhite.vue";
 // import Button from "../components/Forms/Button.vue";
@@ -94,7 +94,7 @@ export default {
       this.showAddProducto = false;
     },
     cargarAlmacen() {
-    axios.get('http://localhost:10000/almacenamiento')
+    api.get('/almacenamiento')
       .then(response => {
         this.almacenes = response.data
       })

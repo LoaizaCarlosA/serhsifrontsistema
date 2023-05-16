@@ -87,7 +87,7 @@
   import ActualizarOrden from "@/components/Ordenes/ActualizarOrden.vue";
   import Button from "../components/Forms/Button.vue";
   import store from '@/store';
-  import axios from 'axios';
+  import api from '@/api.js';
   import ModalExito from "@/components/Modales/ModalExito.vue";
  import ModalError from "@/components/Modales/ModalError.vue";
  import LoadScreen from "@/components/Forms/LoadScreen.vue";
@@ -145,7 +145,7 @@
         this.showAddProducto = false;
       },
       terminarOrden(idOrdenReparacion){
-      axios.put(`http://localhost:10000/ordenes/${idOrdenReparacion}/terminar`)
+      api.put(`/ordenes/${idOrdenReparacion}/terminar`)
          .then(response => {
            console.log(response.cliente);
            this.mostrarLoader = true; // Mostrar el loader
@@ -179,7 +179,7 @@
       },
       cargarOrdenes() {
         const idReparador = store.state.id;
-        axios.get('http://localhost:10000/ordenes')
+        api.get('/ordenes')
       .then(response => {
       
         let ordenes = response.data;

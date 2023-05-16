@@ -91,7 +91,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import api from '@/api.js';
 import LayoutPrincipal from "@/layouts/LayoutPrincipal.vue";
 import ContainerWhite from "@/layouts/ContainerWhite.vue";
 import Button from "../components/Forms/Button.vue";
@@ -153,7 +153,7 @@ export default {
       this.showAddProducto = false;
     },
     cargarHerramientas() {
-  axios.get('http://localhost:10000/herramientas')
+ api.get('/herramientas')
     .then(response => {
       this.herramientas = response.data
     })

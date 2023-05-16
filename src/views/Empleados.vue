@@ -106,7 +106,7 @@ import Button from "../components/Forms/Button.vue";
 import Paginacion from "../components/Forms/Paginacion.vue";
 import EditarEmpleado from "@/components/Empleados/EditarEmpleado.vue";
 import AgregarEmpleados from "@/components/Empleados/AgregarEmpleados.vue";
-import axios from 'axios';
+import api from '@/api.js';
 // import TableCollapse from "../components/Tables/TableCollapse.vue";
 // import HeadTableCollapse from "../components/Tables/HeadTableCollapse.vue";
 
@@ -168,7 +168,7 @@ export default {
       this.showAddProducto = false;
     },
     cargarEmpleados() {
-      axios.get('http://localhost:10000/empleados')
+      api.get('/empleados')
     .then(response => {
       let empleados = response.data;
       console.log(response.data);
@@ -188,7 +188,7 @@ export default {
     })
     },
     eliminarEmpleado(idUsuario) {
-      axios.delete(`http://localhost:10000/empleados/${idUsuario}`).then(() => {
+      api.delete(`/empleados/${idUsuario}`).then(() => {
         const indice = this.empleados.findIndex(
           (empleado) => empleado.idUsuario === idUsuario
         );

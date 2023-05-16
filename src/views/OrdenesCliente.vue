@@ -73,7 +73,7 @@
   // import AgregarEmpleados from "@/components/Empleados/AgregarEmpleados.vue";
   import AgregarCotizacion from "@/components/Cotizaciones/AgregarCotizacion.vue";
   import store from '@/store';
-  import axios from 'axios';
+  import api from '@/api.js';
   import VerCotizacionCliente from "@/components/Cotizaciones/VerCotizacionCliente.vue";
   // import TableCollapse from "../components/Tables/TableCollapse.vue";
   // import HeadTableCollapse from "../components/Tables/HeadTableCollapse.vue";
@@ -122,7 +122,7 @@
       },
       cargarOrdenes() {
         const idCliente = store.state.id;
-        axios.get('http://localhost:10000/ordenes')
+        api.get('/ordenes')
       .then(response => {
       
         console.log(idCliente);

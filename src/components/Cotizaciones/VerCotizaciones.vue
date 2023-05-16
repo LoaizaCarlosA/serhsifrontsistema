@@ -257,7 +257,7 @@
 import ModalBase from "@/components/Modales/ModalBase.vue";
 import Button from "@/components/Forms/Button.vue";
 import LoadScreen from "@/components/Forms/LoadScreen.vue";
-import axios from 'axios';
+import api from '@/api.js';
 import ModalExito from "../Modales/ModalExito.vue";
 import ModalError from "../Modales/ModalError.vue";
 const IVA_TASA = 0.16;
@@ -314,7 +314,7 @@ export default {
       this.showAddProducto = false;
     },
     cargarRefacciones() {
-    axios.get('http://localhost:10000/refacciones')
+    api.get('/refacciones')
       .then(response => {
         console.log(this.idCotizacion);
         let refacciones = response.data;
@@ -326,7 +326,7 @@ export default {
       })
     },
     EliminarRefaccion(idRefaccion){
-      axios.delete(`http://localhost:10000/refacciones/${idRefaccion}`).then(() => {
+      api.delete(`/refacciones/${idRefaccion}`).then(() => {
         const indice = this.refacciones.findIndex(
           (refaccion) => refaccion.descripcion === this.refacciones.descripcionRefaccion
         );
@@ -344,10 +344,10 @@ export default {
         
         
       }
-      axios.post('http://localhost:10000/refacciones', refa)
+      api.post('/refacciones', refa)
         .then(response => {
           console.log(response.refa);
-          axios.get('http://localhost:10000/refacciones')
+          api.get('/refacciones')
       .then(response => {
         console.log(this.idCotizacion);
         let refacciones = response.data;
@@ -374,7 +374,7 @@ export default {
       const cotizacion = {
         descripcion: this.descripcion,
       }
-      axios.put(`http://localhost:10000/cotizaciones/${this.idCotizacion}/cotizar`, cotizacion)
+      api.put(`/cotizaciones/${this.idCotizacion}/cotizar`, cotizacion)
         .then(response => {
           console.log(response.cotizacion);
           this.mostrarModal = false; // Ocultar el modal
@@ -416,7 +416,7 @@ export default {
     // aquí puedes utilizar el idUsuario para obtener los datos del usuario
     // y asignarlos a la variable usuario
     console.log('ID Cotizacion: ' + this.idCotizacion);
-    axios.get(`http://localhost:10000/cotizaciones/${this.idCotizacion}`)
+    api.get(`/cotizaciones/${this.idCotizacion}`)
       .then(response => {
         this.nombreCliente = response.data.nombreCliente;
         this.marca = response.data.marca;

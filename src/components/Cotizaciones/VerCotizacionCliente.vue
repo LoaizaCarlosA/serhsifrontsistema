@@ -197,7 +197,7 @@
   import LoadScreen from "@/components/Forms/LoadScreen.vue";
   import ModalExito from "../Modales/ModalAceptada.vue";
 import ModalError from "../Modales/ModalError.vue";
-  import axios from 'axios';
+import api from '@/api.js';
   const IVA_TASA = 0.16;
   export default {
     components: {
@@ -249,7 +249,7 @@ import ModalError from "../Modales/ModalError.vue";
         this.$emit("cancelar");
       },
       aceptarCotizacion(){
-        axios.put(`http://localhost:10000/cotizaciones/${this.idCotizacion}/aceptar`)
+        api.put(`/cotizaciones/${this.idCotizacion}/aceptar`)
         .then(response => {
         console.log(response.data);
         this.mostrarModal = false; // Ocultar el modal
@@ -285,7 +285,7 @@ import ModalError from "../Modales/ModalError.vue";
       },
 
       cargarRefacciones() {
-    axios.get('http://localhost:10000/refacciones')
+    api.get('/refacciones')
       .then(response => {
         console.log(this.idCotizacion);
         let refacciones = response.data;
@@ -301,7 +301,7 @@ import ModalError from "../Modales/ModalError.vue";
       // aquí puedes utilizar el idUsuario para obtener los datos del usuario
       // y asignarlos a la variable usuario
       console.log('ID Cotizacion: ' + this.idCotizacion);
-      axios.get(`http://localhost:10000/cotizaciones/${this.idCotizacion}`)
+      api.get(`/cotizaciones/${this.idCotizacion}`)
         .then(response => {
           this.nombreReparador = response.data.nombreReparador;
           this.marca = response.data.marca;

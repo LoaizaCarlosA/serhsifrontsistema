@@ -125,7 +125,7 @@
 import ModalBase from "../Modales/ModalBase.vue";
 import Button from "../Forms/Button.vue";
 import LoadScreen from "../Forms/LoadScreen.vue";
-import axios from 'axios';
+import api from '@/api.js';
 import ModalExito from "../Modales/ModalExito.vue";
 import ModalError from "../Modales/ModalError.vue";
 
@@ -189,7 +189,7 @@ export default {
       telefono: this.telefono,
       correo: this.correo
     };
-    axios.put(`http://localhost:10000/empleados/${this.idUsuario}`, empleado)
+    api.put(`/empleados/${this.idUsuario}`, empleado)
       .then(response => {
         console.log(response);
         this.mostrarModal = false; // Ocultar el modal
@@ -228,7 +228,7 @@ export default {
     // aquí puedes utilizar el idUsuario para obtener los datos del usuario
     // y asignarlos a la variable usuario
     console.log('ID USUARIO: ' + this.idUsuario);
-    axios.get(`http://localhost:10000/empleados/${this.idUsuario}`)
+    api.get(`/empleados/${this.idUsuario}`)
       .then(response => {
         this.nombre = response.data.nombre;
         this.apellidoPaterno = response.data.apellidoPaterno;

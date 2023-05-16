@@ -90,7 +90,7 @@ import Paginacion from "../components/Forms/Paginacion.vue";
 // import AgregarEmpleados from "@/components/Empleados/AgregarEmpleados.vue";
 import AgregarCotizacion from "@/components/Cotizaciones/AgregarCotizacion.vue";
 import store from '@/store';
-import axios from 'axios';
+import api from '@/api.js';
 import VerCotizacionCliente from "@/components/Cotizaciones/VerCotizacionCliente.vue";
 // import TableCollapse from "../components/Tables/TableCollapse.vue";
 // import HeadTableCollapse from "../components/Tables/HeadTableCollapse.vue";
@@ -140,8 +140,8 @@ export default {
     },
     cargarCotizaciones() {
   const id = store.state.id;
-  const request1 = axios.get(`http://localhost:10000/clientes/${id}/cotizaciones/pendientes`);
-  const request2 = axios.get(`http://localhost:10000/clientes/${id}/cotizaciones/realizadas`);
+  const request1 = api.get(`/clientes/${id}/cotizaciones/pendientes`);
+  const request2 = api.get(`/clientes/${id}/cotizaciones/realizadas`);
 
   Promise.allSettled([request1, request2])
     .then(results => {

@@ -53,7 +53,7 @@
 <script>
 import Button from "@/components/Forms/Button.vue";
 import ModalRegistro from "@/components/Modales/ModalRegistro.vue";
-import axios from 'axios';
+import api from '@/api.js';
 import store from '@/store';
 export default {
   beforeRouteEnter(to, from, next) {
@@ -75,7 +75,7 @@ export default {
       const password = this.inputPass;
       
       const basicAuth = 'Basic ' + btoa(username + ':' + password);
-      axios.post('http://localhost:10000/auth', {}, {
+      api.post('/auth', {}, {
         headers: {
           'Authorization': basicAuth,
           'Content-Type': 'application/json'

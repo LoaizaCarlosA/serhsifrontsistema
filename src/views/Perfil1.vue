@@ -181,7 +181,7 @@
 import Header from "@/layouts/header.vue";
 import Button from "@/components/Forms/Button.vue";
 import store from '@/store';
-import axios from 'axios';
+import api from '@/api.js';
 export default {
   created() {
   const role = localStorage.getItem('role');
@@ -241,7 +241,7 @@ export default {
       telefono: this.telefono,
       correo: this.correo
       }
-      axios.put(`http://localhost:10000/clientes/${id}`, cliente)
+      api.put(`/clientes/${id}`, cliente)
         .then(response => {
           console.log(response)
           const nombreCompleto = `${this.nombre} ${this.apellidoPaterno} ${this.apellidoMaterno}`;
@@ -265,7 +265,7 @@ export default {
       telefono: this.telefono,
       correo: this.correo
       }
-        axios.put(`http://localhost:10000/empleados/${id}`, empleado)
+        api.put(`/empleados/${id}`, empleado)
         .then(response => {
           console.log(response)
           const nombreCompleto = `${this.nombre} ${this.apellidoPaterno} ${this.apellidoMaterno}`;
@@ -286,7 +286,7 @@ export default {
     const role = store.state.role;
     if(role === 'ROLE_CLIENTE'){
       console.log(id);
-    axios.get(`http://localhost:10000/clientes/${id}`)
+    api.get(`/clientes/${id}`)
       .then(response => {
         this.nombre = response.data.nombre;
         this.apellidoPaterno = response.data.apellidoPaterno;
@@ -301,7 +301,7 @@ export default {
         console.log(error);
       });
     } else{
-      axios.get(`http://localhost:10000/empleados/${id}`)
+      api.get(`/empleados/${id}`)
       .then(response => {
         this.nombre = response.data.nombre;
         this.apellidoPaterno = response.data.apellidoPaterno;

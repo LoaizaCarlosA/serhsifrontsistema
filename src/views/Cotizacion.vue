@@ -87,7 +87,7 @@ import Paginacion from "../components/Forms/Paginacion.vue";
 import VerCotizaciones from "@/components/Cotizaciones/VerCotizaciones.vue";
 import AgregarCotizacion from "@/components/Cotizaciones/AgregarCotizacion.vue";
 import store from '@/store';
-import axios from 'axios';
+import api from '@/api.js';
 // import TableCollapse from "../components/Tables/TableCollapse.vue";
 // import HeadTableCollapse from "../components/Tables/HeadTableCollapse.vue";
 
@@ -140,7 +140,7 @@ export default {
     },
     cargarCotizaciones() {
       const id = store.state.id;
-    axios.get(`http://localhost:10000/reparadores/${id}/cotizaciones/pendientes`)
+    api.get(`/reparadores/${id}/cotizaciones/pendientes`)
       .then(response => {
         this.cotizaciones = response.data
       })

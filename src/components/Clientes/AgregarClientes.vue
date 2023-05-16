@@ -115,7 +115,7 @@
 import ModalBase from "@/components/Modales/ModalBase.vue";
 import Button from "@/components/Forms/Button.vue";
 import LoadScreen from "@/components/Forms/LoadScreen.vue";
-import axios from 'axios';
+import api from '@/api.js';
 import ModalExito from "../Modales/ModalExito.vue";
 import ModalError from "../Modales/ModalError.vue";
 export default {
@@ -171,7 +171,7 @@ export default {
         correo:this.correo,
         clave:this.clave
       }
-      axios.post('http://localhost:10000/clientes', cliente)
+      api.post('/clientes', cliente)
         .then(response => {
           console.log(response.cliente);
           this.mostrarModal = false; // Ocultar el modal

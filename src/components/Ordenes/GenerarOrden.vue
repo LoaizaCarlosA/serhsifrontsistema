@@ -61,7 +61,7 @@
 import ModalBase from "../Modales/ModalBase.vue";
 import Button from "../Forms/Button.vue";
 import LoadScreen from "../Forms/LoadScreen.vue";
-import axios from 'axios';
+import api from '@/api.js';
 import ModalExito from "../Modales/ModalExito.vue";
 import ModalError from "../Modales/ModalError.vue";
 
@@ -108,7 +108,7 @@ export default {
       this.$emit("cancelar");
     },
     cargarClientes() {
-    axios.get('http://localhost:10000/clientes')
+    api.get('/clientes')
       .then(response => {
         this.clientes = response.data
       })
@@ -117,7 +117,7 @@ export default {
       })
     },
     cargarReparadores() {
-    axios.get('http://localhost:10000/empleados')
+    api.get('/empleados')
       .then(response => {
         this.reparadores = response.data.filter(empleado => empleado.rol === 'ROLE_REPARADOR');
       })
@@ -126,7 +126,7 @@ export default {
       })
     },
     cargarHerramientas() {
-    axios.get('http://localhost:10000/herramientas')
+    api.get('/herramientas')
       .then(response => {
         this.herramientas = response.data
       })
@@ -135,7 +135,7 @@ export default {
       })
     },
     enviarnotificacion(telefono){
-      axios.post('http://localhost:10000/api/v1/processSMS', {
+      api.post('/api/v1/processSMS', {
         destinationSMSNumber: '+52' + telefono, // número de teléfono del destinatario
         smsMessage: 'USTED HA SIDO ASIGNADO A UNA NUEVA COTIZACIÓN' // contenido del mensaje
 })
@@ -148,7 +148,7 @@ export default {
     },
     
     obtenerNumeroTelefonoCliente(idCliente) {
-    axios.get(`http://localhost:10000/clientes/${idCliente}`)
+    api.get(`/clientes/${idCliente}`)
       .then(response => {
         const cliente = response.data;
         const numeroTelefono = cliente.telefono;
@@ -170,7 +170,7 @@ export default {
       }
 
       
-      axios.post('http://localhost:10000/cotizaciones', cotizacion)
+      api.post('/cotizaciones', cotizacion)
         .then(response => {
           console.log(response.cotizacion);
           this.obtenerNumeroTelefonoCliente(this.idCliente);

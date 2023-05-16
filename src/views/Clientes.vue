@@ -96,8 +96,8 @@
 </template>
 
 <script>
-import axios from 'axios';
 import LayoutPrincipal from "@/layouts/LayoutPrincipal.vue";
+import api from '@/api.js';
 import ContainerWhite from "@/layouts/ContainerWhite.vue";
 import Button from "../components/Forms/Button.vue";
 import Paginacion from "../components/Forms/Paginacion.vue";
@@ -161,7 +161,7 @@ export default {
       this.showAddProducto = false;
     },
     cargarClientes() {
-    axios.get('http://localhost:10000/clientes')
+    api.get('/clientes')
       .then(response => {
         this.clientes = response.data
       })
@@ -170,7 +170,7 @@ export default {
       })
     },
     eliminarCliente(idUsuario) {
-      axios.delete(`http://localhost:10000/clientes/${idUsuario}`).then(() => {
+      api.delete(`/clientes/${idUsuario}`).then(() => {
         const indice = this.clientes.findIndex(
           (cliente) => cliente.idUsuario === idUsuario
         );

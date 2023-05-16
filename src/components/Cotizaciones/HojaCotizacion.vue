@@ -94,7 +94,7 @@
 
 <script>
 import Button from "@/components/Forms/Button.vue";
-import axios from 'axios';
+import api from '@/api.js';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 const IVA_TASA = 0.16;
@@ -117,7 +117,7 @@ export default {
 
   methods: {
     cargarCotizacion() {
-      axios.get(`http://localhost:10000/cotizaciones/${this.$route.query.idCotizacion}`)
+      api.get(`/cotizaciones/${this.$route.query.idCotizacion}`)
       .then(response => {
         this.cotizaciones = response.data
       })
@@ -156,7 +156,7 @@ export default {
 
    
     cargarRefacciones() {
-    axios.get('http://localhost:10000/refacciones')
+    api.get('/refacciones')
       .then(response => {
         console.log(this.$route.query.idCotizacion);
         const idCotizacion = parseInt(this.$route.query.idCotizacion);

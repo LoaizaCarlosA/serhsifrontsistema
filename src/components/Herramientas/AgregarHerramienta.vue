@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import api from '@/api.js';
 import ModalBase from "@/components/Modales/ModalBase.vue";
 import Button from "@/components/Forms/Button.vue";
 import LoadScreen from "@/components/Forms/LoadScreen.vue";
@@ -97,7 +97,7 @@ export default {
       this.$emit("cancelar");
     },
     cargarTipos() {
-    axios.get('http://localhost:10000/herramientas/tipo')
+    api.get('/herramientas/tipo')
       .then(response => {
         this.tipos = response.data
 
@@ -107,7 +107,7 @@ export default {
       })
     },
     cargarMarcas() {
-    axios.get('http://localhost:10000/herramientas/marcas')
+    api.get('/herramientas/marcas')
       .then(response => {
         this.marcas = response.data
       })
@@ -122,7 +122,7 @@ export default {
         idTipoHerramienta: this.idTipoHerramienta,
         activo:true
       }
-      axios.post('http://localhost:10000/herramientas', herramienta)
+      api.post('/herramientas', herramienta)
         .then(response => {
           console.log(response.herramienta);
           this.mostrarModal = false; // Ocultar el modal
