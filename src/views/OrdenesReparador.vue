@@ -46,6 +46,7 @@
               <tbody>
                 <tr v-for="orden in FiltroCotizaciones" :key="orden.idOrdenReparacion">
                   <td>{{ orden.idOrdenReparacion }}</td>
+                  <td>{{ `${orden.marca} ${orden.modelo} ${orden.numeroSerie}`}}</td>
                   <td>{{ orden.fechaInicio }}</td>
                   <td>{{ orden.fechaFin }}</td>
                   <td>{{ orden.estado }}</td>
