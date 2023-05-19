@@ -89,6 +89,37 @@
 
       
     },
+    enviarnotificacion(telefono){
+      api.post('/api/v1/processSMS', {
+        destinationSMSNumber: '+52' + telefono, // número de teléfono del destinatario
+        smsMessage: 'SU ORDEN DE REPARACIÓN A CAMBIADO DE ESTADO A: EN PROCESO.' // contenido del mensaje
+})
+.then(function (response) {
+  console.log(response);
+})
+.catch(function (error) {
+  console.log(error);
+});
+    },
+
+    obtenerNumeroTelefono(idOrdenReparacion) {
+  return api.get(`/ordenes`)
+    .then(response => {
+      const ordenes = response.data; // Obtener todas las órdenes
+      const orden = ordenes.find(orden => orden.idOrdenReparacion === idOrdenReparacion); // Filtrar la orden con el idOrdenReparacion
+      if (orden) {
+        return orden.telefono; // Devolver el telefonoCliente de la orden encontrada
+      } else {
+        throw new Error(`No se encontró ninguna orden con el idOrdenReparacion ${idOrdenReparacion}`);
+      }
+    })
+    .catch(error => {
+      console.error(error);
+    
+    });
+},
+
+
      registrarCliente: function(){
        const cliente = {
          fecha_fin:this.fecha_fin,
@@ -99,18 +130,27 @@
            console.log(response.cliente);
            this.mostrarModal = false; // Ocultar el modal
            this.mostrarLoader = true; // Mostrar el loader
-           setTimeout(() => {
-             this.mostrarLoader = false; // Ocultar el loader
-         }, 1000);
-    
-         setTimeout(() => {
-           this.mostrarExito=true;
-         }, 1100);   
-           setTimeout(() => {
-             this.mostrarExito=false;
-             window.location.reload();
-         }, 3000);
-         })
+           this.obtenerNumeroTelefono(this.idOrdenReparacion) // Llamada a la función para obtener el número de teléfono
+        .then(telefono => {
+          setTimeout(() => {
+            this.mostrarLoader = false; // Ocultar el loader
+          }, 1000);
+
+          setTimeout(() => {
+            this.mostrarExito = true;
+          }, 1100);
+
+          setTimeout(() => {
+            this.mostrarExito = false;
+            window.location.reload();
+          }, 3000);
+
+          this.enviarnotificacion(telefono); // Llamada al método enviarnotificacion con el número de teléfono como parámetro
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    })
          .catch(error => {
            console.error(error);
            this.mostrarModal = false; // Ocultar el modal

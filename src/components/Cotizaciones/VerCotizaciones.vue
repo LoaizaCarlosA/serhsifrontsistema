@@ -374,7 +374,7 @@ export default {
     enviarnotificacion(telefono){
       api.post('/api/v1/processSMS', {
         destinationSMSNumber: '+52' + telefono, // número de teléfono del destinatario
-        smsMessage: 'SU COTIZACION HA SIDO COMPLETADA, PUEDE REVISAR LOS DETALLES AL INGRESAR EN SU CUENTA.' // contenido del mensaje
+        smsMessage: 'SU COTIZACION HA SIDO COMPLETADA, YA PUEDE REVISAR LOS DETALLES INGRESANDO EN SU CUENTA.' // contenido del mensaje
 })
 .then(function (response) {
   console.log(response);
