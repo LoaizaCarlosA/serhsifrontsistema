@@ -313,6 +313,9 @@ export default {
     ocultarAddProd() {
       this.showAddProducto = false;
     },
+    cancelar() {
+      this.$emit("cancelar");
+    },
     cargarRefacciones() {
     api.get('/refacciones')
       .then(response => {
@@ -368,53 +371,84 @@ export default {
           console.error(error);
         });
     },
+    enviarnotificacion(telefono){
+      api.post('/api/v1/processSMS', {
+        destinationSMSNumber: '+52' + telefono, // número de teléfono del destinatario
+        smsMessage: 'SU COTIZACION HA SIDO COMPLETADA, PUEDE REVISAR LOS DETALLES AL INGRESAR EN SU CUENTA.' // contenido del mensaje
+})
+.then(function (response) {
+  console.log(response);
+})
+.catch(function (error) {
+  console.log(error);
+});
+    },
+
+    obtenerNumeroTelefono(idCotizacion) {
+  return api.get(`/cotizaciones/${idCotizacion}`)
+    .then(response => {
+      return response.data.telefonoCliente; 
+    })
+    .catch(error => {
+      console.error(error);
+      
+    });
+},
 
 
-    cotizar: function(){
-      const cotizacion = {
-        descripcion: this.descripcion,
-      }
-      api.put(`/cotizaciones/${this.idCotizacion}/cotizar`, cotizacion)
-        .then(response => {
-          console.log(response.cotizacion);
-          this.mostrarModal = false; // Ocultar el modal
-          this.mostrarLoader = true; // Mostrar el loader
+    cotizar: function() {
+  const cotizacion = {
+    descripcion: this.descripcion,
+  }
+
+  api.put(`/cotizaciones/${this.idCotizacion}/cotizar`, cotizacion)
+    .then(response => {
+      console.log(response.cotizacion);
+      this.mostrarModal = false; // Ocultar el modal
+      this.mostrarLoader = true; // Mostrar el loader
+
+      this.obtenerNumeroTelefono(this.idCotizacion) // Llamada a la función para obtener el número de teléfono
+        .then(telefono => {
           setTimeout(() => {
             this.mostrarLoader = false; // Ocultar el loader
-        }, 1000);
-   
-        setTimeout(() => {
-          this.mostrarExito=true;
-        }, 1100);   
+          }, 1000);
+
           setTimeout(() => {
-            this.mostrarExito=false;
+            this.mostrarExito = true;
+          }, 1100);
+
+          setTimeout(() => {
+            this.mostrarExito = false;
             window.location.reload();
-        }, 3000);
+          }, 3000);
+
+          this.enviarnotificacion(telefono); // Llamada al método enviarnotificacion con el número de teléfono como parámetro
         })
         .catch(error => {
           console.error(error);
-          this.mostrarModal = false; // Ocultar el modal
-          this.mostrarLoader = true; // Mostrar el loader
-          setTimeout(() => {
-            this.mostrarLoader = false; // Ocultar el loader
-        }, 1000);
-   
-        setTimeout(() => {
-          this.mostrarError=true;
-        }, 1100);   
-          setTimeout(() => {
-            this.mostrarError=false;
-            window.location.reload();
-        }, 3000);
         });
-    },
-    cancelar() {
-      this.$emit("cancelar");
-    },
+    })
+    .catch(error => {
+      console.error(error);
+      this.mostrarModal = false; // Ocultar el modal
+      this.mostrarLoader = true; // Mostrar el loader
+
+      setTimeout(() => {
+        this.mostrarLoader = false; // Ocultar el loader
+      }, 1000);
+
+      setTimeout(() => {
+        this.mostrarError = true;
+      }, 1100);
+
+      setTimeout(() => {
+        this.mostrarError = false;
+        window.location.reload();
+      }, 3000);
+    });
+}
   },
   mounted() {
-    // aquí puedes utilizar el idUsuario para obtener los datos del usuario
-    // y asignarlos a la variable usuario
     console.log('ID Cotizacion: ' + this.idCotizacion);
     api.get(`/cotizaciones/${this.idCotizacion}`)
       .then(response => {

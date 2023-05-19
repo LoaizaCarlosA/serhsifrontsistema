@@ -31,6 +31,8 @@
             <table class="default">
               <tr class="cabecera">
                 <td>ID orden</td>
+
+                <td>Herramienta</td>
   
                 <td>Fecha de entrada</td>
   
