@@ -76,8 +76,9 @@ computed: {
     isAllowed(route) {
   localStorage.setItem('role', this.role);
       if (this.role === 'ROLE_ADMIN') {
-        // Si el rol es admin, se permite el acceso a todas las vistas
-        return true;
+        const unrestrictedRoutes = ['/Dashboard','/Herramientas','/Almacen','/Empleados'];
+        return unrestrictedRoutes.includes(route);
+      
       } else if (this.role === 'ROLE_CLIENTE') {
         // Si el rol es user, se permite el acceso solo a las vistas que no tienen restricciones
         const unrestrictedRoutes = ['/Dashboard','/Cotizaciones','/OrdenesC'];

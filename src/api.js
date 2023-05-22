@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseURL = 'http://localhost:10000'; // Define tu URL base aquí
+const baseURL = 'http://serhsi-rh-env.eba-jqr5fnb9.us-east-1.elasticbeanstalk.com'; // Define tu URL base aquí
 
 const api = axios.create({
   baseURL: baseURL,

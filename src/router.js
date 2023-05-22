@@ -50,9 +50,9 @@ const routes = [
     path: "/Clientes",
     name: "Clientes",
     component: Clientes,
-    meta: {
+    //meta: {
       requiresAdmin: true // Esta ruta requiere el rol de admin
-    }
+    //}
   },
   {
     path: "/Cotizacion",
