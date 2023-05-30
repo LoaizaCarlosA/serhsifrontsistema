@@ -419,10 +419,15 @@ export default {
 
           setTimeout(() => {
             this.mostrarExito = false;
-            window.location.reload();
+            
           }, 3000);
 
           this.enviarnotificacion(telefono); // Llamada al método enviarnotificacion con el número de teléfono como parámetro
+
+          setTimeout(() => {
+            this.descargarCotizacion(this.idCotizacion,this.total);
+          }, 3500);
+         
         })
         .catch(error => {
           console.error(error);
@@ -446,7 +451,10 @@ export default {
         window.location.reload();
       }, 3000);
     });
-}
+},
+descargarCotizacion(idCotizacion,costo) {
+    this.$router.push({ name: 'HojaCotizacionR', query: { idCotizacion, costo } });
+  },
   },
   mounted() {
     console.log('ID Cotizacion: ' + this.idCotizacion);

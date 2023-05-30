@@ -494,4 +494,56 @@ import api from '@/api.js';
     justify-content: right;
     display: flex;
   }
+
+  @media (max-width: 480px) {
+  .titulo {
+    font-size: 24px;
+  }
+  .label{
+    font-size: 12px;
+  }
+  .inputEditar{
+    height: 22px;
+  }
+  .total{
+    font-size: 12px;
+  }
+  .separador {
+    margin-bottom: 20px;
+  }
+  .contenedorTotales{
+    margin-top: 5px;
+  }
+  .contenedorSecciones {
+    flex-direction: column;
+  }
+  .contenedorSeccionPrincipal {
+    flex-direction: column;
+  }
+  .contenedorPrincipal {
+    margin: 0px 10px;
+  }
+  .inputEditar {
+    width: 100%;
+  }
+  .separadorDos {
+    display: none;
+  }
+  .separadorTres {
+    display: none;
+  }
+  .inputTextArea {
+    width: 50%;
+    
+  }
+  .tablaPrincipal {
+    overflow-x: auto;
+  }
+  .default td,
+  .default th {
+    padding: 8px 10px;
+    font-size: 12px; 
+    white-space: nowrap;
+  }
+}
   </style>

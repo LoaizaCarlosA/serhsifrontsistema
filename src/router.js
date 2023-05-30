@@ -19,6 +19,7 @@ import Cotizaciones from "./views/CotizacionCliente.vue";
 import LandingPrincipal from "./views/LandingPrincipal.vue"
 import store from '@/store';
 import hoja from "@/components/Cotizaciones/HojaCotizacion.vue";
+import hojaR from "@/components/Cotizaciones/HojaCotizacionR.vue";
 const routes = [
   {
     path: "/Login",
@@ -107,6 +108,12 @@ const routes = [
     path: "/HojaCotizacion",
     name: "HojaCotizacion",
     component: hoja,
+  },
+
+  {
+    path: "/HojaCotizacionR",
+    name: "HojaCotizacionR",
+    component: hojaR,
   },
   
 ];

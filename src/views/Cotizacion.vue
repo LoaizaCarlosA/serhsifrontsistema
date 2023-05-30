@@ -15,6 +15,7 @@
             class="inputBuscador"
             type="text"
             placeholder="Inserte nombre o ID"
+            v-model="searchText"
           />
           <!-- <Button class="btn-buscar">Buscar</Button> -->
           
@@ -55,7 +56,7 @@
                     <Button class="btn-editar" @click="mostrarEditar(cotizacion.idCotizacion)"
                       >Ver</Button
                     >
-                    <Button class="btn-guardar-cotizacion">Descargar</Button>
+                   
                     <!-- <Button class="btn-eliminar">Eliminar</Button> -->
                   </div>
                 </td>
@@ -121,6 +122,7 @@ export default {
       ],
       estados: ["Pendiente","Aceptada"],
       SelectEstatus: "",
+      searchText: '',
     };
   },
   methods: {
@@ -155,14 +157,34 @@ export default {
 
   computed: {
     FiltroCotizaciones() {
-      if (!this.SelectEstatus) {
-        return this.cotizaciones;
-      }
-      return this.cotizaciones.filter(
-        (cotizacion) => cotizacion.estadoCotizacion === this.SelectEstatus
+  let cotizacionesFiltradas = [...this.cotizaciones];
+
+  if (this.SelectEstatus) {
+    cotizacionesFiltradas = cotizacionesFiltradas.filter(
+      cotizacion => cotizacion.estadoCotizacion === this.SelectEstatus
+    );
+  }
+
+  if (this.searchText.trim() !== '') {
+    const searchText = this.searchText.toLowerCase().trim();
+    cotizacionesFiltradas = cotizacionesFiltradas.filter(cotizacion => {
+      const marcaModelo = `${cotizacion.marca} ${cotizacion.modelo}`.toLowerCase();
+      const nombre = cotizacion.nombreCliente.toLowerCase();
+      const numeroSerie = cotizacion.numeroSerie.toLowerCase();
+      const idCotizacion = cotizacion.idCotizacion.toString().toLowerCase();
+
+      return (
+        marcaModelo.includes(searchText) ||
+        numeroSerie.includes(searchText) ||
+        nombre.includes(searchText) ||
+        idCotizacion.includes(searchText)
       );
-    },
-  },
+    });
+  }
+
+  return cotizacionesFiltradas;
+},
+}
 };
 </script>
 

@@ -35,6 +35,10 @@
         <div class="tituloCont">Fecha de cotización:</div>
         <div class="infoDelCont">{{cotizaciones.fechaEntrada}}</div>
       </div>
+      <div class="contenedorClientes">
+        <div class="tituloCont">Herramienta:</div>
+        <div class="infoDelCont">{{`${cotizaciones.marca} ${cotizaciones.modelo} ${cotizaciones.numeroSerie}`}}</div>
+      </div>
     </section>
     <section class="separador"></section>
     <section class="tablaPrincipal">

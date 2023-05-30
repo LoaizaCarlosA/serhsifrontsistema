@@ -20,9 +20,7 @@
           autocomplete="off"
           type="password"
         />
-          <div class="ojo user-select-none">
-            <i class="icon-visualizar"></i>
-          </div>
+          
         
         <div
           v-if="loginErrorMsg !== null"

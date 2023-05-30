@@ -16,11 +16,7 @@
             </select>
   
   
-            <input
-              class="inputBuscador"
-              type="text"
-              placeholder="Inserte nombre o ID"
-            />
+            
             <!-- <Button class="btn-buscar">Buscar</Button> -->
             
             
@@ -266,7 +262,7 @@
   }
   
   .buscadorSelect {
-    width: 20%;
+    width: 100%;
     height: 32px;
     border: 0px solid #000000;
     box-shadow: 0px 3px 6px #00000029;

@@ -13,11 +13,7 @@
             </select>
   
   
-            <input
-              class="inputBuscador"
-              type="text"
-              placeholder="Inserte nombre o ID"
-            />
+           
             <!-- <Button class="btn-buscar">Buscar</Button> -->
             
             
@@ -172,7 +168,7 @@
   }
   
   .buscadorSelect {
-    width: 20%;
+    width: 100%;
     height: 32px;
     border: 0px solid #000000;
     box-shadow: 0px 3px 6px #00000029;
@@ -252,4 +248,139 @@
   .default td a:hover {
     text-decoration: underline;
   }
+
+  @media screen and (max-width: 1024px) { 
+  .default {
+    font-size: 14px; 
+  }
+  
+  .default td, .default th {
+    padding: 6px; 
+  }
+}
+@media screen and (max-width: 768px) { 
+  .default {
+    font-size: 12px;
+  }
+  
+  .default td, .default th {
+    padding: 4px; 
+  }
+  
+  .tituloModulo {
+    font-size: 16px; 
+    transform: translateX(-20px);
+  }
+  
+  .inputBuscador {
+    font-size: 12px; 
+    padding: 6px; 
+  }
+  
+  .btn-buscar, .btn-agregar {
+    font-size: 12px; 
+    padding: 6px 12px; 
+  }
+}
+
+@media screen and (max-width: 1024px) and (orientation: landscape) { 
+  .default {
+    font-size: 12px; 
+  }
+  
+  .default td, .default th {
+    padding: 4px;
+  }
+  
+  .tituloModulo {
+    font-size: 16px; 
+    
+  }
+  
+  .inputBuscador {
+    font-size: 12px; 
+    padding: 6px;
+  }
+  
+  .btn-buscar, .btn-agregar {
+    font-size: 12px; 
+    padding: 6px 12px; 
+  }
+}
+
+@media screen and (max-width: 480px) { 
+  .default {
+    border-top: 1px solid #ccc;
+    font-size: 12px; 
+  }
+  
+  .cabecera {
+    display: none; 
+  }
+  
+  .default td, .default th {
+    display: block;
+    text-align: center;
+    width: 95%;
+  
+    padding: 6px; 
+  }
+  
+  
+  .default td::before {
+    content: attr(data-label);
+    display: block; 
+    font-weight: bold; 
+    margin-bottom: 10px; 
+  }
+
+  
+}
+
+@media screen and (max-width: 1024px) { 
+  .tituloModulo {
+    font-size: 20px; 
+  }
+  
+  .inputBuscador {
+    font-size: 14px; 
+    padding: 8px; 
+  }
+  
+  .btn-buscar, .btn-agregar {
+    font-size: 14px; 
+    padding: 8px 16px; 
+  }
+}
+
+@media screen and (max-width: 480px) { 
+  .filtrosEmpleados {
+    flex-direction: column;
+    align-items: stretch;
+   
+    
+  }
+  
+  .tituloModulo {
+    font-size: 18px; 
+    margin-bottom: 10px; 
+    transform: translateX(-20px);
+  }
+  
+  .inputBuscador {
+    font-size: 12px; 
+    padding: 6px; 
+    margin-bottom: 10px; 
+    transform: translateX(-20px);
+    width: 100%;
+  }
+  
+  .btn-agregar {
+    font-size: 12px; 
+    padding: 6px 12px; 
+       position: absolute;
+    top: 45px;
+    right: 40px;
+  }
+}
   </style>

@@ -271,135 +271,135 @@ export default {
   text-decoration: underline;
 }
 
-@media screen and (max-width: 1024px) { /* adjust for tablets */
+@media screen and (max-width: 1024px) { 
   .default {
-    font-size: 14px; /* reduce font size for tablets */
+    font-size: 14px; 
   }
   
   .default td, .default th {
-    padding: 6px; /* add padding to table cells for tablets */
+    padding: 6px;
   }
 }
-@media screen and (max-width: 768px) { /* adjust for iPad mini in portrait orientation */
+@media screen and (max-width: 768px) { 
   .default {
-    font-size: 12px; /* reduce font size for iPad mini */
+    font-size: 12px; 
   }
   
   .default td, .default th {
-    padding: 4px; /* add smaller padding to table cells for iPad mini */
+    padding: 4px; 
   }
   
   .tituloModulo {
-    font-size: 16px; /* reduce font size for iPad mini */
+    font-size: 16px; 
     transform: translateX(-20px);
   }
   
   .inputBuscador {
-    font-size: 12px; /* reduce font size for iPad mini */
-    padding: 6px; /* add smaller padding to input for iPad mini */
+    font-size: 12px; 
+    padding: 6px; 
   }
   
   .btn-buscar, .btn-agregar {
-    font-size: 12px; /* reduce font size for iPad mini */
-    padding: 6px 12px; /* add smaller padding to buttons for iPad mini */
+    font-size: 12px;
+    padding: 6px 12px; 
   }
 }
 
-@media screen and (max-width: 1024px) and (orientation: landscape) { /* adjust for iPad mini in landscape orientation */
+@media screen and (max-width: 1024px) and (orientation: landscape) { 
   .default {
-    font-size: 12px; /* reduce font size for iPad mini */
+    font-size: 12px; 
   }
   
   .default td, .default th {
-    padding: 4px; /* add smaller padding to table cells for iPad mini */
+    padding: 4px; 
   }
   
   .tituloModulo {
-    font-size: 16px; /* reduce font size for iPad mini */
+    font-size: 16px; 
     
   }
   
   .inputBuscador {
-    font-size: 12px; /* reduce font size for iPad mini */
-    padding: 6px; /* add smaller padding to input for iPad mini */
+    font-size: 12px;
+    padding: 6px;
   }
   
   .btn-buscar, .btn-agregar {
-    font-size: 12px; /* reduce font size for iPad mini */
-    padding: 6px 12px; /* add smaller padding to buttons for iPad mini */
+    font-size: 12px; 
+    padding: 6px 12px;
   }
 }
 
-@media screen and (max-width: 480px) { /* adjust for cellphones */
+@media screen and (max-width: 480px) { 
   .default {
     border-top: 1px solid #ccc;
-    font-size: 12px; /* reduce font size for cellphones */
+    font-size: 12px; 
   }
   
   .cabecera {
-    display: none; /* hide table header for cellphones */
+    display: none; 
   }
   
   .default td, .default th {
-    display: block; /* display table cells as blocks for cellphones */
-    text-align: center; /* center text within table cells for cellphones */
-    width: 95%; /* set table cell width to 100% for cellphones */
+    display: block;
+    text-align: center; 
+    width: 95%;
   
-    padding: 6px; /* add padding to table cells for cellphones */
+    padding: 6px; 
   }
   
   
   .default td::before {
-    content: attr(data-label); /* add data-label as pseudo-element before table cell content for cellphones */
-    display: block; /* display data-label as block element for cellphones */
-    font-weight: bold; /* add bold font weight to data-label for cellphones */
-    margin-bottom: 10px; /* add margin to data-label for cellphones */
+    content: attr(data-label); 
+    display: block; 
+    font-weight: bold; 
+    margin-bottom: 10px; 
   }
 
   
 }
 
-@media screen and (max-width: 1024px) { /* adjust for tablets */
+@media screen and (max-width: 1024px) { 
   .tituloModulo {
-    font-size: 20px; /* reduce font size for tablets */
+    font-size: 20px; 
   }
   
   .inputBuscador {
-    font-size: 14px; /* reduce font size for tablets */
-    padding: 8px; /* add padding to input for tablets */
+    font-size: 14px;
+    padding: 8px; 
   }
   
   .btn-buscar, .btn-agregar {
-    font-size: 14px; /* reduce font size for tablets */
-    padding: 8px 16px; /* add padding to buttons for tablets */
+    font-size: 14px;
+    padding: 8px 16px; 
   }
 }
 
-@media screen and (max-width: 480px) { /* adjust for cellphones */
+@media screen and (max-width: 480px) { 
   .filtrosEmpleados {
-    flex-direction: column; /* cambiar el flex direction a column */
-    align-items: stretch; /* stretch items to full width for cellphones */
+    flex-direction: column;
+    align-items: stretch; 
    
     
   }
   
   .tituloModulo {
-    font-size: 18px; /* reducir font*/
-    margin-bottom: 10px; /**/
+    font-size: 18px; 
+    margin-bottom: 10px; 
     transform: translateX(-20px);
   }
   
   .inputBuscador {
-    font-size: 12px; /* reducir font */
+    font-size: 12px; 
     padding: 6px; 
-    margin-bottom: 10px; /*  */
+    margin-bottom: 10px;
     transform: translateX(-20px);
     width: 100%;
   }
   
   .btn-agregar {
-    font-size: 12px; /* reduce font size para celulares */
-    padding: 6px 12px; /* agregar padding a boton  */
+    font-size: 12px; 
+    padding: 6px 12px; 
        position: absolute;
     top: 45px;
     right: 40px;

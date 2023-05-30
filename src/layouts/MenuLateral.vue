@@ -252,40 +252,11 @@ computed: {
   }
 }
 @media (max-width: 767px) {
-  .container-menu {
-    width: 0px;
-    overflow: hidden;
-    transition: width 0s;
-  }
   .sidebar {
     width: 0;
   }
-  .container-menu {
-    height: 100vh;
-    top: -70px;
-  }
-  .container-menu.active {
+  .sidebar.mobile-menu {
     width: 100vw;
-    transition: width 0.2s;
-  }
-  .cerrarMenuMovil {
-    display: flex;
-    position: absolute;
-    top: 10px;
-    font-family: Arial Rounded MT Bold;
-    right: 41px;
-    color: #939393;
-    cursor: pointer;
-    font-size: 17px;
-  }
-  .collapse-menu-lateral {
-    display: none;
-  }
-  .cerrar-sesion:active {
-    transform: scale(0.97);
-  }
-  .cerrar-sesion {
-    margin-bottom: 1rem;
   }
 }
 </style>
